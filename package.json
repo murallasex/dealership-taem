@@ -1,0 +1,19 @@
+{
+    "dependencies": {
+        "acorn": "^8.18.0",
+        "express": "^5.2.1",
+        "jsdom": "^29.1.1",
+        "puppeteer": "^25.5.0"
+    },
+    "name": "dealership-magnament",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "node test.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module"
+}

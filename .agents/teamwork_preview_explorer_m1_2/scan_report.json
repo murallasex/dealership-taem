@@ -1,0 +1,1134 @@
+{
+  "totalFilesAnalyzed": 14,
+  "totalAffectedFiles": 9,
+  "corruptedSequencesCatalog": [
+    {
+      "sequence": "ÃƒÂ­",
+      "hex": "0x00C3 0x0192 0x00C2 0x00AD",
+      "count": 40,
+      "suggestedFix": "ҭ"
+    },
+    {
+      "sequence": "ÃƒÂ³",
+      "hex": "0x00C3 0x0192 0x00C2 0x00B3",
+      "count": 63,
+      "suggestedFix": "ҳ"
+    },
+    {
+      "sequence": "ÃƒÂ±",
+      "hex": "0x00C3 0x0192 0x00C2 0x00B1",
+      "count": 11,
+      "suggestedFix": "ұ"
+    },
+    {
+      "sequence": "ÃƒÂ¡",
+      "hex": "0x00C3 0x0192 0x00C2 0x00A1",
+      "count": 9,
+      "suggestedFix": "ҡ"
+    },
+    {
+      "sequence": "ÃƒÂ©",
+      "hex": "0x00C3 0x0192 0x00C2 0x00A9",
+      "count": 6,
+      "suggestedFix": "ҩ"
+    },
+    {
+      "sequence": "ÃƒÅ¡",
+      "hex": "0x00C3 0x0192 0x00C5 0x00A1",
+      "count": 5,
+      "suggestedFix": "Òš"
+    },
+    {
+      "sequence": "Ã‚Â¿",
+      "hex": "0x00C3 0x201A 0x00C2 0x00BF",
+      "count": 3,
+      "suggestedFix": "Ã‚Â¿"
+    },
+    {
+      "sequence": "Ã³",
+      "hex": "0x00C3 0x00B3",
+      "count": 34,
+      "suggestedFix": "ó"
+    },
+    {
+      "sequence": "Ã­",
+      "hex": "0x00C3 0x00AD",
+      "count": 22,
+      "suggestedFix": "í"
+    },
+    {
+      "sequence": "Ã©",
+      "hex": "0x00C3 0x00A9",
+      "count": 10,
+      "suggestedFix": "é"
+    },
+    {
+      "sequence": "Â¿",
+      "hex": "0x00C2 0x00BF",
+      "count": 2,
+      "suggestedFix": "¿"
+    },
+    {
+      "sequence": "Ã¡",
+      "hex": "0x00C3 0x00A1",
+      "count": 4,
+      "suggestedFix": "á"
+    },
+    {
+      "sequence": "Ã±",
+      "hex": "0x00C3 0x00B1",
+      "count": 4,
+      "suggestedFix": "ñ"
+    },
+    {
+      "sequence": "Ã¢Å¡Â¡",
+      "hex": "0x00C3 0x00A2 0x00C5 0x00A1 0x00C2 0x00A1",
+      "count": 1,
+      "suggestedFix": "âš¡"
+    },
+    {
+      "sequence": "Ãƒâ€°",
+      "hex": "0x00C3 0x0192 0x00E2 0x20AC 0x00B0",
+      "count": 2,
+      "suggestedFix": "Ò⬰"
+    },
+    {
+      "sequence": "ÃƒÂ",
+      "hex": "0x00C3 0x0192 0x00C2 0x008D",
+      "count": 2,
+      "suggestedFix": "ҍ"
+    },
+    {
+      "sequence": "ÃƒÂº",
+      "hex": "0x00C3 0x0192 0x00C2 0x00BA",
+      "count": 1,
+      "suggestedFix": "Һ"
+    }
+  ],
+  "affectedFiles": [
+    {
+      "file": "modules\\accounting\\accounting.js",
+      "totalCorruptedLines": 28,
+      "lines": [
+        {
+          "line": 51,
+          "original": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Ingresos del dÃƒÂ­a</div>",
+          "fixed": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Ingresos del dҭa</div>"
+        },
+        {
+          "line": 55,
+          "original": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Egresos del dÃƒÂ­a</div>",
+          "fixed": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Egresos del dҭa</div>"
+        },
+        {
+          "line": 59,
+          "original": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Saldo del dÃƒÂ­a</div>",
+          "fixed": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Saldo del dҭa</div>"
+        },
+        {
+          "line": 80,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">DescripciÃƒÂ³n</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripciҳn</th>"
+        },
+        {
+          "line": 81,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">CategorÃƒÂ­a</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categorҭa</th>"
+        },
+        {
+          "line": 112,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">DescripciÃƒÂ³n</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripciҳn</th>"
+        },
+        {
+          "line": 113,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">CategorÃƒÂ­a</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categorҭa</th>"
+        },
+        {
+          "line": 145,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">CategorÃƒÂ­a</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categorҭa</th>"
+        },
+        {
+          "line": 146,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">DescripciÃƒÂ³n</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripciҳn</th>"
+        },
+        {
+          "line": 189,
+          "original": "<label>CategorÃƒÂ­a</label>",
+          "fixed": "<label>Categorҭa</label>"
+        },
+        {
+          "line": 192,
+          "original": "<option value=\"advance\">SeÃƒÂ±a / Anticipo</option>",
+          "fixed": "<option value=\"advance\">Seұa / Anticipo</option>"
+        },
+        {
+          "line": 194,
+          "original": "<option value=\"preparation\">PreparaciÃƒÂ³n de VehÃƒÂ­culo</option>",
+          "fixed": "<option value=\"preparation\">Preparaciҳn de Vehҭculo</option>"
+        },
+        {
+          "line": 195,
+          "original": "<option value=\"import\">Gastos de ImportaciÃƒÂ³n</option>",
+          "fixed": "<option value=\"import\">Gastos de Importaciҳn</option>"
+        },
+        {
+          "line": 196,
+          "original": "<option value=\"services\">Servicios BÃƒÂ¡sicos</option>",
+          "fixed": "<option value=\"services\">Servicios Bҡsicos</option>"
+        },
+        {
+          "line": 201,
+          "original": "<label>DescripciÃƒÂ³n</label>",
+          "fixed": "<label>Descripciҳn</label>"
+        },
+        {
+          "line": 249,
+          "original": "<option value=\"advance\">SeÃƒÂ±a / Anticipo</option>",
+          "fixed": "<option value=\"advance\">Seұa / Anticipo</option>"
+        },
+        {
+          "line": 255,
+          "original": "<option value=\"preparation\">PreparaciÃƒÂ³n de VehÃƒÂ­culo</option>",
+          "fixed": "<option value=\"preparation\">Preparaciҳn de Vehҭculo</option>"
+        },
+        {
+          "line": 256,
+          "original": "<option value=\"import\">Gastos de ImportaciÃƒÂ³n</option>",
+          "fixed": "<option value=\"import\">Gastos de Importaciҳn</option>"
+        },
+        {
+          "line": 257,
+          "original": "<option value=\"services\">Servicios BÃƒÂ¡sicos</option>",
+          "fixed": "<option value=\"services\">Servicios Bҡsicos</option>"
+        },
+        {
+          "line": 280,
+          "original": "showToast('Movimiento registrado con ÃƒÂ©xito', 'success');",
+          "fixed": "showToast('Movimiento registrado con ҩxito', 'success');"
+        },
+        {
+          "line": 347,
+          "original": "<p class=\"text-muted\">AnÃƒÂ¡lisis de rendimiento y ganancias</p>",
+          "fixed": "<p class=\"text-muted\">Anҡlisis de rendimiento y ganancias</p>"
+        },
+        {
+          "line": 353,
+          "original": "<option value=\"last_3_months\" ${currentReportPeriod === 'last_3_months' ? 'selected' : ''}>ÃƒÅ¡ltimos 3 meses</option>",
+          "fixed": "<option value=\"last_3_months\" ${currentReportPeriod === 'last_3_months' ? 'selected' : ''}>Òšltimos 3 meses</option>"
+        },
+        {
+          "line": 354,
+          "original": "<option value=\"last_year\" ${currentReportPeriod === 'last_year' ? 'selected' : ''}>ÃƒÅ¡ltimo aÃƒÂ±o</option>",
+          "fixed": "<option value=\"last_year\" ${currentReportPeriod === 'last_year' ? 'selected' : ''}>Òšltimo aÒ±o</option>"
+        },
+        {
+          "line": 383,
+          "original": "<h3 class=\"card-title\">Ventas e Ingresos (ÃƒÅ¡ltimos 6 meses)</h3>",
+          "fixed": "<h3 class=\"card-title\">Ventas e Ingresos (Òšltimos 6 meses)</h3>"
+        },
+        {
+          "line": 391,
+          "original": "<h3 class=\"card-title\">DistribuciÃƒÂ³n de Ingresos</h3>",
+          "fixed": "<h3 class=\"card-title\">Distribuciҳn de Ingresos</h3>"
+        },
+        {
+          "line": 402,
+          "original": "<h3 class=\"card-title\">Margen por VehÃƒÂ­culo Vendido</h3>",
+          "fixed": "<h3 class=\"card-title\">Margen por Vehҭculo Vendido</h3>"
+        },
+        {
+          "line": 409,
+          "original": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">VehÃƒÂ­culo</th>",
+          "fixed": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Vehҭculo</th>"
+        },
+        {
+          "line": 438,
+          "original": "` : '<tr><td colspan=\"5\" style=\"padding: 16px; text-align: center;\">No hay vehÃƒÂ­culos vendidos</td></tr>'}",
+          "fixed": "` : '<tr><td colspan=\"5\" style=\"padding: 16px; text-align: center;\">No hay vehҭculos vendidos</td></tr>'}"
+        }
+      ]
+    },
+    {
+      "file": "modules\\admin\\admin.js",
+      "totalCorruptedLines": 21,
+      "lines": [
+        {
+          "line": 7,
+          "original": "<h1 class=\"page-title\">GestiÃƒÂ³n de Usuarios</h1>",
+          "fixed": "<h1 class=\"page-title\">Gestiҳn de Usuarios</h1>"
+        },
+        {
+          "line": 10,
+          "original": "<i data-lucide=\"settings\"></i> ConfiguraciÃƒÂ³n",
+          "fixed": "<i data-lucide=\"settings\"></i> Configuraciҳn"
+        },
+        {
+          "line": 29,
+          "original": "<div style=\"padding: 1rem; color: var(--text-muted);\">Inventario (lectura), Ventas, CRM, y gestiÃƒÂ³n de sus propias ventas.</div>",
+          "fixed": "<div style=\"padding: 1rem; color: var(--text-muted);\">Inventario (lectura), Ventas, CRM, y gestiҳn de sus propias ventas.</div>"
+        },
+        {
+          "line": 35,
+          "original": "<div style=\"padding: 1rem; color: var(--text-muted);\">Contabilidad, FinanciaciÃƒÂ³n, y permisos de lectura general.</div>",
+          "fixed": "<div style=\"padding: 1rem; color: var(--text-muted);\">Contabilidad, Financiaciҳn, y permisos de lectura general.</div>"
+        },
+        {
+          "line": 48,
+          "original": "<th>ÃƒÅ¡ltimo Acceso</th>",
+          "fixed": "<th>Òšltimo Acceso</th>"
+        },
+        {
+          "line": 93,
+          "original": "La gestiÃƒÂ³n avanzada de permisos estarÃƒÂ¡ disponible en la versiÃƒÂ³n empresarial.",
+          "fixed": "La gestiҳn avanzada de permisos estarҡ disponible en la versiҳn empresarial."
+        },
+        {
+          "line": 131,
+          "original": "confirmDialog('Eliminar Usuario', 'Ã‚Â¿EstÃƒÂ¡ seguro de eliminar este usuario?').then((confirmed) => {",
+          "fixed": "confirmDialog('Eliminar Usuario', 'Ã‚Â¿EstÃƒÂ¡ seguro de eliminar este usuario?').then((confirmed) => {"
+        },
+        {
+          "line": 161,
+          "original": "<label>ContraseÃƒÂ±a</label>",
+          "fixed": "<label>Contraseұa</label>"
+        },
+        {
+          "line": 227,
+          "original": "<h1 class=\"page-title\">ConfiguraciÃƒÂ³n de la Empresa</h1>",
+          "fixed": "<h1 class=\"page-title\">Configuraciҳn de la Empresa</h1>"
+        },
+        {
+          "line": 239,
+          "original": "<button class=\"btn btn-ghost tab-btn\" data-tab=\"tab-dnit\" style=\"border-radius: 0;\">DNIT / FacturaciÃƒÂ³n ElectrÃƒÂ³nica</button>",
+          "fixed": "<button class=\"btn btn-ghost tab-btn\" data-tab=\"tab-dnit\" style=\"border-radius: 0;\">DNIT / Facturaciҳn Electrҳnica</button>"
+        },
+        {
+          "line": 259,
+          "original": "<label>TelÃƒÂ©fono</label>",
+          "fixed": "<label>Telҩfono</label>"
+        },
+        {
+          "line": 263,
+          "original": "<label>DirecciÃƒÂ³n</label>",
+          "fixed": "<label>Direcciҳn</label>"
+        },
+        {
+          "line": 279,
+          "original": "<option value=\"PYG\" ${Config.currency === 'PYG' ? 'selected' : ''}>GuaranÃƒÂ­es (PYG)</option>",
+          "fixed": "<option value=\"PYG\" ${Config.currency === 'PYG' ? 'selected' : ''}>Guaranҭes (PYG)</option>"
+        },
+        {
+          "line": 280,
+          "original": "<option value=\"USD\" ${Config.currency === 'USD' ? 'selected' : ''}>DÃƒÂ³lares (USD)</option>",
+          "fixed": "<option value=\"USD\" ${Config.currency === 'USD' ? 'selected' : ''}>Dҳlares (USD)</option>"
+        },
+        {
+          "line": 294,
+          "original": "<h4 style=\"color: var(--info-color); margin-bottom: 0.25rem;\">IntegraciÃƒÂ³n DNIT</h4>",
+          "fixed": "<h4 style=\"color: var(--info-color); margin-bottom: 0.25rem;\">Integraciҳn DNIT</h4>"
+        },
+        {
+          "line": 295,
+          "original": "<p style=\"color: var(--text-muted); font-size: 0.9rem;\">IntegraciÃƒÂ³n DNIT en modo demo. En producciÃƒÂ³n se conectarÃƒÂ¡ con las credenciales oficiales.</p>",
+          "fixed": "<p style=\"color: var(--text-muted); font-size: 0.9rem;\">Integraciҳn DNIT en modo demo. En producciҳn se conectarҡ con las credenciales oficiales.</p>"
+        },
+        {
+          "line": 308,
+          "original": "<option value=\"prod\" disabled>ProducciÃƒÂ³n</option>",
+          "fixed": "<option value=\"prod\" disabled>Producciҳn</option>"
+        },
+        {
+          "line": 323,
+          "original": "<button class=\"btn btn-sm btn-secondary\" onclick=\"alert('FunciÃƒÂ³n disponible en versiÃƒÂ³n empresarial')\"><i data-lucide=\"plus\"></i> Nueva Sucursal</button>",
+          "fixed": "<button class=\"btn btn-sm btn-secondary\" onclick=\"alert('Funciҳn disponible en versiҳn empresarial')\"><i data-lucide=\"plus\"></i> Nueva Sucursal</button>"
+        },
+        {
+          "line": 330,
+          "original": "<th>DirecciÃƒÂ³n</th>",
+          "fixed": "<th>Direcciҳn</th>"
+        },
+        {
+          "line": 376,
+          "original": "p.textContent = 'Ã¢â€šÂ² 12.500.000';",
+          "fixed": "p.textContent = 'Ã¢â€šÂ² 12.500.000';"
+        },
+        {
+          "line": 394,
+          "original": "showToast('ConfiguraciÃƒÂ³n guardada exitosamente', 'success');",
+          "fixed": "showToast('Configuraciҳn guardada exitosamente', 'success');"
+        }
+      ]
+    },
+    {
+      "file": "modules\\crm\\crm.js",
+      "totalCorruptedLines": 23,
+      "lines": [
+        {
+          "line": 18,
+          "original": "<div class=\"page-subtitle\">GestiÃ³n de clientes y prospectos</div>",
+          "fixed": "<div class=\"page-subtitle\">Gestión de clientes y prospectos</div>"
+        },
+        {
+          "line": 55,
+          "original": "<option value=\"\">Todos los OrÃ­genes</option>",
+          "fixed": "<option value=\"\">Todos los Orígenes</option>"
+        },
+        {
+          "line": 68,
+          "original": "<th>Email / TelÃ©fono</th>",
+          "fixed": "<th>Email / Teléfono</th>"
+        },
+        {
+          "line": 69,
+          "original": "<th>InterÃ©s en</th>",
+          "fixed": "<th>Interés en</th>"
+        },
+        {
+          "line": 160,
+          "original": "confirmDialog('Â¿Eliminar cliente?', 'Esta acciÃ³n no se puede deshacer.', () => {",
+          "fixed": "confirmDialog('¿Eliminar cliente?', 'Esta acción no se puede deshacer.', () => {"
+        },
+        {
+          "line": 215,
+          "original": "<button id=\"btn-new-quote\" class=\"btn btn-secondary\"><i data-lucide=\"file-text\"></i> Nueva CotizaciÃ³n</button>",
+          "fixed": "<button id=\"btn-new-quote\" class=\"btn btn-secondary\"><i data-lucide=\"file-text\"></i> Nueva Cotización</button>"
+        },
+        {
+          "line": 240,
+          "original": "<div style=\"font-size: 0.875rem; color: var(--text-muted);\">TelÃ©fono</div>",
+          "fixed": "<div style=\"font-size: 0.875rem; color: var(--text-muted);\">Teléfono</div>"
+        },
+        {
+          "line": 252,
+          "original": "<button id=\"btn-add-note\" class=\"btn btn-sm btn-ghost\"><i data-lucide=\"plus\"></i> Nueva InteracciÃ³n</button>",
+          "fixed": "<button id=\"btn-add-note\" class=\"btn btn-sm btn-ghost\"><i data-lucide=\"plus\"></i> Nueva Interacción</button>"
+        },
+        {
+          "line": 336,
+          "original": "<label>TelÃ©fono</label>",
+          "fixed": "<label>Teléfono</label>"
+        },
+        {
+          "line": 341,
+          "original": "<label>DirecciÃ³n</label>",
+          "fixed": "<label>Dirección</label>"
+        },
+        {
+          "line": 363,
+          "original": "<label>InterÃ©s En (VehÃ­culo / Marca)</label>",
+          "fixed": "<label>Interés En (Vehículo / Marca)</label>"
+        },
+        {
+          "line": 413,
+          "original": "<label>Tipo de InteracciÃ³n</label>",
+          "fixed": "<label>Tipo de Interacción</label>"
+        },
+        {
+          "line": 417,
+          "original": "<option value=\"ReuniÃ³n\">ReuniÃ³n</option>",
+          "fixed": "<option value=\"Reunión\">Reunión</option>"
+        },
+        {
+          "line": 432,
+          "original": "openModal('Nueva InteracciÃ³n', html);",
+          "fixed": "openModal('Nueva Interacción', html);"
+        },
+        {
+          "line": 449,
+          "original": "showToast('InteracciÃ³n agregada', 'success');",
+          "fixed": "showToast('Interacción agregada', 'success');"
+        },
+        {
+          "line": 465,
+          "original": "{ id: 'negotiation', name: 'NegociaciÃ³n', cls: 'badge-gold' },",
+          "fixed": "{ id: 'negotiation', name: 'Negociación', cls: 'badge-gold' },"
+        },
+        {
+          "line": 501,
+          "original": "<div style=\"font-size:0.875rem; color:var(--text-muted); margin-bottom:0.5rem;\">${l.interestedIn || 'Sin interÃ©s especÃ­fico'}</div>",
+          "fixed": "<div style=\"font-size:0.875rem; color:var(--text-muted); margin-bottom:0.5rem;\">${l.interestedIn || 'Sin interés específico'}</div>"
+        },
+        {
+          "line": 550,
+          "original": "<label>TelÃ©fono</label>",
+          "fixed": "<label>Teléfono</label>"
+        },
+        {
+          "line": 554,
+          "original": "<label>InterÃ©s (VehÃ­culo/Marca)</label>",
+          "fixed": "<label>Interés (Vehículo/Marca)</label>"
+        },
+        {
+          "line": 579,
+          "original": "<option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>NegociaciÃ³n</option>",
+          "fixed": "<option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>Negociación</option>"
+        },
+        {
+          "line": 630,
+          "original": "negotiation: 'NegociaciÃ³n', won: 'Ganado', lost: 'Perdido'",
+          "fixed": "negotiation: 'Negociación', won: 'Ganado', lost: 'Perdido'"
+        },
+        {
+          "line": 637,
+          "original": "<div><strong style=\"color:var(--text-muted); font-size:0.875rem;\">InterÃ©s:</strong><div>${lead.interestedIn || '-'}</div></div>",
+          "fixed": "<div><strong style=\"color:var(--text-muted); font-size:0.875rem;\">Interés:</strong><div>${lead.interestedIn || '-'}</div></div>"
+        },
+        {
+          "line": 649,
+          "original": "<option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>NegociaciÃ³n</option>",
+          "fixed": "<option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>Negociación</option>"
+        }
+      ]
+    },
+    {
+      "file": "modules\\dashboard\\dashboard.js",
+      "totalCorruptedLines": 4,
+      "lines": [
+        {
+          "line": 9,
+          "original": "const greeting = currentHour < 12 ? 'Buenos dÃƒÂ­as' : 'Buenas tardes';",
+          "fixed": "const greeting = currentHour < 12 ? 'Buenos dҭas' : 'Buenas tardes';"
+        },
+        {
+          "line": 157,
+          "original": "const labels = { quote: 'CotizaciÃƒÂ³n', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };",
+          "fixed": "const labels = { quote: 'Cotizaciҳn', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };"
+        },
+        {
+          "line": 221,
+          "original": "VenciÃƒÂ³: ${fmtDate(inst.dueDate)}",
+          "fixed": "Venciҳ: ${fmtDate(inst.dueDate)}"
+        },
+        {
+          "line": 252,
+          "original": "<h3 class=\"card-title\">VehÃƒÂ­culos Disponibles</h3>",
+          "fixed": "<h3 class=\"card-title\">Vehҭculos Disponibles</h3>"
+        }
+      ]
+    },
+    {
+      "file": "modules\\financing\\financing.js",
+      "totalCorruptedLines": 18,
+      "lines": [
+        {
+          "line": 120,
+          "original": "<th>VehÃƒÂ­culo</th>",
+          "fixed": "<th>Vehҭculo</th>"
+        },
+        {
+          "line": 123,
+          "original": "<th>PrÃƒÂ³x. Vencimiento</th>",
+          "fixed": "<th>Prҳx. Vencimiento</th>"
+        },
+        {
+          "line": 227,
+          "original": "<label>VehÃƒÂ­culo</label>",
+          "fixed": "<label>Vehҭculo</label>"
+        },
+        {
+          "line": 244,
+          "original": "<th>NÃ‚Â°</th>",
+          "fixed": "<th>NÃ‚Â°</th>"
+        },
+        {
+          "line": 308,
+          "original": "confirmDialog('Ã‚Â¿Confirmar pago de esta cuota?', () => {",
+          "fixed": "confirmDialog('Ã‚Â¿Confirmar pago de esta cuota?', () => {"
+        },
+        {
+          "line": 376,
+          "original": "<h1 class=\"page-title\">Cuotas PrÃƒÂ³ximas / Vencidas</h1>",
+          "fixed": "<h1 class=\"page-title\">Cuotas Prҳximas / Vencidas</h1>"
+        },
+        {
+          "line": 387,
+          "original": "<h2 class=\"card-title text-warning\">Cuotas por Vencer (prÃƒÂ³ximos 30 dÃƒÂ­as)</h2>",
+          "fixed": "<h2 class=\"card-title text-warning\">Cuotas por Vencer (prҳximos 30 dҭas)</h2>"
+        },
+        {
+          "line": 394,
+          "original": "<th>VehÃƒÂ­culo</th>",
+          "fixed": "<th>Vehҭculo</th>"
+        },
+        {
+          "line": 395,
+          "original": "<th>Cuota NÃ‚Â°</th>",
+          "fixed": "<th>Cuota NÃ‚Â°</th>"
+        },
+        {
+          "line": 398,
+          "original": "<th>DÃƒÂ­as Restantes</th>",
+          "fixed": "<th>Dҭas Restantes</th>"
+        },
+        {
+          "line": 406,
+          "original": "html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas por vencer en los prÃƒÂ³ximos 30 dÃƒÂ­as.</td></tr>`;",
+          "fixed": "html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas por vencer en los prҳximos 30 dҭas.</td></tr>`;"
+        },
+        {
+          "line": 410,
+          "original": "? `<span class=\"badge badge-warning\">${p.daysDiff} dÃƒÂ­as</span>`",
+          "fixed": "? `<span class=\"badge badge-warning\">${p.daysDiff} dҭas</span>`"
+        },
+        {
+          "line": 411,
+          "original": ": `<span class=\"badge badge-info\">${p.daysDiff} dÃƒÂ­as</span>`;",
+          "fixed": ": `<span class=\"badge badge-info\">${p.daysDiff} dҭas</span>`;"
+        },
+        {
+          "line": 446,
+          "original": "<th>VehÃƒÂ­culo</th>",
+          "fixed": "<th>Vehҭculo</th>"
+        },
+        {
+          "line": 447,
+          "original": "<th>Cuota NÃ‚Â°</th>",
+          "fixed": "<th>Cuota NÃ‚Â°</th>"
+        },
+        {
+          "line": 450,
+          "original": "<th>DÃƒÂ­as Vencidos</th>",
+          "fixed": "<th>Dҭas Vencidos</th>"
+        },
+        {
+          "line": 458,
+          "original": "html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas vencidas. Ã‚Â¡Excelente!</td></tr>`;",
+          "fixed": "html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas vencidas. Ã‚Â¡Excelente!</td></tr>`;"
+        },
+        {
+          "line": 470,
+          "original": "<td><span class=\"badge badge-danger\">${daysOverdue} dÃƒÂ­as</span></td>",
+          "fixed": "<td><span class=\"badge badge-danger\">${daysOverdue} dҭas</span></td>"
+        }
+      ]
+    },
+    {
+      "file": "modules\\inventory\\inventory.js",
+      "totalCorruptedLines": 41,
+      "lines": [
+        {
+          "line": 15,
+          "original": "consigned: 'ConsignaciÃ³n'",
+          "fixed": "consigned: 'Consignación'"
+        },
+        {
+          "line": 30,
+          "original": "in_preparation: 'En PreparaciÃ³n',",
+          "fixed": "in_preparation: 'En Preparación',"
+        },
+        {
+          "line": 31,
+          "original": "in_transit: 'En TrÃ¡nsito'",
+          "fixed": "in_transit: 'En Tránsito'"
+        },
+        {
+          "line": 38,
+          "original": "consignment: 'ConsignaciÃ³n'",
+          "fixed": "consignment: 'Consignación'"
+        },
+        {
+          "line": 61,
+          "original": "<h1>Inventario de VehÃ­culos</h1>",
+          "fixed": "<h1>Inventario de Vehículos</h1>"
+        },
+        {
+          "line": 62,
+          "original": "<p class=\"text-muted\">Gestiona el stock de vehÃ­culos disponibles</p>",
+          "fixed": "<p class=\"text-muted\">Gestiona el stock de vehículos disponibles</p>"
+        },
+        {
+          "line": 66,
+          "original": "<i data-lucide=\"plus\"></i> Nuevo VehÃ­culo",
+          "fixed": "<i data-lucide=\"plus\"></i> Nuevo Vehículo"
+        },
+        {
+          "line": 75,
+          "original": "<div class=\"kpi-label\">Total VehÃ­culos</div>",
+          "fixed": "<div class=\"kpi-label\">Total Vehículos</div>"
+        },
+        {
+          "line": 109,
+          "original": "<option value=\"\">CondiciÃ³n...</option>",
+          "fixed": "<option value=\"\">Condición...</option>"
+        },
+        {
+          "line": 122,
+          "original": "<option value=\"in_transit\">En TrÃ¡nsito</option>",
+          "fixed": "<option value=\"in_transit\">En Tránsito</option>"
+        },
+        {
+          "line": 131,
+          "original": "<th>VehÃ­culo</th>",
+          "fixed": "<th>Vehículo</th>"
+        },
+        {
+          "line": 132,
+          "original": "<th>AÃ±o/Color/KM</th>",
+          "fixed": "<th>Año/Color/KM</th>"
+        },
+        {
+          "line": 133,
+          "original": "<th>CondiciÃ³n</th>",
+          "fixed": "<th>Condición</th>"
+        },
+        {
+          "line": 155,
+          "original": "tbody.innerHTML = `<tr><td colspan=\"8\" class=\"text-center text-muted\">No hay vehÃ­culos registrados</td></tr>`;",
+          "fixed": "tbody.innerHTML = `<tr><td colspan=\"8\" class=\"text-center text-muted\">No hay vehículos registrados</td></tr>`;"
+        },
+        {
+          "line": 200,
+          "original": "confirmDialog('Eliminar VehÃ­culo', 'Â¿EstÃ¡s seguro de que deseas eliminar este vehÃ­culo?', () => {",
+          "fixed": "confirmDialog('Eliminar Vehículo', '¿Estás seguro de que deseas eliminar este vehículo?', () => {"
+        },
+        {
+          "line": 202,
+          "original": "showToast('VehÃ­culo eliminado con Ã©xito', 'success');",
+          "fixed": "showToast('Vehículo eliminado con éxito', 'success');"
+        },
+        {
+          "line": 243,
+          "original": "pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">VehÃ­culo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;",
+          "fixed": "pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">Vehículo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;"
+        },
+        {
+          "line": 279,
+          "original": "<div class=\"text-muted text-sm\">AÃ±o</div>",
+          "fixed": "<div class=\"text-muted text-sm\">Año</div>"
+        },
+        {
+          "line": 308,
+          "original": "<div class=\"tab-item active\" style=\"padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--gold); color: var(--gold);\" data-tab=\"info\">InformaciÃ³n</div>",
+          "fixed": "<div class=\"tab-item active\" style=\"padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--gold); color: var(--gold);\" data-tab=\"info\">Información</div>"
+        },
+        {
+          "line": 318,
+          "original": "<div><label class=\"text-muted\">VersiÃ³n</label><div>${vehicle.version || '-'}</div></div>",
+          "fixed": "<div><label class=\"text-muted\">Versión</label><div>${vehicle.version || '-'}</div></div>"
+        },
+        {
+          "line": 320,
+          "original": "<div><label class=\"text-muted\">AÃ±o</label><div>${vehicle.year}</div></div>",
+          "fixed": "<div><label class=\"text-muted\">Año</label><div>${vehicle.year}</div></div>"
+        },
+        {
+          "line": 323,
+          "original": "<div><label class=\"text-muted\">CondiciÃ³n</label><div>${conditionLabels[vehicle.condition]}</div></div>",
+          "fixed": "<div><label class=\"text-muted\">Condición</label><div>${conditionLabels[vehicle.condition]}</div></div>"
+        },
+        {
+          "line": 334,
+          "original": "<tr><td>Costos de ImportaciÃ³n</td><td class=\"text-right\">${fmt(vehicle.importCosts, vehicle.currency)}</td></tr>",
+          "fixed": "<tr><td>Costos de Importación</td><td class=\"text-right\">${fmt(vehicle.importCosts, vehicle.currency)}</td></tr>"
+        },
+        {
+          "line": 335,
+          "original": "<tr><td>Costo de PreparaciÃ³n</td><td class=\"text-right\">${fmt(vehicle.prepCost, vehicle.currency)}</td></tr>",
+          "fixed": "<tr><td>Costo de Preparación</td><td class=\"text-right\">${fmt(vehicle.prepCost, vehicle.currency)}</td></tr>"
+        },
+        {
+          "line": 336,
+          "original": "<tr><td>ComisiÃ³n</td><td class=\"text-right\">${fmt(vehicle.commission, vehicle.currency)}</td></tr>",
+          "fixed": "<tr><td>Comisión</td><td class=\"text-right\">${fmt(vehicle.commission, vehicle.currency)}</td></tr>"
+        },
+        {
+          "line": 367,
+          "original": "<div class=\"card-header\"><h3 class=\"card-title\">GalerÃ­a de fotos</h3></div>",
+          "fixed": "<div class=\"card-header\"><h3 class=\"card-title\">Galería de fotos</h3></div>"
+        },
+        {
+          "line": 413,
+          "original": "pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">VehÃ­culo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;",
+          "fixed": "pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">Vehículo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;"
+        },
+        {
+          "line": 419,
+          "original": "const title = isEdit ? 'Editar VehÃ­culo' : 'Nuevo VehÃ­culo';",
+          "fixed": "const title = isEdit ? 'Editar Vehículo' : 'Nuevo Vehículo';"
+        },
+        {
+          "line": 434,
+          "original": "<div class=\"card-header\"><h3 class=\"card-title\">InformaciÃ³n Base</h3></div>",
+          "fixed": "<div class=\"card-header\"><h3 class=\"card-title\">Información Base</h3></div>"
+        },
+        {
+          "line": 449,
+          "original": "<label>VersiÃ³n</label>",
+          "fixed": "<label>Versión</label>"
+        },
+        {
+          "line": 453,
+          "original": "<label>AÃ±o <span class=\"text-danger\">*</span></label>",
+          "fixed": "<label>Año <span class=\"text-danger\">*</span></label>"
+        },
+        {
+          "line": 471,
+          "original": "<label>CondiciÃ³n</label>",
+          "fixed": "<label>Condición</label>"
+        },
+        {
+          "line": 484,
+          "original": "<option value=\"consignment\" ${vehicle.origin === 'consignment' ? 'selected' : ''}>ConsignaciÃ³n</option>",
+          "fixed": "<option value=\"consignment\" ${vehicle.origin === 'consignment' ? 'selected' : ''}>Consignación</option>"
+        },
+        {
+          "line": 493,
+          "original": "<option value=\"in_preparation\" ${vehicle.commercialStatus === 'in_preparation' ? 'selected' : ''}>En PreparaciÃ³n</option>",
+          "fixed": "<option value=\"in_preparation\" ${vehicle.commercialStatus === 'in_preparation' ? 'selected' : ''}>En Preparación</option>"
+        },
+        {
+          "line": 494,
+          "original": "<option value=\"in_transit\" ${vehicle.commercialStatus === 'in_transit' ? 'selected' : ''}>En TrÃ¡nsito</option>",
+          "fixed": "<option value=\"in_transit\" ${vehicle.commercialStatus === 'in_transit' ? 'selected' : ''}>En Tránsito</option>"
+        },
+        {
+          "line": 499,
+          "original": "<input type=\"text\" id=\"v-branch\" class=\"form-control\" value=\"${vehicle.branch || 'AsunciÃ³n'}\">",
+          "fixed": "<input type=\"text\" id=\"v-branch\" class=\"form-control\" value=\"${vehicle.branch || 'Asunción'}\">"
+        },
+        {
+          "line": 519,
+          "original": "<label>Costos de ImportaciÃ³n</label>",
+          "fixed": "<label>Costos de Importación</label>"
+        },
+        {
+          "line": 523,
+          "original": "<label>Costo de PreparaciÃ³n</label>",
+          "fixed": "<label>Costo de Preparación</label>"
+        },
+        {
+          "line": 527,
+          "original": "<label>ComisiÃ³n</label>",
+          "fixed": "<label>Comisión</label>"
+        },
+        {
+          "line": 577,
+          "original": "showToast('VehÃ­culo actualizado', 'success');",
+          "fixed": "showToast('Vehículo actualizado', 'success');"
+        },
+        {
+          "line": 581,
+          "original": "showToast('VehÃ­culo creado', 'success');",
+          "fixed": "showToast('Vehículo creado', 'success');"
+        }
+      ]
+    },
+    {
+      "file": "modules\\notifications\\notifications.js",
+      "totalCorruptedLines": 18,
+      "lines": [
+        {
+          "line": 17,
+          "original": "<h2 class=\"page-title\">ConfiguraciÃƒÂ³n de Notificaciones</h2>",
+          "fixed": "<h2 class=\"page-title\">Configuraciҳn de Notificaciones</h2>"
+        },
+        {
+          "line": 32,
+          "original": "<p style=\"margin: 0; color: var(--text-primary); font-weight: 500;\">Ã¢Å¡Â¡ Preparado para conectar con n8n o cualquier plataforma de automatizaciÃƒÂ³n.</p>",
+          "fixed": "<p style=\"margin: 0; color: var(--text-primary); font-weight: 500;\">âš¡ Preparado para conectar con n8n o cualquier plataforma de automatizaciÒ³n.</p>"
+        },
+        {
+          "line": 33,
+          "original": "<p style=\"margin: 0; font-size: 0.875rem; color: var(--text-secondary);\">En el entorno de producciÃƒÂ³n, los emails se envÃƒÂ­an automÃƒÂ¡ticamente vÃƒÂ­a webhook.</p>",
+          "fixed": "<p style=\"margin: 0; font-size: 0.875rem; color: var(--text-secondary);\">En el entorno de producciҳn, los emails se envҭan automҡticamente vҭa webhook.</p>"
+        },
+        {
+          "line": 47,
+          "original": "<h3 class=\"metric-title\">Tasa de Ãƒâ€°xito</h3>",
+          "fixed": "<h3 class=\"metric-title\">Tasa de Ò⬰xito</h3>"
+        },
+        {
+          "line": 59,
+          "original": "<h4 style=\"margin: 0 0 4px 0; font-weight: 500;\">Recordatorio de cuota prÃƒÂ³xima a vencer</h4>",
+          "fixed": "<h4 style=\"margin: 0 0 4px 0; font-weight: 500;\">Recordatorio de cuota prҳxima a vencer</h4>"
+        },
+        {
+          "line": 61,
+          "original": "Enviar <input type=\"number\" value=\"3\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> dÃƒÂ­as antes",
+          "fixed": "Enviar <input type=\"number\" value=\"3\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> dҭas antes"
+        },
+        {
+          "line": 76,
+          "original": "Enviar cada <input type=\"number\" value=\"5\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> dÃƒÂ­as",
+          "fixed": "Enviar cada <input type=\"number\" value=\"5\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> dҭas"
+        },
+        {
+          "line": 117,
+          "original": "<h3 class=\"card-title\">SegmentaciÃƒÂ³n para CampaÃƒÂ±as</h3>",
+          "fixed": "<h3 class=\"card-title\">Segmentaciҳn para Campaұas</h3>"
+        },
+        {
+          "line": 131,
+          "original": "<label>Segmento (CondiciÃƒÂ³n)</label>",
+          "fixed": "<label>Segmento (Condiciҳn)</label>"
+        },
+        {
+          "line": 134,
+          "original": "<option value=\"vip\">Clientes VIP (MÃƒÂ¡s de 1 compra)</option>",
+          "fixed": "<option value=\"vip\">Clientes VIP (Mҡs de 1 compra)</option>"
+        },
+        {
+          "line": 141,
+          "original": "<button class=\"btn btn-primary\" id=\"btn-send-campaign\" disabled>Enviar campaÃƒÂ±a (simulado)</button>",
+          "fixed": "<button class=\"btn btn-primary\" id=\"btn-send-campaign\" disabled>Enviar campaұa (simulado)</button>"
+        },
+        {
+          "line": 227,
+          "original": "showToast(`CampaÃƒÂ±a enviada a ${count} clientes`, 'success');",
+          "fixed": "showToast(`Campaұa enviada a ${count} clientes`, 'success');"
+        },
+        {
+          "line": 247,
+          "original": "<option value=\"offer\" ${t.type === 'offer' ? 'selected' : ''}>Oferta / CampaÃƒÂ±a</option>",
+          "fixed": "<option value=\"offer\" ${t.type === 'offer' ? 'selected' : ''}>Oferta / Campaұa</option>"
+        },
+        {
+          "line": 338,
+          "original": "showToast(`SimulaciÃƒÂ³n: ${count} emails enviados`, 'success');",
+          "fixed": "showToast(`Simulaciҳn: ${count} emails enviados`, 'success');"
+        },
+        {
+          "line": 367,
+          "original": "showToast(`SimulaciÃƒÂ³n: ${count} emails enviados`, 'success');",
+          "fixed": "showToast(`Simulaciҳn: ${count} emails enviados`, 'success');"
+        },
+        {
+          "line": 382,
+          "original": "<h2 class=\"page-title\">Historial de EnvÃƒÂ­os</h2>",
+          "fixed": "<h2 class=\"page-title\">Historial de Envҭos</h2>"
+        },
+        {
+          "line": 405,
+          "original": "<h3 class=\"metric-title\">Tasa de Ãƒâ€°xito</h3>",
+          "fixed": "<h3 class=\"metric-title\">Tasa de Ò⬰xito</h3>"
+        },
+        {
+          "line": 505,
+          "original": "tbody.innerHTML = `<tr><td colspan=\"7\" style=\"text-align: center; padding: 24px;\">No hay registros de envÃƒÂ­o</td></tr>`;",
+          "fixed": "tbody.innerHTML = `<tr><td colspan=\"7\" style=\"text-align: center; padding: 24px;\">No hay registros de envҭo</td></tr>`;"
+        }
+      ]
+    },
+    {
+      "file": "modules\\sales\\sales.js",
+      "totalCorruptedLines": 36,
+      "lines": [
+        {
+          "line": 34,
+          "original": "quote: { title: 'CotizaciÃƒÂ³n', color: 'info', items: Sales.all().filter(s => s.stage === 'quote') },",
+          "fixed": "quote: { title: 'Cotizaciҳn', color: 'info', items: Sales.all().filter(s => s.stage === 'quote') },"
+        },
+        {
+          "line": 66,
+          "original": "<i data-lucide=\"plus\"></i> Nueva CotizaciÃƒÂ³n",
+          "fixed": "<i data-lucide=\"plus\"></i> Nueva Cotizaciҳn"
+        },
+        {
+          "line": 116,
+          "original": "${col.items.length === 0 ? '<div class=\"text-center text-muted p-3\">VacÃƒÂ­o</div>' : ''}",
+          "fixed": "${col.items.length === 0 ? '<div class=\"text-center text-muted p-3\">Vacҭo</div>' : ''}"
+        },
+        {
+          "line": 159,
+          "original": "confirmDialog(`Ã‚Â¿Avanzar venta ${sale.saleNumber} a ${nextStage}?`, () => {",
+          "fixed": "confirmDialog(`Ã‚Â¿Avanzar venta ${sale.saleNumber} a ${nextStage}?`, () => {"
+        },
+        {
+          "line": 186,
+          "original": "description: `Venta ${sale.saleNumber} - VehÃƒÂ­culo ${vehicle?.brand} ${vehicle?.model}`,",
+          "fixed": "description: `Venta ${sale.saleNumber} - Vehҭculo ${vehicle?.brand} ${vehicle?.model}`,"
+        },
+        {
+          "line": 215,
+          "original": "{ id: 'quote', label: 'CotizaciÃƒÂ³n' },",
+          "fixed": "{ id: 'quote', label: 'Cotizaciҳn' },"
+        },
+        {
+          "line": 261,
+          "original": "<!-- VehÃƒÂ­culo -->",
+          "fixed": "<!-- Vehҭculo -->"
+        },
+        {
+          "line": 263,
+          "original": "<div class=\"card-header\"><h3 class=\"card-title\">VehÃƒÂ­culo</h3></div>",
+          "fixed": "<div class=\"card-header\"><h3 class=\"card-title\">Vehҭculo</h3></div>"
+        },
+        {
+          "line": 267,
+          "original": "<p><strong>VersiÃƒÂ³n:</strong> ${vehicle.version || '-'}</p>",
+          "fixed": "<p><strong>Versiҳn:</strong> ${vehicle.version || '-'}</p>"
+        },
+        {
+          "line": 268,
+          "original": "<p><strong>AÃƒÂ±o:</strong> ${vehicle.year || '-'}</p>",
+          "fixed": "<p><strong>Aұo:</strong> ${vehicle.year || '-'}</p>"
+        },
+        {
+          "line": 281,
+          "original": "<p><strong>TelÃƒÂ©fono:</strong> ${client.phone || '-'}</p>",
+          "fixed": "<p><strong>Telҩfono:</strong> ${client.phone || '-'}</p>"
+        },
+        {
+          "line": 297,
+          "original": "<!-- Resumen econÃƒÂ³mico -->",
+          "fixed": "<!-- Resumen econҳmico -->"
+        },
+        {
+          "line": 299,
+          "original": "<div class=\"card-header\"><h3 class=\"card-title\">Resumen EconÃƒÂ³mico</h3></div>",
+          "fixed": "<div class=\"card-header\"><h3 class=\"card-title\">Resumen Econҳmico</h3></div>"
+        },
+        {
+          "line": 306,
+          "original": "sale.paymentType === 'financed_own' ? 'FinanciaciÃƒÂ³n Propia' : 'FinanciaciÃƒÂ³n Bancaria'}",
+          "fixed": "sale.paymentType === 'financed_own' ? 'Financiaciҳn Propia' : 'Financiaciҳn Bancaria'}"
+        },
+        {
+          "line": 343,
+          "original": "<i data-lucide=\"credit-card\"></i> Configurar FinanciaciÃƒÂ³n",
+          "fixed": "<i data-lucide=\"credit-card\"></i> Configurar Financiaciҳn"
+        },
+        {
+          "line": 389,
+          "original": "showToast('Funcionalidad de vehÃƒÂ­culo en parte de pago en desarrollo', 'info');",
+          "fixed": "showToast('Funcionalidad de vehҭculo en parte de pago en desarrollo', 'info');"
+        },
+        {
+          "line": 396,
+          "original": "showToast('Funcionalidad de financiaciÃƒÂ³n en desarrollo', 'info');",
+          "fixed": "showToast('Funcionalidad de financiaciҳn en desarrollo', 'info');"
+        },
+        {
+          "line": 403,
+          "original": "showToast('Error: jsPDF no estÃƒÂ¡ cargado', 'danger');",
+          "fixed": "showToast('Error: jsPDF no estҡ cargado', 'danger');"
+        },
+        {
+          "line": 410,
+          "original": "doc.text('CONTRATO DE COMPRÃ­VENTA DE VEHÃƒÂCULO AUTOMOTOR', 105, 20, { align: 'center' });",
+          "fixed": "doc.text('CONTRATO DE COMPRíVENTA DE VEHÒCULO AUTOMOTOR', 105, 20, { align: 'center' });"
+        },
+        {
+          "line": 414,
+          "original": "doc.text(`Nro de OperaciÃƒÂ³n: ${sale.saleNumber}`, 20, 42);",
+          "fixed": "doc.text(`Nro de Operaciҳn: ${sale.saleNumber}`, 20, 42);"
+        },
+        {
+          "line": 419,
+          "original": "doc.text('VENDEDOR: AutoERP S.A., con RUC 80012345-6, domiciliado en AsunciÃƒÂ³n, Paraguay.', 20, 65);",
+          "fixed": "doc.text('VENDEDOR: AutoERP S.A., con RUC 80012345-6, domiciliado en Asunciҳn, Paraguay.', 20, 65);"
+        },
+        {
+          "line": 420,
+          "original": "doc.text(`COMPRÃ­OR: ${client.firstName || ''} ${client.lastName || ''}, con Documento: ${client.document || ''},`, 20, 72);",
+          "fixed": "doc.text(`COMPRíOR: ${client.firstName || ''} ${client.lastName || ''}, con Documento: ${client.document || ''},`, 20, 72);"
+        },
+        {
+          "line": 424,
+          "original": "doc.text('2. VEHÃƒÂCULO', 20, 95);",
+          "fixed": "doc.text('2. VEHҍCULO', 20, 95);"
+        },
+        {
+          "line": 428,
+          "original": "doc.text(`AÃƒÂ±o: ${vehicle.year || ''}`, 20, 119);",
+          "fixed": "doc.text(`Aұo: ${vehicle.year || ''}`, 20, 119);"
+        },
+        {
+          "line": 440,
+          "original": "doc.text('Ambas partes aceptan los tÃƒÂ©rminos de este contrato.', 20, 200);",
+          "fixed": "doc.text('Ambas partes aceptan los tҩrminos de este contrato.', 20, 200);"
+        },
+        {
+          "line": 463,
+          "original": "<h2>Nueva CotizaciÃƒÂ³n</h2>",
+          "fixed": "<h2>Nueva Cotizaciҳn</h2>"
+        },
+        {
+          "line": 470,
+          "original": "<h3 class=\"mb-3\">Paso 1: Seleccionar VehÃƒÂ­culo</h3>",
+          "fixed": "<h3 class=\"mb-3\">Paso 1: Seleccionar Vehҭculo</h3>"
+        },
+        {
+          "line": 480,
+          "original": "<div class=\"text-sm text-muted\">AÃƒÂ±o: ${v.year} | Color: ${v.color}</div>",
+          "fixed": "<div class=\"text-sm text-muted\">Aұo: ${v.year} | Color: ${v.color}</div>"
+        },
+        {
+          "line": 486,
+          "original": "${availableVehicles.length === 0 ? '<div class=\"col-12 text-muted\">No hay vehÃƒÂ­culos disponibles</div>' : ''}",
+          "fixed": "${availableVehicles.length === 0 ? '<div class=\"col-12 text-muted\">No hay vehҭculos disponibles</div>' : ''}"
+        },
+        {
+          "line": 497,
+          "original": "<div class=\"mt-2 text-sm text-muted\">Para cliente nuevo, primero agrÃƒÂ©guelo en el mÃƒÂ³dulo de clientes.</div>",
+          "fixed": "<div class=\"mt-2 text-sm text-muted\">Para cliente nuevo, primero agrҩguelo en el mҳdulo de clientes.</div>"
+        },
+        {
+          "line": 529,
+          "original": "<option value=\"financed_own\">FinanciaciÃƒÂ³n Propia</option>",
+          "fixed": "<option value=\"financed_own\">Financiaciҳn Propia</option>"
+        },
+        {
+          "line": 530,
+          "original": "<option value=\"financed_bank\">FinanciaciÃƒÂ³n Bancaria</option>",
+          "fixed": "<option value=\"financed_bank\">Financiaciҳn Bancaria</option>"
+        },
+        {
+          "line": 541,
+          "original": "<label>Tasa de InterÃƒÂ©s (%)</label>",
+          "fixed": "<label>Tasa de Interҩs (%)</label>"
+        },
+        {
+          "line": 553,
+          "original": "<i data-lucide=\"save\"></i> Crear CotizaciÃƒÂ³n",
+          "fixed": "<i data-lucide=\"save\"></i> Crear Cotizaciҳn"
+        },
+        {
+          "line": 619,
+          "original": "note: 'CotizaciÃƒÂ³n creada'",
+          "fixed": "note: 'Cotizaciҳn creada'"
+        },
+        {
+          "line": 628,
+          "original": "showToast('CotizaciÃƒÂ³n creada exitosamente', 'success');",
+          "fixed": "showToast('Cotizaciҳn creada exitosamente', 'success');"
+        }
+      ]
+    },
+    {
+      "file": "modules\\sellers\\sellers.js",
+      "totalCorruptedLines": 5,
+      "lines": [
+        {
+          "line": 196,
+          "original": "showToast('Formulario para nuevo vendedor no implementado aÃƒÂºn', 'info');",
+          "fixed": "showToast('Formulario para nuevo vendedor no implementado aҺn', 'info');"
+        },
+        {
+          "line": 287,
+          "original": "<div style=\"color:var(--text-muted); margin-bottom:0.5rem;\">ComisiÃƒÂ³n Estimada (2%)</div>",
+          "fixed": "<div style=\"color:var(--text-muted); margin-bottom:0.5rem;\">Comisiҳn Estimada (2%)</div>"
+        },
+        {
+          "line": 297,
+          "original": "<h3 class=\"card-title\" style=\"margin-bottom: 1rem;\">Ventas (ÃƒÅ¡ltimos 6 meses)</h3>",
+          "fixed": "<h3 class=\"card-title\" style=\"margin-bottom: 1rem;\">Ventas (Òšltimos 6 meses)</h3>"
+        },
+        {
+          "line": 310,
+          "original": "<th style=\"padding: 0.75rem;\">VehÃƒÂ­culo</th>",
+          "fixed": "<th style=\"padding: 0.75rem;\">Vehҭculo</th>"
+        },
+        {
+          "line": 629,
+          "original": "showToast('Modal de configuraciÃƒÂ³n general de metas - No implementado', 'info');",
+          "fixed": "showToast('Modal de configuraciҳn general de metas - No implementado', 'info');"
+        }
+      ]
+    }
+  ]
+}

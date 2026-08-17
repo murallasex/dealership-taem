@@ -1,0 +1,1065 @@
+[
+  {
+    "filePath": "app.js",
+    "totalLines": 353,
+    "corruptedLineCount": 0,
+    "corruptedLines": []
+  },
+  {
+    "filePath": "data\\store.js",
+    "totalLines": 554,
+    "corruptedLineCount": 0,
+    "corruptedLines": []
+  },
+  {
+    "filePath": "fix_encoding.cjs",
+    "totalLines": 53,
+    "corruptedLineCount": 0,
+    "corruptedLines": []
+  },
+  {
+    "filePath": "index.html",
+    "totalLines": 209,
+    "corruptedLineCount": 0,
+    "corruptedLines": []
+  },
+  {
+    "filePath": "modules\\accounting\\accounting.js",
+    "totalLines": 568,
+    "corruptedLineCount": 28,
+    "corruptedLines": [
+      {
+        "lineNum": 51,
+        "original": "                <div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Ingresos del dÃƒÂ­a</div>",
+        "fixed": "                <div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Ingresos del día</div>"
+      },
+      {
+        "lineNum": 55,
+        "original": "                <div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Egresos del dÃƒÂ­a</div>",
+        "fixed": "                <div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Egresos del día</div>"
+      },
+      {
+        "lineNum": 59,
+        "original": "                <div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Saldo del dÃƒÂ­a</div>",
+        "fixed": "                <div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Saldo del día</div>"
+      },
+      {
+        "lineNum": 80,
+        "original": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">DescripciÃƒÂ³n</th>",
+        "fixed": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripción</th>"
+      },
+      {
+        "lineNum": 81,
+        "original": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">CategorÃƒÂ­a</th>",
+        "fixed": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categoría</th>"
+      },
+      {
+        "lineNum": 112,
+        "original": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">DescripciÃƒÂ³n</th>",
+        "fixed": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripción</th>"
+      },
+      {
+        "lineNum": 113,
+        "original": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">CategorÃƒÂ­a</th>",
+        "fixed": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categoría</th>"
+      },
+      {
+        "lineNum": 145,
+        "original": "                                <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">CategorÃƒÂ­a</th>",
+        "fixed": "                                <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categoría</th>"
+      },
+      {
+        "lineNum": 146,
+        "original": "                                <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">DescripciÃƒÂ³n</th>",
+        "fixed": "                                <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripción</th>"
+      },
+      {
+        "lineNum": 189,
+        "original": "                            <label>CategorÃƒÂ­a</label>",
+        "fixed": "                            <label>Categoría</label>"
+      },
+      {
+        "lineNum": 192,
+        "original": "                                <option value=\"advance\">SeÃƒÂ±a / Anticipo</option>",
+        "fixed": "                                <option value=\"advance\">Seña / Anticipo</option>"
+      },
+      {
+        "lineNum": 194,
+        "original": "                                <option value=\"preparation\">PreparaciÃƒÂ³n de VehÃƒÂ­culo</option>",
+        "fixed": "                                <option value=\"preparation\">Preparación de Vehículo</option>"
+      },
+      {
+        "lineNum": 195,
+        "original": "                                <option value=\"import\">Gastos de ImportaciÃƒÂ³n</option>",
+        "fixed": "                                <option value=\"import\">Gastos de Importación</option>"
+      },
+      {
+        "lineNum": 196,
+        "original": "                                <option value=\"services\">Servicios BÃƒÂ¡sicos</option>",
+        "fixed": "                                <option value=\"services\">Servicios Básicos</option>"
+      },
+      {
+        "lineNum": 201,
+        "original": "                            <label>DescripciÃƒÂ³n</label>",
+        "fixed": "                            <label>Descripción</label>"
+      },
+      {
+        "lineNum": 249,
+        "original": "                <option value=\"advance\">SeÃƒÂ±a / Anticipo</option>",
+        "fixed": "                <option value=\"advance\">Seña / Anticipo</option>"
+      },
+      {
+        "lineNum": 255,
+        "original": "                <option value=\"preparation\">PreparaciÃƒÂ³n de VehÃƒÂ­culo</option>",
+        "fixed": "                <option value=\"preparation\">Preparación de Vehículo</option>"
+      },
+      {
+        "lineNum": 256,
+        "original": "                <option value=\"import\">Gastos de ImportaciÃƒÂ³n</option>",
+        "fixed": "                <option value=\"import\">Gastos de Importación</option>"
+      },
+      {
+        "lineNum": 257,
+        "original": "                <option value=\"services\">Servicios BÃƒÂ¡sicos</option>",
+        "fixed": "                <option value=\"services\">Servicios Básicos</option>"
+      },
+      {
+        "lineNum": 280,
+        "original": "        showToast('Movimiento registrado con ÃƒÂ©xito', 'success');",
+        "fixed": "        showToast('Movimiento registrado con éxito', 'success');"
+      },
+      {
+        "lineNum": 347,
+        "original": "                <p class=\"text-muted\">AnÃƒÂ¡lisis de rendimiento y ganancias</p>",
+        "fixed": "                <p class=\"text-muted\">Análisis de rendimiento y ganancias</p>"
+      },
+      {
+        "lineNum": 353,
+        "original": "                    <option value=\"last_3_months\" ${currentReportPeriod === 'last_3_months' ? 'selected' : ''}>ÃƒÅ¡ltimos 3 meses</option>",
+        "fixed": "                    <option value=\"last_3_months\" ${currentReportPeriod === 'last_3_months' ? 'selected' : ''}>Últimos 3 meses</option>"
+      },
+      {
+        "lineNum": 354,
+        "original": "                    <option value=\"last_year\" ${currentReportPeriod === 'last_year' ? 'selected' : ''}>ÃƒÅ¡ltimo aÃƒÂ±o</option>",
+        "fixed": "                    <option value=\"last_year\" ${currentReportPeriod === 'last_year' ? 'selected' : ''}>Último año</option>"
+      },
+      {
+        "lineNum": 383,
+        "original": "                    <h3 class=\"card-title\">Ventas e Ingresos (ÃƒÅ¡ltimos 6 meses)</h3>",
+        "fixed": "                    <h3 class=\"card-title\">Ventas e Ingresos (Últimos 6 meses)</h3>"
+      },
+      {
+        "lineNum": 391,
+        "original": "                    <h3 class=\"card-title\">DistribuciÃƒÂ³n de Ingresos</h3>",
+        "fixed": "                    <h3 class=\"card-title\">Distribución de Ingresos</h3>"
+      },
+      {
+        "lineNum": 402,
+        "original": "                    <h3 class=\"card-title\">Margen por VehÃƒÂ­culo Vendido</h3>",
+        "fixed": "                    <h3 class=\"card-title\">Margen por Vehículo Vendido</h3>"
+      },
+      {
+        "lineNum": 409,
+        "original": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">VehÃƒÂ­culo</th>",
+        "fixed": "                                    <th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Vehículo</th>"
+      },
+      {
+        "lineNum": 438,
+        "original": "                                ` : '<tr><td colspan=\"5\" style=\"padding: 16px; text-align: center;\">No hay vehÃƒÂ­culos vendidos</td></tr>'}",
+        "fixed": "                                ` : '<tr><td colspan=\"5\" style=\"padding: 16px; text-align: center;\">No hay vehículos vendidos</td></tr>'}"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\admin\\admin.js",
+    "totalLines": 397,
+    "corruptedLineCount": 21,
+    "corruptedLines": [
+      {
+        "lineNum": 7,
+        "original": "            <h1 class=\"page-title\">GestiÃƒÂ³n de Usuarios</h1>",
+        "fixed": "            <h1 class=\"page-title\">Gestión de Usuarios</h1>"
+      },
+      {
+        "lineNum": 10,
+        "original": "                    <i data-lucide=\"settings\"></i> ConfiguraciÃƒÂ³n",
+        "fixed": "                    <i data-lucide=\"settings\"></i> Configuración"
+      },
+      {
+        "lineNum": 29,
+        "original": "                <div style=\"padding: 1rem; color: var(--text-muted);\">Inventario (lectura), Ventas, CRM, y gestiÃƒÂ³n de sus propias ventas.</div>",
+        "fixed": "                <div style=\"padding: 1rem; color: var(--text-muted);\">Inventario (lectura), Ventas, CRM, y gestión de sus propias ventas.</div>"
+      },
+      {
+        "lineNum": 35,
+        "original": "                <div style=\"padding: 1rem; color: var(--text-muted);\">Contabilidad, FinanciaciÃƒÂ³n, y permisos de lectura general.</div>",
+        "fixed": "                <div style=\"padding: 1rem; color: var(--text-muted);\">Contabilidad, Financiación, y permisos de lectura general.</div>"
+      },
+      {
+        "lineNum": 48,
+        "original": "                            <th>ÃƒÅ¡ltimo Acceso</th>",
+        "fixed": "                            <th>Último Acceso</th>"
+      },
+      {
+        "lineNum": 93,
+        "original": "            La gestiÃƒÂ³n avanzada de permisos estarÃƒÂ¡ disponible en la versiÃƒÂ³n empresarial.",
+        "fixed": "            La gestión avanzada de permisos estará disponible en la versión empresarial."
+      },
+      {
+        "lineNum": 131,
+        "original": "            confirmDialog('Eliminar Usuario', 'Ã‚Â¿EstÃƒÂ¡ seguro de eliminar este usuario?').then((confirmed) => {",
+        "fixed": "            confirmDialog('Eliminar Usuario', '¿Está seguro de eliminar este usuario?').then((confirmed) => {"
+      },
+      {
+        "lineNum": 161,
+        "original": "                    <label>ContraseÃƒÂ±a</label>",
+        "fixed": "                    <label>Contraseña</label>"
+      },
+      {
+        "lineNum": 227,
+        "original": "            <h1 class=\"page-title\">ConfiguraciÃƒÂ³n de la Empresa</h1>",
+        "fixed": "            <h1 class=\"page-title\">Configuración de la Empresa</h1>"
+      },
+      {
+        "lineNum": 239,
+        "original": "                <button class=\"btn btn-ghost tab-btn\" data-tab=\"tab-dnit\" style=\"border-radius: 0;\">DNIT / FacturaciÃƒÂ³n ElectrÃƒÂ³nica</button>",
+        "fixed": "                <button class=\"btn btn-ghost tab-btn\" data-tab=\"tab-dnit\" style=\"border-radius: 0;\">DNIT / Facturación Electrónica</button>"
+      },
+      {
+        "lineNum": 259,
+        "original": "                        <label>TelÃƒÂ©fono</label>",
+        "fixed": "                        <label>Teléfono</label>"
+      },
+      {
+        "lineNum": 263,
+        "original": "                        <label>DirecciÃƒÂ³n</label>",
+        "fixed": "                        <label>Dirección</label>"
+      },
+      {
+        "lineNum": 279,
+        "original": "                            <option value=\"PYG\" ${Config.currency === 'PYG' ? 'selected' : ''}>GuaranÃƒÂ­es (PYG)</option>",
+        "fixed": "                            <option value=\"PYG\" ${Config.currency === 'PYG' ? 'selected' : ''}>Guaraníes (PYG)</option>"
+      },
+      {
+        "lineNum": 280,
+        "original": "                            <option value=\"USD\" ${Config.currency === 'USD' ? 'selected' : ''}>DÃƒÂ³lares (USD)</option>",
+        "fixed": "                            <option value=\"USD\" ${Config.currency === 'USD' ? 'selected' : ''}>Dólares (USD)</option>"
+      },
+      {
+        "lineNum": 294,
+        "original": "                        <h4 style=\"color: var(--info-color); margin-bottom: 0.25rem;\">IntegraciÃƒÂ³n DNIT</h4>",
+        "fixed": "                        <h4 style=\"color: var(--info-color); margin-bottom: 0.25rem;\">Integración DNIT</h4>"
+      },
+      {
+        "lineNum": 295,
+        "original": "                        <p style=\"color: var(--text-muted); font-size: 0.9rem;\">IntegraciÃƒÂ³n DNIT en modo demo. En producciÃƒÂ³n se conectarÃƒÂ¡ con las credenciales oficiales.</p>",
+        "fixed": "                        <p style=\"color: var(--text-muted); font-size: 0.9rem;\">Integración DNIT en modo demo. En producción se conectará con las credenciales oficiales.</p>"
+      },
+      {
+        "lineNum": 308,
+        "original": "                            <option value=\"prod\" disabled>ProducciÃƒÂ³n</option>",
+        "fixed": "                            <option value=\"prod\" disabled>Producción</option>"
+      },
+      {
+        "lineNum": 323,
+        "original": "                    <button class=\"btn btn-sm btn-secondary\" onclick=\"alert('FunciÃƒÂ³n disponible en versiÃƒÂ³n empresarial')\"><i data-lucide=\"plus\"></i> Nueva Sucursal</button>",
+        "fixed": "                    <button class=\"btn btn-sm btn-secondary\" onclick=\"alert('Función disponible en versión empresarial')\"><i data-lucide=\"plus\"></i> Nueva Sucursal</button>"
+      },
+      {
+        "lineNum": 330,
+        "original": "                                <th>DirecciÃƒÂ³n</th>",
+        "fixed": "                                <th>Dirección</th>"
+      },
+      {
+        "lineNum": 376,
+        "original": "            p.textContent = 'Ã¢â€šÂ² 12.500.000';",
+        "fixed": "            p.textContent = '₲ 12.500.000';"
+      },
+      {
+        "lineNum": 394,
+        "original": "        showToast('ConfiguraciÃƒÂ³n guardada exitosamente', 'success');",
+        "fixed": "        showToast('Configuración guardada exitosamente', 'success');"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\crm\\crm.js",
+    "totalLines": 711,
+    "corruptedLineCount": 23,
+    "corruptedLines": [
+      {
+        "lineNum": 18,
+        "original": "                <div class=\"page-subtitle\">GestiÃ³n de clientes y prospectos</div>",
+        "fixed": "                <div class=\"page-subtitle\">Gestión de clientes y prospectos</div>"
+      },
+      {
+        "lineNum": 55,
+        "original": "                    <option value=\"\">Todos los OrÃ­genes</option>",
+        "fixed": "                    <option value=\"\">Todos los Orígenes</option>"
+      },
+      {
+        "lineNum": 68,
+        "original": "                            <th>Email / TelÃ©fono</th>",
+        "fixed": "                            <th>Email / Teléfono</th>"
+      },
+      {
+        "lineNum": 69,
+        "original": "                            <th>InterÃ©s en</th>",
+        "fixed": "                            <th>Interés en</th>"
+      },
+      {
+        "lineNum": 160,
+        "original": "            confirmDialog('Â¿Eliminar cliente?', 'Esta acciÃ³n no se puede deshacer.', () => {",
+        "fixed": "            confirmDialog('¿Eliminar cliente?', 'Esta acción no se puede deshacer.', () => {"
+      },
+      {
+        "lineNum": 215,
+        "original": "                <button id=\"btn-new-quote\" class=\"btn btn-secondary\"><i data-lucide=\"file-text\"></i> Nueva CotizaciÃ³n</button>",
+        "fixed": "                <button id=\"btn-new-quote\" class=\"btn btn-secondary\"><i data-lucide=\"file-text\"></i> Nueva Cotización</button>"
+      },
+      {
+        "lineNum": 240,
+        "original": "                            <div style=\"font-size: 0.875rem; color: var(--text-muted);\">TelÃ©fono</div>",
+        "fixed": "                            <div style=\"font-size: 0.875rem; color: var(--text-muted);\">Teléfono</div>"
+      },
+      {
+        "lineNum": 252,
+        "original": "                    <button id=\"btn-add-note\" class=\"btn btn-sm btn-ghost\"><i data-lucide=\"plus\"></i> Nueva InteracciÃ³n</button>",
+        "fixed": "                    <button id=\"btn-add-note\" class=\"btn btn-sm btn-ghost\"><i data-lucide=\"plus\"></i> Nueva Interacción</button>"
+      },
+      {
+        "lineNum": 336,
+        "original": "                    <label>TelÃ©fono</label>",
+        "fixed": "                    <label>Teléfono</label>"
+      },
+      {
+        "lineNum": 341,
+        "original": "                    <label>DirecciÃ³n</label>",
+        "fixed": "                    <label>Dirección</label>"
+      },
+      {
+        "lineNum": 363,
+        "original": "                    <label>InterÃ©s En (VehÃ­culo / Marca)</label>",
+        "fixed": "                    <label>Interés En (Vehículo / Marca)</label>"
+      },
+      {
+        "lineNum": 413,
+        "original": "                <label>Tipo de InteracciÃ³n</label>",
+        "fixed": "                <label>Tipo de Interacción</label>"
+      },
+      {
+        "lineNum": 417,
+        "original": "                    <option value=\"ReuniÃ³n\">ReuniÃ³n</option>",
+        "fixed": "                    <option value=\"Reunión\">Reunión</option>"
+      },
+      {
+        "lineNum": 432,
+        "original": "    openModal('Nueva InteracciÃ³n', html);",
+        "fixed": "    openModal('Nueva Interacción', html);"
+      },
+      {
+        "lineNum": 449,
+        "original": "        showToast('InteracciÃ³n agregada', 'success');",
+        "fixed": "        showToast('Interacción agregada', 'success');"
+      },
+      {
+        "lineNum": 465,
+        "original": "        { id: 'negotiation', name: 'NegociaciÃ³n', cls: 'badge-gold' },",
+        "fixed": "        { id: 'negotiation', name: 'Negociación', cls: 'badge-gold' },"
+      },
+      {
+        "lineNum": 501,
+        "original": "                                        <div style=\"font-size:0.875rem; color:var(--text-muted); margin-bottom:0.5rem;\">${l.interestedIn || 'Sin interÃ©s especÃ­fico'}</div>",
+        "fixed": "                                        <div style=\"font-size:0.875rem; color:var(--text-muted); margin-bottom:0.5rem;\">${l.interestedIn || 'Sin interés específico'}</div>"
+      },
+      {
+        "lineNum": 550,
+        "original": "                    <label>TelÃ©fono</label>",
+        "fixed": "                    <label>Teléfono</label>"
+      },
+      {
+        "lineNum": 554,
+        "original": "                    <label>InterÃ©s (VehÃ­culo/Marca)</label>",
+        "fixed": "                    <label>Interés (Vehículo/Marca)</label>"
+      },
+      {
+        "lineNum": 579,
+        "original": "                        <option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>NegociaciÃ³n</option>",
+        "fixed": "                        <option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>Negociación</option>"
+      },
+      {
+        "lineNum": 630,
+        "original": "        negotiation: 'NegociaciÃ³n', won: 'Ganado', lost: 'Perdido'",
+        "fixed": "        negotiation: 'Negociación', won: 'Ganado', lost: 'Perdido'"
+      },
+      {
+        "lineNum": 637,
+        "original": "            <div><strong style=\"color:var(--text-muted); font-size:0.875rem;\">InterÃ©s:</strong><div>${lead.interestedIn || '-'}</div></div>",
+        "fixed": "            <div><strong style=\"color:var(--text-muted); font-size:0.875rem;\">Interés:</strong><div>${lead.interestedIn || '-'}</div></div>"
+      },
+      {
+        "lineNum": 649,
+        "original": "                <option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>NegociaciÃ³n</option>",
+        "fixed": "                <option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>Negociación</option>"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\dashboard\\dashboard.js",
+    "totalLines": 339,
+    "corruptedLineCount": 4,
+    "corruptedLines": [
+      {
+        "lineNum": 9,
+        "original": "  const greeting = currentHour < 12 ? 'Buenos dÃƒÂ­as' : 'Buenas tardes';",
+        "fixed": "  const greeting = currentHour < 12 ? 'Buenos días' : 'Buenas tardes';"
+      },
+      {
+        "lineNum": 157,
+        "original": "            const labels = { quote: 'CotizaciÃƒÂ³n', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };",
+        "fixed": "            const labels = { quote: 'Cotización', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };"
+      },
+      {
+        "lineNum": 221,
+        "original": "                VenciÃƒÂ³: ${fmtDate(inst.dueDate)}",
+        "fixed": "                Venció: ${fmtDate(inst.dueDate)}"
+      },
+      {
+        "lineNum": 252,
+        "original": "          <h3 class=\"card-title\">VehÃƒÂ­culos Disponibles</h3>",
+        "fixed": "          <h3 class=\"card-title\">Vehículos Disponibles</h3>"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\financing\\financing.js",
+    "totalLines": 514,
+    "corruptedLineCount": 18,
+    "corruptedLines": [
+      {
+        "lineNum": 120,
+        "original": "                            <th>VehÃƒÂ­culo</th>",
+        "fixed": "                            <th>Vehículo</th>"
+      },
+      {
+        "lineNum": 123,
+        "original": "                            <th>PrÃƒÂ³x. Vencimiento</th>",
+        "fixed": "                            <th>Próx. Vencimiento</th>"
+      },
+      {
+        "lineNum": 227,
+        "original": "                <label>VehÃƒÂ­culo</label>",
+        "fixed": "                <label>Vehículo</label>"
+      },
+      {
+        "lineNum": 244,
+        "original": "                        <th>NÃ‚Â°</th>",
+        "fixed": "                        <th>Nº</th>"
+      },
+      {
+        "lineNum": 308,
+        "original": "    confirmDialog('Ã‚Â¿Confirmar pago de esta cuota?', () => {",
+        "fixed": "    confirmDialog('¿Confirmar pago de esta cuota?', () => {"
+      },
+      {
+        "lineNum": 376,
+        "original": "            <h1 class=\"page-title\">Cuotas PrÃƒÂ³ximas / Vencidas</h1>",
+        "fixed": "            <h1 class=\"page-title\">Cuotas Próximas / Vencidas</h1>"
+      },
+      {
+        "lineNum": 387,
+        "original": "                <h2 class=\"card-title text-warning\">Cuotas por Vencer (prÃƒÂ³ximos 30 dÃƒÂ­as)</h2>",
+        "fixed": "                <h2 class=\"card-title text-warning\">Cuotas por Vencer (próximos 30 días)</h2>"
+      },
+      {
+        "lineNum": 394,
+        "original": "                            <th>VehÃƒÂ­culo</th>",
+        "fixed": "                            <th>Vehículo</th>"
+      },
+      {
+        "lineNum": 395,
+        "original": "                            <th>Cuota NÃ‚Â°</th>",
+        "fixed": "                            <th>Cuota Nº</th>"
+      },
+      {
+        "lineNum": 398,
+        "original": "                            <th>DÃƒÂ­as Restantes</th>",
+        "fixed": "                            <th>Días Restantes</th>"
+      },
+      {
+        "lineNum": 406,
+        "original": "        html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas por vencer en los prÃƒÂ³ximos 30 dÃƒÂ­as.</td></tr>`;",
+        "fixed": "        html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas por vencer en los próximos 30 días.</td></tr>`;"
+      },
+      {
+        "lineNum": 410,
+        "original": "                ? `<span class=\"badge badge-warning\">${p.daysDiff} dÃƒÂ­as</span>`",
+        "fixed": "                ? `<span class=\"badge badge-warning\">${p.daysDiff} días</span>`"
+      },
+      {
+        "lineNum": 411,
+        "original": "                : `<span class=\"badge badge-info\">${p.daysDiff} dÃƒÂ­as</span>`;",
+        "fixed": "                : `<span class=\"badge badge-info\">${p.daysDiff} días</span>`;"
+      },
+      {
+        "lineNum": 446,
+        "original": "                            <th>VehÃƒÂ­culo</th>",
+        "fixed": "                            <th>Vehículo</th>"
+      },
+      {
+        "lineNum": 447,
+        "original": "                            <th>Cuota NÃ‚Â°</th>",
+        "fixed": "                            <th>Cuota Nº</th>"
+      },
+      {
+        "lineNum": 450,
+        "original": "                            <th>DÃƒÂ­as Vencidos</th>",
+        "fixed": "                            <th>Días Vencidos</th>"
+      },
+      {
+        "lineNum": 458,
+        "original": "        html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas vencidas. Ã‚Â¡Excelente!</td></tr>`;",
+        "fixed": "        html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas vencidas. ¡Excelente!</td></tr>`;"
+      },
+      {
+        "lineNum": 470,
+        "original": "                    <td><span class=\"badge badge-danger\">${daysOverdue} dÃƒÂ­as</span></td>",
+        "fixed": "                    <td><span class=\"badge badge-danger\">${daysOverdue} días</span></td>"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\inventory\\inventory.js",
+    "totalLines": 586,
+    "corruptedLineCount": 41,
+    "corruptedLines": [
+      {
+        "lineNum": 15,
+        "original": "  consigned: 'ConsignaciÃ³n'",
+        "fixed": "  consigned: 'Consignación'"
+      },
+      {
+        "lineNum": 30,
+        "original": "  in_preparation: 'En PreparaciÃ³n',",
+        "fixed": "  in_preparation: 'En Preparación',"
+      },
+      {
+        "lineNum": 31,
+        "original": "  in_transit: 'En TrÃ¡nsito'",
+        "fixed": "  in_transit: 'En Tránsito'"
+      },
+      {
+        "lineNum": 38,
+        "original": "  consignment: 'ConsignaciÃ³n'",
+        "fixed": "  consignment: 'Consignación'"
+      },
+      {
+        "lineNum": 61,
+        "original": "        <h1>Inventario de VehÃ­culos</h1>",
+        "fixed": "        <h1>Inventario de Vehículos</h1>"
+      },
+      {
+        "lineNum": 62,
+        "original": "        <p class=\"text-muted\">Gestiona el stock de vehÃ­culos disponibles</p>",
+        "fixed": "        <p class=\"text-muted\">Gestiona el stock de vehículos disponibles</p>"
+      },
+      {
+        "lineNum": 66,
+        "original": "          <i data-lucide=\"plus\"></i> Nuevo VehÃ­culo",
+        "fixed": "          <i data-lucide=\"plus\"></i> Nuevo Vehículo"
+      },
+      {
+        "lineNum": 75,
+        "original": "          <div class=\"kpi-label\">Total VehÃ­culos</div>",
+        "fixed": "          <div class=\"kpi-label\">Total Vehículos</div>"
+      },
+      {
+        "lineNum": 109,
+        "original": "            <option value=\"\">CondiciÃ³n...</option>",
+        "fixed": "            <option value=\"\">Condición...</option>"
+      },
+      {
+        "lineNum": 122,
+        "original": "            <option value=\"in_transit\">En TrÃ¡nsito</option>",
+        "fixed": "            <option value=\"in_transit\">En Tránsito</option>"
+      },
+      {
+        "lineNum": 131,
+        "original": "              <th>VehÃ­culo</th>",
+        "fixed": "              <th>Vehículo</th>"
+      },
+      {
+        "lineNum": 132,
+        "original": "              <th>AÃ±o/Color/KM</th>",
+        "fixed": "              <th>Año/Color/KM</th>"
+      },
+      {
+        "lineNum": 133,
+        "original": "              <th>CondiciÃ³n</th>",
+        "fixed": "              <th>Condición</th>"
+      },
+      {
+        "lineNum": 155,
+        "original": "      tbody.innerHTML = `<tr><td colspan=\"8\" class=\"text-center text-muted\">No hay vehÃ­culos registrados</td></tr>`;",
+        "fixed": "      tbody.innerHTML = `<tr><td colspan=\"8\" class=\"text-center text-muted\">No hay vehículos registrados</td></tr>`;"
+      },
+      {
+        "lineNum": 200,
+        "original": "        confirmDialog('Eliminar VehÃ­culo', 'Â¿EstÃ¡s seguro de que deseas eliminar este vehÃ­culo?', () => {",
+        "fixed": "        confirmDialog('Eliminar Vehículo', '¿Estás seguro de que deseas eliminar este vehículo?', () => {"
+      },
+      {
+        "lineNum": 202,
+        "original": "          showToast('VehÃ­culo eliminado con Ã©xito', 'success');",
+        "fixed": "          showToast('Vehículo eliminado con éxito', 'success');"
+      },
+      {
+        "lineNum": 243,
+        "original": "    pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">VehÃ­culo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;",
+        "fixed": "    pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">Vehículo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;"
+      },
+      {
+        "lineNum": 279,
+        "original": "            <div class=\"text-muted text-sm\">AÃ±o</div>",
+        "fixed": "            <div class=\"text-muted text-sm\">Año</div>"
+      },
+      {
+        "lineNum": 308,
+        "original": "        <div class=\"tab-item active\" style=\"padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--gold); color: var(--gold);\" data-tab=\"info\">InformaciÃ³n</div>",
+        "fixed": "        <div class=\"tab-item active\" style=\"padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--gold); color: var(--gold);\" data-tab=\"info\">Información</div>"
+      },
+      {
+        "lineNum": 318,
+        "original": "          <div><label class=\"text-muted\">VersiÃ³n</label><div>${vehicle.version || '-'}</div></div>",
+        "fixed": "          <div><label class=\"text-muted\">Versión</label><div>${vehicle.version || '-'}</div></div>"
+      },
+      {
+        "lineNum": 320,
+        "original": "          <div><label class=\"text-muted\">AÃ±o</label><div>${vehicle.year}</div></div>",
+        "fixed": "          <div><label class=\"text-muted\">Año</label><div>${vehicle.year}</div></div>"
+      },
+      {
+        "lineNum": 323,
+        "original": "          <div><label class=\"text-muted\">CondiciÃ³n</label><div>${conditionLabels[vehicle.condition]}</div></div>",
+        "fixed": "          <div><label class=\"text-muted\">Condición</label><div>${conditionLabels[vehicle.condition]}</div></div>"
+      },
+      {
+        "lineNum": 334,
+        "original": "            <tr><td>Costos de ImportaciÃ³n</td><td class=\"text-right\">${fmt(vehicle.importCosts, vehicle.currency)}</td></tr>",
+        "fixed": "            <tr><td>Costos de Importación</td><td class=\"text-right\">${fmt(vehicle.importCosts, vehicle.currency)}</td></tr>"
+      },
+      {
+        "lineNum": 335,
+        "original": "            <tr><td>Costo de PreparaciÃ³n</td><td class=\"text-right\">${fmt(vehicle.prepCost, vehicle.currency)}</td></tr>",
+        "fixed": "            <tr><td>Costo de Preparación</td><td class=\"text-right\">${fmt(vehicle.prepCost, vehicle.currency)}</td></tr>"
+      },
+      {
+        "lineNum": 336,
+        "original": "            <tr><td>ComisiÃ³n</td><td class=\"text-right\">${fmt(vehicle.commission, vehicle.currency)}</td></tr>",
+        "fixed": "            <tr><td>Comisión</td><td class=\"text-right\">${fmt(vehicle.commission, vehicle.currency)}</td></tr>"
+      },
+      {
+        "lineNum": 367,
+        "original": "      <div class=\"card-header\"><h3 class=\"card-title\">GalerÃ­a de fotos</h3></div>",
+        "fixed": "      <div class=\"card-header\"><h3 class=\"card-title\">Galería de fotos</h3></div>"
+      },
+      {
+        "lineNum": 413,
+        "original": "    pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">VehÃ­culo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;",
+        "fixed": "    pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">Vehículo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;"
+      },
+      {
+        "lineNum": 419,
+        "original": "  const title = isEdit ? 'Editar VehÃ­culo' : 'Nuevo VehÃ­culo';",
+        "fixed": "  const title = isEdit ? 'Editar Vehículo' : 'Nuevo Vehículo';"
+      },
+      {
+        "lineNum": 434,
+        "original": "        <div class=\"card-header\"><h3 class=\"card-title\">InformaciÃ³n Base</h3></div>",
+        "fixed": "        <div class=\"card-header\"><h3 class=\"card-title\">Información Base</h3></div>"
+      },
+      {
+        "lineNum": 449,
+        "original": "            <label>VersiÃ³n</label>",
+        "fixed": "            <label>Versión</label>"
+      },
+      {
+        "lineNum": 453,
+        "original": "            <label>AÃ±o <span class=\"text-danger\">*</span></label>",
+        "fixed": "            <label>Año <span class=\"text-danger\">*</span></label>"
+      },
+      {
+        "lineNum": 471,
+        "original": "            <label>CondiciÃ³n</label>",
+        "fixed": "            <label>Condición</label>"
+      },
+      {
+        "lineNum": 484,
+        "original": "              <option value=\"consignment\" ${vehicle.origin === 'consignment' ? 'selected' : ''}>ConsignaciÃ³n</option>",
+        "fixed": "              <option value=\"consignment\" ${vehicle.origin === 'consignment' ? 'selected' : ''}>Consignación</option>"
+      },
+      {
+        "lineNum": 493,
+        "original": "              <option value=\"in_preparation\" ${vehicle.commercialStatus === 'in_preparation' ? 'selected' : ''}>En PreparaciÃ³n</option>",
+        "fixed": "              <option value=\"in_preparation\" ${vehicle.commercialStatus === 'in_preparation' ? 'selected' : ''}>En Preparación</option>"
+      },
+      {
+        "lineNum": 494,
+        "original": "              <option value=\"in_transit\" ${vehicle.commercialStatus === 'in_transit' ? 'selected' : ''}>En TrÃ¡nsito</option>",
+        "fixed": "              <option value=\"in_transit\" ${vehicle.commercialStatus === 'in_transit' ? 'selected' : ''}>En Tránsito</option>"
+      },
+      {
+        "lineNum": 499,
+        "original": "            <input type=\"text\" id=\"v-branch\" class=\"form-control\" value=\"${vehicle.branch || 'AsunciÃ³n'}\">",
+        "fixed": "            <input type=\"text\" id=\"v-branch\" class=\"form-control\" value=\"${vehicle.branch || 'Asunción'}\">"
+      },
+      {
+        "lineNum": 519,
+        "original": "            <label>Costos de ImportaciÃ³n</label>",
+        "fixed": "            <label>Costos de Importación</label>"
+      },
+      {
+        "lineNum": 523,
+        "original": "            <label>Costo de PreparaciÃ³n</label>",
+        "fixed": "            <label>Costo de Preparación</label>"
+      },
+      {
+        "lineNum": 527,
+        "original": "            <label>ComisiÃ³n</label>",
+        "fixed": "            <label>Comisión</label>"
+      },
+      {
+        "lineNum": 577,
+        "original": "      showToast('VehÃ­culo actualizado', 'success');",
+        "fixed": "      showToast('Vehículo actualizado', 'success');"
+      },
+      {
+        "lineNum": 581,
+        "original": "      showToast('VehÃ­culo creado', 'success');",
+        "fixed": "      showToast('Vehículo creado', 'success');"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\notifications\\notifications.js",
+    "totalLines": 555,
+    "corruptedLineCount": 18,
+    "corruptedLines": [
+      {
+        "lineNum": 17,
+        "original": "        <h2 class=\"page-title\">ConfiguraciÃƒÂ³n de Notificaciones</h2>",
+        "fixed": "        <h2 class=\"page-title\">Configuración de Notificaciones</h2>"
+      },
+      {
+        "lineNum": 32,
+        "original": "        <p style=\"margin: 0; color: var(--text-primary); font-weight: 500;\">Ã¢Å¡Â¡ Preparado para conectar con n8n o cualquier plataforma de automatizaciÃƒÂ³n.</p>",
+        "fixed": "        <p style=\"margin: 0; color: var(--text-primary); font-weight: 500;\">⚡ Preparado para conectar con n8n o cualquier plataforma de automatización.</p>"
+      },
+      {
+        "lineNum": 33,
+        "original": "        <p style=\"margin: 0; font-size: 0.875rem; color: var(--text-secondary);\">En el entorno de producciÃƒÂ³n, los emails se envÃƒÂ­an automÃƒÂ¡ticamente vÃƒÂ­a webhook.</p>",
+        "fixed": "        <p style=\"margin: 0; font-size: 0.875rem; color: var(--text-secondary);\">En el entorno de producción, los emails se envían automáticamente vía webhook.</p>"
+      },
+      {
+        "lineNum": 47,
+        "original": "        <h3 class=\"metric-title\">Tasa de Ãƒâ€°xito</h3>",
+        "fixed": "        <h3 class=\"metric-title\">Tasa de Éxito</h3>"
+      },
+      {
+        "lineNum": 59,
+        "original": "            <h4 style=\"margin: 0 0 4px 0; font-weight: 500;\">Recordatorio de cuota prÃƒÂ³xima a vencer</h4>",
+        "fixed": "            <h4 style=\"margin: 0 0 4px 0; font-weight: 500;\">Recordatorio de cuota próxima a vencer</h4>"
+      },
+      {
+        "lineNum": 61,
+        "original": "              Enviar <input type=\"number\" value=\"3\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> dÃƒÂ­as antes",
+        "fixed": "              Enviar <input type=\"number\" value=\"3\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> días antes"
+      },
+      {
+        "lineNum": 76,
+        "original": "              Enviar cada <input type=\"number\" value=\"5\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> dÃƒÂ­as",
+        "fixed": "              Enviar cada <input type=\"number\" value=\"5\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> días"
+      },
+      {
+        "lineNum": 117,
+        "original": "        <h3 class=\"card-title\">SegmentaciÃƒÂ³n para CampaÃƒÂ±as</h3>",
+        "fixed": "        <h3 class=\"card-title\">Segmentación para Campañas</h3>"
+      },
+      {
+        "lineNum": 131,
+        "original": "            <label>Segmento (CondiciÃƒÂ³n)</label>",
+        "fixed": "            <label>Segmento (Condición)</label>"
+      },
+      {
+        "lineNum": 134,
+        "original": "              <option value=\"vip\">Clientes VIP (MÃƒÂ¡s de 1 compra)</option>",
+        "fixed": "              <option value=\"vip\">Clientes VIP (Más de 1 compra)</option>"
+      },
+      {
+        "lineNum": 141,
+        "original": "          <button class=\"btn btn-primary\" id=\"btn-send-campaign\" disabled>Enviar campaÃƒÂ±a (simulado)</button>",
+        "fixed": "          <button class=\"btn btn-primary\" id=\"btn-send-campaign\" disabled>Enviar campaña (simulado)</button>"
+      },
+      {
+        "lineNum": 227,
+        "original": "    showToast(`CampaÃƒÂ±a enviada a ${count} clientes`, 'success');",
+        "fixed": "    showToast(`Campaña enviada a ${count} clientes`, 'success');"
+      },
+      {
+        "lineNum": 247,
+        "original": "          <option value=\"offer\" ${t.type === 'offer' ? 'selected' : ''}>Oferta / CampaÃƒÂ±a</option>",
+        "fixed": "          <option value=\"offer\" ${t.type === 'offer' ? 'selected' : ''}>Oferta / Campaña</option>"
+      },
+      {
+        "lineNum": 338,
+        "original": "  showToast(`SimulaciÃƒÂ³n: ${count} emails enviados`, 'success');",
+        "fixed": "  showToast(`Simulación: ${count} emails enviados`, 'success');"
+      },
+      {
+        "lineNum": 367,
+        "original": "  showToast(`SimulaciÃƒÂ³n: ${count} emails enviados`, 'success');",
+        "fixed": "  showToast(`Simulación: ${count} emails enviados`, 'success');"
+      },
+      {
+        "lineNum": 382,
+        "original": "        <h2 class=\"page-title\">Historial de EnvÃƒÂ­os</h2>",
+        "fixed": "        <h2 class=\"page-title\">Historial de Envíos</h2>"
+      },
+      {
+        "lineNum": 405,
+        "original": "        <h3 class=\"metric-title\">Tasa de Ãƒâ€°xito</h3>",
+        "fixed": "        <h3 class=\"metric-title\">Tasa de Éxito</h3>"
+      },
+      {
+        "lineNum": 505,
+        "original": "      tbody.innerHTML = `<tr><td colspan=\"7\" style=\"text-align: center; padding: 24px;\">No hay registros de envÃƒÂ­o</td></tr>`;",
+        "fixed": "      tbody.innerHTML = `<tr><td colspan=\"7\" style=\"text-align: center; padding: 24px;\">No hay registros de envío</td></tr>`;"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\sales\\sales.js",
+    "totalLines": 632,
+    "corruptedLineCount": 36,
+    "corruptedLines": [
+      {
+        "lineNum": 34,
+        "original": "    quote: { title: 'CotizaciÃƒÂ³n', color: 'info', items: Sales.all().filter(s => s.stage === 'quote') },",
+        "fixed": "    quote: { title: 'Cotización', color: 'info', items: Sales.all().filter(s => s.stage === 'quote') },"
+      },
+      {
+        "lineNum": 66,
+        "original": "        <i data-lucide=\"plus\"></i> Nueva CotizaciÃƒÂ³n",
+        "fixed": "        <i data-lucide=\"plus\"></i> Nueva Cotización"
+      },
+      {
+        "lineNum": 116,
+        "original": "            ${col.items.length === 0 ? '<div class=\"text-center text-muted p-3\">VacÃƒÂ­o</div>' : ''}",
+        "fixed": "            ${col.items.length === 0 ? '<div class=\"text-center text-muted p-3\">Vacío</div>' : ''}"
+      },
+      {
+        "lineNum": 159,
+        "original": "    confirmDialog(`Ã‚Â¿Avanzar venta ${sale.saleNumber} a ${nextStage}?`, () => {",
+        "fixed": "    confirmDialog(`¿Avanzar venta ${sale.saleNumber} a ${nextStage}?`, () => {"
+      },
+      {
+        "lineNum": 186,
+        "original": "          description: `Venta ${sale.saleNumber} - VehÃƒÂ­culo ${vehicle?.brand} ${vehicle?.model}`,",
+        "fixed": "          description: `Venta ${sale.saleNumber} - Vehículo ${vehicle?.brand} ${vehicle?.model}`,"
+      },
+      {
+        "lineNum": 215,
+        "original": "    { id: 'quote', label: 'CotizaciÃƒÂ³n' },",
+        "fixed": "    { id: 'quote', label: 'Cotización' },"
+      },
+      {
+        "lineNum": 261,
+        "original": "        <!-- VehÃƒÂ­culo -->",
+        "fixed": "        <!-- Vehículo -->"
+      },
+      {
+        "lineNum": 263,
+        "original": "          <div class=\"card-header\"><h3 class=\"card-title\">VehÃƒÂ­culo</h3></div>",
+        "fixed": "          <div class=\"card-header\"><h3 class=\"card-title\">Vehículo</h3></div>"
+      },
+      {
+        "lineNum": 267,
+        "original": "            <p><strong>VersiÃƒÂ³n:</strong> ${vehicle.version || '-'}</p>",
+        "fixed": "            <p><strong>Versión:</strong> ${vehicle.version || '-'}</p>"
+      },
+      {
+        "lineNum": 268,
+        "original": "            <p><strong>AÃƒÂ±o:</strong> ${vehicle.year || '-'}</p>",
+        "fixed": "            <p><strong>Año:</strong> ${vehicle.year || '-'}</p>"
+      },
+      {
+        "lineNum": 281,
+        "original": "            <p><strong>TelÃƒÂ©fono:</strong> ${client.phone || '-'}</p>",
+        "fixed": "            <p><strong>Teléfono:</strong> ${client.phone || '-'}</p>"
+      },
+      {
+        "lineNum": 297,
+        "original": "        <!-- Resumen econÃƒÂ³mico -->",
+        "fixed": "        <!-- Resumen económico -->"
+      },
+      {
+        "lineNum": 299,
+        "original": "          <div class=\"card-header\"><h3 class=\"card-title\">Resumen EconÃƒÂ³mico</h3></div>",
+        "fixed": "          <div class=\"card-header\"><h3 class=\"card-title\">Resumen Económico</h3></div>"
+      },
+      {
+        "lineNum": 306,
+        "original": "                sale.paymentType === 'financed_own' ? 'FinanciaciÃƒÂ³n Propia' : 'FinanciaciÃƒÂ³n Bancaria'}",
+        "fixed": "                sale.paymentType === 'financed_own' ? 'Financiación Propia' : 'Financiación Bancaria'}"
+      },
+      {
+        "lineNum": 343,
+        "original": "                <i data-lucide=\"credit-card\"></i> Configurar FinanciaciÃƒÂ³n",
+        "fixed": "                <i data-lucide=\"credit-card\"></i> Configurar Financiación"
+      },
+      {
+        "lineNum": 389,
+        "original": "      showToast('Funcionalidad de vehÃƒÂ­culo en parte de pago en desarrollo', 'info');",
+        "fixed": "      showToast('Funcionalidad de vehículo en parte de pago en desarrollo', 'info');"
+      },
+      {
+        "lineNum": 396,
+        "original": "      showToast('Funcionalidad de financiaciÃƒÂ³n en desarrollo', 'info');",
+        "fixed": "      showToast('Funcionalidad de financiación en desarrollo', 'info');"
+      },
+      {
+        "lineNum": 403,
+        "original": "    showToast('Error: jsPDF no estÃƒÂ¡ cargado', 'danger');",
+        "fixed": "    showToast('Error: jsPDF no está cargado', 'danger');"
+      },
+      {
+        "lineNum": 410,
+        "original": "  doc.text('CONTRATO DE COMPRÃ­VENTA DE VEHÃƒÂCULO AUTOMOTOR', 105, 20, { align: 'center' });",
+        "fixed": "  doc.text('CONTRATO DE COMPRAVENTA DE VEHÍCULO AUTOMOTOR', 105, 20, { align: 'center' });"
+      },
+      {
+        "lineNum": 414,
+        "original": "  doc.text(`Nro de OperaciÃƒÂ³n: ${sale.saleNumber}`, 20, 42);",
+        "fixed": "  doc.text(`Nro de Operación: ${sale.saleNumber}`, 20, 42);"
+      },
+      {
+        "lineNum": 419,
+        "original": "  doc.text('VENDEDOR: AutoERP S.A., con RUC 80012345-6, domiciliado en AsunciÃƒÂ³n, Paraguay.', 20, 65);",
+        "fixed": "  doc.text('VENDEDOR: AutoERP S.A., con RUC 80012345-6, domiciliado en Asunción, Paraguay.', 20, 65);"
+      },
+      {
+        "lineNum": 420,
+        "original": "  doc.text(`COMPRÃ­OR: ${client.firstName || ''} ${client.lastName || ''}, con Documento: ${client.document || ''},`, 20, 72);",
+        "fixed": "  doc.text(`COMPRADOR: ${client.firstName || ''} ${client.lastName || ''}, con Documento: ${client.document || ''},`, 20, 72);"
+      },
+      {
+        "lineNum": 424,
+        "original": "  doc.text('2. VEHÃƒÂCULO', 20, 95);",
+        "fixed": "  doc.text('2. VEHÍCULO', 20, 95);"
+      },
+      {
+        "lineNum": 428,
+        "original": "  doc.text(`AÃƒÂ±o: ${vehicle.year || ''}`, 20, 119);",
+        "fixed": "  doc.text(`Año: ${vehicle.year || ''}`, 20, 119);"
+      },
+      {
+        "lineNum": 440,
+        "original": "  doc.text('Ambas partes aceptan los tÃƒÂ©rminos de este contrato.', 20, 200);",
+        "fixed": "  doc.text('Ambas partes aceptan los términos de este contrato.', 20, 200);"
+      },
+      {
+        "lineNum": 463,
+        "original": "      <h2>Nueva CotizaciÃƒÂ³n</h2>",
+        "fixed": "      <h2>Nueva Cotización</h2>"
+      },
+      {
+        "lineNum": 470,
+        "original": "        <h3 class=\"mb-3\">Paso 1: Seleccionar VehÃƒÂ­culo</h3>",
+        "fixed": "        <h3 class=\"mb-3\">Paso 1: Seleccionar Vehículo</h3>"
+      },
+      {
+        "lineNum": 480,
+        "original": "                  <div class=\"text-sm text-muted\">AÃƒÂ±o: ${v.year} | Color: ${v.color}</div>",
+        "fixed": "                  <div class=\"text-sm text-muted\">Año: ${v.year} | Color: ${v.color}</div>"
+      },
+      {
+        "lineNum": 486,
+        "original": "          ${availableVehicles.length === 0 ? '<div class=\"col-12 text-muted\">No hay vehÃƒÂ­culos disponibles</div>' : ''}",
+        "fixed": "          ${availableVehicles.length === 0 ? '<div class=\"col-12 text-muted\">No hay vehículos disponibles</div>' : ''}"
+      },
+      {
+        "lineNum": 497,
+        "original": "          <div class=\"mt-2 text-sm text-muted\">Para cliente nuevo, primero agrÃƒÂ©guelo en el mÃƒÂ³dulo de clientes.</div>",
+        "fixed": "          <div class=\"mt-2 text-sm text-muted\">Para cliente nuevo, primero agréguelo en el módulo de clientes.</div>"
+      },
+      {
+        "lineNum": 529,
+        "original": "              <option value=\"financed_own\">FinanciaciÃƒÂ³n Propia</option>",
+        "fixed": "              <option value=\"financed_own\">Financiación Propia</option>"
+      },
+      {
+        "lineNum": 530,
+        "original": "              <option value=\"financed_bank\">FinanciaciÃƒÂ³n Bancaria</option>",
+        "fixed": "              <option value=\"financed_bank\">Financiación Bancaria</option>"
+      },
+      {
+        "lineNum": 541,
+        "original": "            <label>Tasa de InterÃƒÂ©s (%)</label>",
+        "fixed": "            <label>Tasa de Interés (%)</label>"
+      },
+      {
+        "lineNum": 553,
+        "original": "            <i data-lucide=\"save\"></i> Crear CotizaciÃƒÂ³n",
+        "fixed": "            <i data-lucide=\"save\"></i> Crear Cotización"
+      },
+      {
+        "lineNum": 619,
+        "original": "        note: 'CotizaciÃƒÂ³n creada'",
+        "fixed": "        note: 'Cotización creada'"
+      },
+      {
+        "lineNum": 628,
+        "original": "    showToast('CotizaciÃƒÂ³n creada exitosamente', 'success');",
+        "fixed": "    showToast('Cotización creada exitosamente', 'success');"
+      }
+    ]
+  },
+  {
+    "filePath": "modules\\sellers\\sellers.js",
+    "totalLines": 635,
+    "corruptedLineCount": 5,
+    "corruptedLines": [
+      {
+        "lineNum": 196,
+        "original": "        showToast('Formulario para nuevo vendedor no implementado aÃƒÂºn', 'info');",
+        "fixed": "        showToast('Formulario para nuevo vendedor no implementado aún', 'info');"
+      },
+      {
+        "lineNum": 287,
+        "original": "                    <div style=\"color:var(--text-muted); margin-bottom:0.5rem;\">ComisiÃƒÂ³n Estimada (2%)</div>",
+        "fixed": "                    <div style=\"color:var(--text-muted); margin-bottom:0.5rem;\">Comisión Estimada (2%)</div>"
+      },
+      {
+        "lineNum": 297,
+        "original": "                <h3 class=\"card-title\" style=\"margin-bottom: 1rem;\">Ventas (ÃƒÅ¡ltimos 6 meses)</h3>",
+        "fixed": "                <h3 class=\"card-title\" style=\"margin-bottom: 1rem;\">Ventas (Últimos 6 meses)</h3>"
+      },
+      {
+        "lineNum": 310,
+        "original": "                                <th style=\"padding: 0.75rem;\">VehÃƒÂ­culo</th>",
+        "fixed": "                                <th style=\"padding: 0.75rem;\">Vehículo</th>"
+      },
+      {
+        "lineNum": 629,
+        "original": "            showToast('Modal de configuraciÃƒÂ³n general de metas - No implementado', 'info');",
+        "fixed": "            showToast('Modal de configuración general de metas - No implementado', 'info');"
+      }
+    ]
+  },
+  {
+    "filePath": "test.js",
+    "totalLines": 33,
+    "corruptedLineCount": 0,
+    "corruptedLines": []
+  }
+]

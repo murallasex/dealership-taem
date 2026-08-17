@@ -1,0 +1,2452 @@
+[
+  {
+    "file": "app.js",
+    "line": 2,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "// AutoERP — Main Application Router & Bootstrap"
+  },
+  {
+    "file": "app.js",
+    "line": 87,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "export function confirmDialog(message, onConfirm, title = 'Confirmar acción') {"
+  },
+  {
+    "file": "app.js",
+    "line": 112,
+    "nonAscii": "₲",
+    "suspect": null,
+    "text": "return '₲ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(amount);"
+  },
+  {
+    "file": "app.js",
+    "line": 116,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "if (!isoStr) return '—';"
+  },
+  {
+    "file": "app.js",
+    "line": 176,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "if (content) content.innerHTML = `<div class=\"empty-state\"><p>Error al cargar el módulo.</p></div>`;"
+  },
+  {
+    "file": "app.js",
+    "line": 185,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "if (content) content.innerHTML = `<div class=\"empty-state\"><p>Error al cargar el módulo.</p></div>`;"
+  },
+  {
+    "file": "app.js",
+    "line": 189,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "content.innerHTML = `<div class=\"empty-state\"><div class=\"empty-state-icon\"><i data-lucide=\"map-pin-off\"></i></div><h3>Página no encontrada</h3><p>La ruta \"${hash}\" no existe.</p></div>`;"
+  },
+  {
+    "file": "data/store.js",
+    "line": 2,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "// AutoERP — Data Store (localStorage abstraction + Demo Data)"
+  },
+  {
+    "file": "data/store.js",
+    "line": 82,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "// PYG - Guaraníes"
+  },
+  {
+    "file": "data/store.js",
+    "line": 83,
+    "nonAscii": "₲",
+    "suspect": null,
+    "text": "return '₲ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(amount);"
+  },
+  {
+    "file": "data/store.js",
+    "line": 87,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "if (!isoStr) return '—';"
+  },
+  {
+    "file": "data/store.js",
+    "line": 92,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "if (!isoStr) return '—';"
+  },
+  {
+    "file": "data/store.js",
+    "line": 221,
+    "nonAscii": "—ó",
+    "suspect": null,
+    "text": "branch: 'Casa Central — Asunción',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 224,
+    "nonAscii": "ñó",
+    "suspect": null,
+    "text": "address: 'Avda. España 1250, Asunción, Paraguay',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 233,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ id: 'u1', name: 'Carlos Méndez', email: 'admin@autoerp.com', password: 'admin123', role: 'admin', active: true, avatar: 'CM', createdAt: '2025-01-01T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 234,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ id: 'u2', name: 'María Fernández', email: 'maria@autoerp.com', password: '1234', role: 'seller', active: true, avatar: 'MF', sellerId: 's1', createdAt: '2025-01-15T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 235,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'u3', name: 'Roberto López', email: 'roberto@autoerp.com', password: '1234', role: 'seller', active: true, avatar: 'RL', sellerId: 's2', createdAt: '2025-02-01T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 243,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ id: 's1', name: 'María Fernández', userId: 'u2', phone: '+595 981 111-222', email: 'maria@autoerp.com', avatar: 'MF', color: '#c9a227', active: true, hireDate: '2025-01-15T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 244,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 's2', name: 'Roberto López', userId: 'u3', phone: '+595 981 333-444', email: 'roberto@autoerp.com', avatar: 'RL', color: '#3b82f6', active: true, hireDate: '2025-02-01T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 262,
+    "nonAscii": "éñ",
+    "suspect": null,
+    "text": "{ id: 'c1', name: 'Juan Carlos Pérez', email: 'jcperez@gmail.com', phone: '+595 981 222-333', document: '4.567.890', docType: 'CI', address: 'San Lorenzo, Paraguay', segment: 'active', interestedIn: 'Toyota', leadOrigin: 'referral', createdAt: '2026-01-10T00:00:00Z', notes: 'Cliente frecuente, compra cada 2 años.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 263,
+    "nonAscii": "íó",
+    "suspect": null,
+    "text": "{ id: 'c2', name: 'Ana Lucía Rodríguez', email: 'ana.rodriguez@outlook.com', phone: '+595 981 444-555', document: '5.678.901', docType: 'CI', address: 'Asunción, Paraguay', segment: 'active', interestedIn: 'Honda', leadOrigin: 'web', createdAt: '2026-02-05T00:00:00Z', notes: '' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 264,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "{ id: 'c3', name: 'Empresa Logística SA', email: 'compras@logisticasa.com.py', phone: '+595 21 666-777', document: '80098765-4', docType: 'RUC', address: 'Luque, Paraguay', segment: 'active', interestedIn: 'Toyota', leadOrigin: 'walkin', createdAt: '2026-03-01T00:00:00Z', notes: 'Compra flota corporativa.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 265,
+    "nonAscii": "Á",
+    "suspect": null,
+    "text": "{ id: 'c4', name: 'Miguel Ángel Ortiz', email: 'miguel.ortiz@yahoo.com', phone: '+595 981 777-888', document: '6.789.012', docType: 'CI', address: 'Fernando de la Mora, Paraguay', segment: 'prospect', interestedIn: 'Volkswagen', leadOrigin: 'social', createdAt: '2026-06-01T00:00:00Z', notes: 'Interesado en Amarok 0km.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 266,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "{ id: 'c5', name: 'Patricia González', email: 'patri.gonzalez@gmail.com', phone: '+595 981 999-000', document: '7.890.123', docType: 'CI', address: 'Capiatá, Paraguay', segment: 'prospect', interestedIn: 'Chevrolet', leadOrigin: 'referral', createdAt: '2026-07-10T00:00:00Z', notes: '' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 267,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'c6', name: 'Fernando Villalba', email: 'fvillalba@empresa.com', phone: '+595 981 100-200', document: '3.456.789', docType: 'CI', address: 'Asunción, Paraguay', segment: 'active', interestedIn: 'Nissan', leadOrigin: 'walkin', createdAt: '2026-04-20T00:00:00Z', notes: '' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 268,
+    "nonAscii": "úó",
+    "suspect": null,
+    "text": "{ id: 'c7', name: 'Constructora Itapúa SRL', email: 'admin@constructora-itapua.com', phone: '+595 71 222-333', document: '80055443-1', docType: 'RUC', address: 'Encarnación, Paraguay', segment: 'inactive', interestedIn: 'Toyota', leadOrigin: 'referral', createdAt: '2025-08-01T00:00:00Z', notes: 'Ex-cliente, no renueva desde 2025.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 280,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ date: '2026-06-01T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 281,
+    "nonAscii": "óé",
+    "suspect": null,
+    "text": "{ date: '2026-06-02T00:00:00Z', action: 'Verificación técnica completada', by: 'Taller' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 291,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ date: '2026-05-15T00:00:00Z', action: 'Ingresado como parte de pago de venta #VT-0012', by: 'María Fernández' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 292,
+    "nonAscii": "óé",
+    "suspect": null,
+    "text": "{ date: '2026-05-16T00:00:00Z', action: 'Tasación técnica realizada', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 302,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ date: '2026-07-01T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 303,
+    "nonAscii": "íó",
+    "suspect": null,
+    "text": "{ date: '2026-08-01T00:00:00Z', action: 'Reservado por cliente Ana Lucía Rodríguez', by: 'Roberto López' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 313,
+    "nonAscii": "óé",
+    "suspect": null,
+    "text": "{ date: '2026-07-20T00:00:00Z', action: 'Ingreso al inventario desde importación', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 318,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "id: 'v5', vin: '5YJSáDG0DFP00123', brand: 'Volkswagen', model: 'Amarok', version: 'V6 Extreme 4Motion', year: 2024,"
+  },
+  {
+    "file": "data/store.js",
+    "line": 323,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ date: '2026-06-15T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 333,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ date: '2026-04-01T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 334,
+    "nonAscii": "éíá",
+    "suspect": null,
+    "text": "{ date: '2026-05-10T00:00:00Z', action: 'Vendido a Juan Carlos Pérez', by: 'María Fernández' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 335,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ date: '2026-05-15T00:00:00Z', action: 'Entregado al cliente', by: 'María Fernández' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 345,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ date: '2026-07-25T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 346,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ date: '2026-08-01T00:00:00Z', action: 'Enviado a preparación y detailing', by: 'Diego Sanchez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 356,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ date: '2026-06-28T00:00:00Z', action: 'Ingresado en consignación por cliente particular', by: 'Diego Sanchez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 372,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ date: '2026-08-01T00:00:00Z', stage: 'quote', by: 'Roberto López', note: 'Cotización inicial enviada al cliente.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 373,
+    "nonAscii": "óñ₲",
+    "suspect": null,
+    "text": "{ date: '2026-08-05T00:00:00Z', stage: 'reservation', by: 'Roberto López', note: 'Seña recibida: ₲ 10.000.000' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 383,
+    "nonAscii": "íáó",
+    "suspect": null,
+    "text": "{ date: '2026-07-20T00:00:00Z', stage: 'quote', by: 'María Fernández', note: 'Cotización para flota de Empresa Logística SA.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 384,
+    "nonAscii": "íáñ₲",
+    "suspect": null,
+    "text": "{ date: '2026-07-25T00:00:00Z', stage: 'reservation', by: 'María Fernández', note: 'Reserva con seña ₲ 20.000.000.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 385,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ date: '2026-08-02T00:00:00Z', stage: 'contract', by: 'María Fernández', note: 'Contrato de compraventa firmado.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 395,
+    "nonAscii": "íáó",
+    "suspect": null,
+    "text": "{ date: '2026-05-10T00:00:00Z', stage: 'quote', by: 'María Fernández', note: 'Cotización inicial.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 396,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ date: '2026-05-11T00:00:00Z', stage: 'reservation', by: 'María Fernández', note: 'Vehículo reservado.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 397,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ date: '2026-05-12T00:00:00Z', stage: 'contract', by: 'María Fernández', note: 'Contrato firmado. Toyota Corolla aceptado como parte de pago.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 398,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ date: '2026-05-15T00:00:00Z', stage: 'delivery', by: 'María Fernández', note: 'Vehículo entregado. Trámite de transferencia iniciado.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 404,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "currency: 'PYG', advanceAmount: 0, notes: 'Cliente evaluando opciones de financiación.',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 408,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ date: '2026-08-05T00:00:00Z', stage: 'quote', by: 'Diego Sanchez', note: 'Primera cotización enviada.' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 460,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "{ id: 'lead1', name: 'Gabriel Rojas', email: 'gabriel.rojas@gmail.com', phone: '+595 981 321-123', interestedIn: 'Toyota Hilux', origin: 'social', stage: 'new', assignedTo: 's1', notes: 'Vio el vehículo en Instagram.', createdAt: '2026-08-06T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 461,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'lead2', name: 'Natalia Bogado', email: 'nbogado@empresa.py', phone: '+595 981 654-456', interestedIn: 'Chevrolet Tracker', origin: 'web', stage: 'interested', assignedTo: 's2', notes: 'Completó formulario online.', createdAt: '2026-08-04T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 463,
+    "nonAscii": "íé",
+    "suspect": null,
+    "text": "{ id: 'lead4', name: 'Sofía Almada', email: 'sofia.almada@outlook.com', phone: '+595 981 111-999', interestedIn: 'Honda CR-V', origin: 'referral', stage: 'negotiation', assignedTo: 's1', notes: 'Referida por cliente Juan Pérez.', createdAt: '2026-07-28T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 464,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'lead5', name: 'Carlos Britez', email: 'c.britez@gmail.com', phone: '+595 981 222-888', interestedIn: 'VW Amarok', origin: 'social', stage: 'won', assignedTo: 's2', notes: 'Cerró cotización.', createdAt: '2026-07-20T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 465,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ id: 'lead6', name: 'Rosa Giménez', email: 'rgimenez@gmail.com', phone: '+595 981 333-777', interestedIn: 'Toyota Corolla', origin: 'walkin', stage: 'lost', assignedTo: 's3', notes: 'Se fue con la competencia.', createdAt: '2026-07-15T00:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 471,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ id: 'cash1', type: 'income', category: 'sale', description: 'Pago contado venta VT-0013 - Juan Carlos Pérez', amount: 155000000, currency: 'PYG', saleId: 'sale3', date: '2026-05-15T00:00:00Z', registeredBy: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 472,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ id: 'cash2', type: 'expense', category: 'preparation', description: 'Gastos de detailing - Toyota Corolla v2', amount: 2000000, currency: 'PYG', date: '2026-05-16T00:00:00Z', registeredBy: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 473,
+    "nonAscii": "ñíé",
+    "suspect": null,
+    "text": "{ id: 'cash3', type: 'income', category: 'advance', description: 'Seña reserva VT-0014 - Empresa Logística SA', amount: 20000000, currency: 'PYG', saleId: 'sale2', date: '2026-07-25T00:00:00Z', registeredBy: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 474,
+    "nonAscii": "óé",
+    "suspect": null,
+    "text": "{ id: 'cash4', type: 'expense', category: 'import', description: 'Gastos de importación Toyota Fortuner', amount: 18000000, currency: 'PYG', date: '2026-07-22T00:00:00Z', registeredBy: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 475,
+    "nonAscii": "ñíé",
+    "suspect": null,
+    "text": "{ id: 'cash5', type: 'income', category: 'advance', description: 'Seña reserva VT-0015 - Ana Rodríguez', amount: 10000000, currency: 'PYG', saleId: 'sale1', date: '2026-08-05T00:00:00Z', registeredBy: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 476,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "{ id: 'cash6', type: 'expense', category: 'services', description: 'Servicio de limpieza y mantenimiento local', amount: 1500000, currency: 'PYG', date: '2026-08-01T00:00:00Z', registeredBy: 'Carlos Méndez' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 477,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'cash7', type: 'income', category: 'installment', description: 'Pago cuota 1 - Financiación VT-0016', amount: 9820000, currency: 'PYG', date: '2026-07-07T00:00:00Z', registeredBy: 'Andrea Torres' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 478,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'cash8', type: 'income', category: 'installment', description: 'Pago cuota 2 - Financiación VT-0016', amount: 9820000, currency: 'PYG', date: '2026-08-06T00:00:00Z', registeredBy: 'Andrea Torres' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 485,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "id: 'tpl1', name: 'Recordatorio de cuota próxima a vencer', type: 'installment_due',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 486,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "subject: 'Recordatorio: Su cuota vence en {{dias_restantes}} días',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 489,
+    "nonAscii": "°",
+    "suspect": null,
+    "text": "Le recordamos que su cuota N° {{numero_cuota}} por el valor de {{monto_cuota}} vence el {{fecha_vencimiento}}."
+  },
+  {
+    "file": "data/store.js",
+    "line": 491,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "Por favor, acérquese a nuestras oficinas o realice su pago online para evitar recargos por mora."
+  },
+  {
+    "file": "data/store.js",
+    "line": 502,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "subject: 'Aviso: Cuota vencida - Su pago está pendiente',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 505,
+    "nonAscii": "°",
+    "suspect": null,
+    "text": "Le informamos que su cuota N° {{numero_cuota}} por {{monto_cuota}} se encuentra vencida desde el {{fecha_vencimiento}}."
+  },
+  {
+    "file": "data/store.js",
+    "line": 507,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "Le solicitamos regularizar su situación a la brevedad para evitar recargos adicionales."
+  },
+  {
+    "file": "data/store.js",
+    "line": 509,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "Contáctenos al {{telefono_empresa}} para coordinar su pago."
+  },
+  {
+    "file": "data/store.js",
+    "line": 517,
+    "nonAscii": "¡íá",
+    "suspect": null,
+    "text": "subject: '¡Tenemos el vehículo que buscás, {{nombre_cliente}}!',"
+  },
+  {
+    "file": "data/store.js",
+    "line": 520,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "Sabemos que estás interesado/a en {{modelo_interes}}. Queremos contarte que tenemos nuevas unidades disponibles con condiciones especiales."
+  },
+  {
+    "file": "data/store.js",
+    "line": 522,
+    "nonAscii": "¡á",
+    "suspect": null,
+    "text": "¡Visitanos y aprovechá esta oportunidad antes de que se agoten!"
+  },
+  {
+    "file": "data/store.js",
+    "line": 524,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "Horarios: Lunes a Sábados de 8:00 a 18:00 hs."
+  },
+  {
+    "file": "data/store.js",
+    "line": 536,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "{ id: 'el1', templateId: 'tpl1', clientId: 'c2', clientName: 'Ana Lucía Rodríguez', email: 'ana.rodriguez@outlook.com', subject: 'Recordatorio: Su cuota vence en 5 días', status: 'sent', sentAt: '2026-08-02T08:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 537,
+    "nonAscii": "Áá",
+    "suspect": null,
+    "text": "{ id: 'el2', templateId: 'tpl2', clientId: 'c4', clientName: 'Miguel Ángel Ortiz', email: 'miguel.ortiz@yahoo.com', subject: 'Aviso: Cuota vencida - Su pago está pendiente', status: 'sent', sentAt: '2026-08-03T08:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 538,
+    "nonAscii": "á¡í",
+    "suspect": null,
+    "text": "{ id: 'el3', templateId: 'tpl3', clientId: 'c5', clientName: 'Patricia González', email: 'patri.gonzalez@gmail.com', subject: '¡Tenemos el vehículo que buscás, Patricia!', status: 'sent', sentAt: '2026-08-04T09:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 539,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "{ id: 'el4', templateId: 'tpl1', clientId: 'c2', clientName: 'Ana Lucía Rodríguez', email: 'invalid-email-address', subject: 'Recordatorio cuota', status: 'failed', sentAt: '2026-08-05T08:00:00Z' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 545,
+    "nonAscii": "Áí",
+    "suspect": null,
+    "text": "{ id: 'n1', type: 'installment_overdue', title: 'Cuota vencida', message: 'Miguel Ángel Ortiz tiene una cuota vencida desde hace 3 días.', read: false, createdAt: '2026-08-04T08:00:00Z', link: '#/financing' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 546,
+    "nonAscii": "óí",
+    "suspect": null,
+    "text": "{ id: 'n2', type: 'sale_stage', title: 'Venta avanzó a Contrato', message: 'La venta VT-0014 de Empresa Logística SA fue movida a Contrato.', read: false, createdAt: '2026-08-02T14:00:00Z', link: '#/sales' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 547,
+    "nonAscii": "íá",
+    "suspect": null,
+    "text": "{ id: 'n3', type: 'lead_new', title: 'Nuevo prospecto asignado', message: 'Gabriel Rojas fue asignado como nuevo lead para María Fernández.', read: false, createdAt: '2026-08-06T10:00:00Z', link: '#/crm' },"
+  },
+  {
+    "file": "data/store.js",
+    "line": 548,
+    "nonAscii": "óí",
+    "suspect": null,
+    "text": "{ id: 'n4', type: 'installment_due', title: 'Cuota próxima a vencer', message: 'Ana Lucía Rodríguez tiene una cuota que vence en 5 días.', read: true, createdAt: '2026-08-02T08:00:00Z', link: '#/financing' },"
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "const fs = require('fs');"
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 5,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"DescripciA3n\": \"Descripción\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 6,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "\"CategorAa\": \"Categoría\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 7,
+    "nonAscii": "í",
+    "suspect": "hA-c",
+    "text": "\"VehA-culos\": \"Vehículos\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 8,
+    "nonAscii": "í",
+    "suspect": "hA-c",
+    "text": "\"VehA-culo\": \"Vehículo\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 9,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"GestiA3n\": \"Gestión\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 10,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"ConfiguraciA3n\": \"Configuración\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 11,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"FinanciaciA3n\": \"Financiación\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 12,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"CotizaciA3n\": \"Cotización\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 13,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"NegociaciA3n\": \"Negociación\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 14,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"acciA3n\": \"acción\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 15,
+    "nonAscii": "ó",
+    "suspect": "iA3n",
+    "text": "\"AcciA3n\": \"Acción\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 16,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "\"VenciA3\": \"Venció\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 17,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "\"DAdas\": \"Días\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 18,
+    "nonAscii": "í",
+    "suspect": "dA-a",
+    "text": "\"dA-as\": \"días\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 19,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "\"dAas\": \"días\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 20,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "\"dAs\": \"días\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 21,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "\"A3\": \"ó\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 22,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "\"A-\": \"í\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 23,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "\"A1\": \"á\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 24,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "\"A9\": \"é\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 25,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "\"AD\": \"í\","
+  },
+  {
+    "file": "fix_encoding.cjs",
+    "line": 26,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "\"B1\": \"ñ\""
+  },
+  {
+    "file": "index.html",
+    "line": 6,
+    "nonAscii": "—ó",
+    "suspect": null,
+    "text": "<title>AutoERP — Sistema de Gestión para Concesionarias</title>"
+  },
+  {
+    "file": "index.html",
+    "line": 7,
+    "nonAscii": "óá",
+    "suspect": null,
+    "text": "<meta name=\"description\" content=\"Sistema ERP completo para concesionarias de automóviles. Gestión de inventario, ventas, clientes, financiación, vendedores y más.\" />"
+  },
+  {
+    "file": "index.html",
+    "line": 37,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<p>Sistema de Gestión para Concesionarias</p>"
+  },
+  {
+    "file": "index.html",
+    "line": 41,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label for=\"login-email\">Correo electrónico</label>"
+  },
+  {
+    "file": "index.html",
+    "line": 48,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<label for=\"login-password\">Contraseña</label>"
+  },
+  {
+    "file": "index.html",
+    "line": 51,
+    "nonAscii": "•",
+    "suspect": null,
+    "text": "<input type=\"password\" id=\"login-password\" value=\"admin123\" placeholder=\"••••••••\" required />"
+  },
+  {
+    "file": "index.html",
+    "line": 110,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<span>Financiación</span>"
+  },
+  {
+    "file": "index.html",
+    "line": 129,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<span>Administración</span>"
+  },
+  {
+    "file": "index.html",
+    "line": 141,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<button class=\"btn-icon-ghost\" id=\"logout-btn\" title=\"Cerrar sesión\">"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { CashBox, Sales, Vehicles, Sellers, generateId, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 51,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Ingresos del día</div>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 55,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Egresos del día</div>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 59,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<div class=\"card-title text-muted\" style=\"font-size: 0.9rem; margin-bottom: 5px;\">Saldo del día</div>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 80,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripción</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 81,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categoría</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 112,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripción</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 113,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categoría</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 145,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Categoría</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 146,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Descripción</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 189,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<label>Categoría</label>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 192,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<option value=\"advance\">Seña / Anticipo</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 194,
+    "nonAscii": "óí",
+    "suspect": null,
+    "text": "<option value=\"preparation\">Preparación de Vehículo</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 195,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"import\">Gastos de Importación</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 196,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "<option value=\"services\">Servicios Básicos</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 201,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Descripción</label>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 249,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<option value=\"advance\">Seña / Anticipo</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 255,
+    "nonAscii": "óí",
+    "suspect": null,
+    "text": "<option value=\"preparation\">Preparación de Vehículo</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 256,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"import\">Gastos de Importación</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 257,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "<option value=\"services\">Servicios Básicos</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 280,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "showToast('Movimiento registrado con éxito', 'success');"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 347,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "<p class=\"text-muted\">Análisis de rendimiento y ganancias</p>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 353,
+    "nonAscii": "Ú",
+    "suspect": null,
+    "text": "<option value=\"last_3_months\" ${currentReportPeriod === 'last_3_months' ? 'selected' : ''}>Últimos 3 meses</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 354,
+    "nonAscii": "Úñ",
+    "suspect": null,
+    "text": "<option value=\"last_year\" ${currentReportPeriod === 'last_year' ? 'selected' : ''}>Último año</option>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 383,
+    "nonAscii": "Ú",
+    "suspect": null,
+    "text": "<h3 class=\"card-title\">Ventas e Ingresos (Últimos 6 meses)</h3>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 391,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h3 class=\"card-title\">Distribución de Ingresos</h3>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 402,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<h3 class=\"card-title\">Margen por Vehículo Vendido</h3>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 409,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th style=\"padding: 12px 16px; font-weight: 500; color: var(--text-muted);\">Vehículo</th>"
+  },
+  {
+    "file": "modules/accounting/accounting.js",
+    "line": 438,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "` : '<tr><td colspan=\"5\" style=\"padding: 16px; text-align: center;\">No hay vehículos vendidos</td></tr>'}"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { Users, Config, generateId, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 7,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h1 class=\"page-title\">Gestión de Usuarios</h1>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 10,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<i data-lucide=\"settings\"></i> Configuración"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 29,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div style=\"padding: 1rem; color: var(--text-muted);\">Inventario (lectura), Ventas, CRM, y gestión de sus propias ventas.</div>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 35,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div style=\"padding: 1rem; color: var(--text-muted);\">Contabilidad, Financiación, y permisos de lectura general.</div>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 48,
+    "nonAscii": "Ú",
+    "suspect": null,
+    "text": "<th>Último Acceso</th>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 93,
+    "nonAscii": "óá",
+    "suspect": null,
+    "text": "La gestión avanzada de permisos estará disponible en la versión empresarial."
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 131,
+    "nonAscii": "¿á",
+    "suspect": null,
+    "text": "confirmDialog('Eliminar Usuario', '¿Está seguro de eliminar este usuario?').then((confirmed) => {"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 161,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<label>Contraseña</label>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 227,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h1 class=\"page-title\">Configuración de la Empresa</h1>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 239,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<button class=\"btn btn-ghost tab-btn\" data-tab=\"tab-dnit\" style=\"border-radius: 0;\">DNIT / Facturación Electrónica</button>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 259,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<label>Teléfono</label>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 263,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Dirección</label>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 279,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<option value=\"PYG\" ${Config.currency === 'PYG' ? 'selected' : ''}>Guaraníes (PYG)</option>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 280,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"USD\" ${Config.currency === 'USD' ? 'selected' : ''}>Dólares (USD)</option>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 294,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h4 style=\"color: var(--info-color); margin-bottom: 0.25rem;\">Integración DNIT</h4>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 295,
+    "nonAscii": "óá",
+    "suspect": null,
+    "text": "<p style=\"color: var(--text-muted); font-size: 0.9rem;\">Integración DNIT en modo demo. En producción se conectará con las credenciales oficiales.</p>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 308,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"prod\" disabled>Producción</option>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 323,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<button class=\"btn btn-sm btn-secondary\" onclick=\"alert('Función disponible en versión empresarial')\"><i data-lucide=\"plus\"></i> Nueva Sucursal</button>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 330,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<th>Dirección</th>"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 376,
+    "nonAscii": "₲",
+    "suspect": null,
+    "text": "p.textContent = '₲ 12.500.000';"
+  },
+  {
+    "file": "modules/admin/admin.js",
+    "line": 394,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast('Configuración guardada exitosamente', 'success');"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { Clients, Leads, Sales, Vehicles, Sellers, generateId, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 18,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div class=\"page-subtitle\">Gestión de clientes y prospectos</div>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 55,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<option value=\"\">Todos los Orígenes</option>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 68,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<th>Email / Teléfono</th>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 69,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<th>Interés en</th>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 160,
+    "nonAscii": "¿ó",
+    "suspect": null,
+    "text": "confirmDialog('¿Eliminar cliente?', 'Esta acción no se puede deshacer.', () => {"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 215,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<button id=\"btn-new-quote\" class=\"btn btn-secondary\"><i data-lucide=\"file-text\"></i> Nueva Cotización</button>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 240,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<div style=\"font-size: 0.875rem; color: var(--text-muted);\">Teléfono</div>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 252,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<button id=\"btn-add-note\" class=\"btn btn-sm btn-ghost\"><i data-lucide=\"plus\"></i> Nueva Interacción</button>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 336,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<label>Teléfono</label>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 341,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Dirección</label>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 363,
+    "nonAscii": "éí",
+    "suspect": null,
+    "text": "<label>Interés En (Vehículo / Marca)</label>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 413,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Tipo de Interacción</label>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 417,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"Reunión\">Reunión</option>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 432,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "openModal('Nueva Interacción', html);"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 449,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast('Interacción agregada', 'success');"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 465,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'negotiation', name: 'Negociación', cls: 'badge-gold' },"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 501,
+    "nonAscii": "éí",
+    "suspect": null,
+    "text": "<div style=\"font-size:0.875rem; color:var(--text-muted); margin-bottom:0.5rem;\">${l.interestedIn || 'Sin interés específico'}</div>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 550,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<label>Teléfono</label>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 554,
+    "nonAscii": "éí",
+    "suspect": null,
+    "text": "<label>Interés (Vehículo/Marca)</label>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 579,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>Negociación</option>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 630,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "negotiation: 'Negociación', won: 'Ganado', lost: 'Perdido'"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 637,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<div><strong style=\"color:var(--text-muted); font-size:0.875rem;\">Interés:</strong><div>${lead.interestedIn || '-'}</div></div>"
+  },
+  {
+    "file": "modules/crm/crm.js",
+    "line": 649,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"negotiation\" ${lead.stage==='negotiation'?'selected':''}>Negociación</option>"
+  },
+  {
+    "file": "modules/dashboard/dashboard.js",
+    "line": 9,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "const greeting = currentHour < 12 ? 'Buenos días' : 'Buenas tardes';"
+  },
+  {
+    "file": "modules/dashboard/dashboard.js",
+    "line": 160,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "const labels = { quote: 'Cotización', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };"
+  },
+  {
+    "file": "modules/dashboard/dashboard.js",
+    "line": 224,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "Venció: ${fmtDate(inst.dueDate)}"
+  },
+  {
+    "file": "modules/dashboard/dashboard.js",
+    "line": 255,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<h3 class=\"card-title\">Vehículos Disponibles</h3>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { Financing, Sales, Clients, Vehicles, generateId, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 120,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th>Vehículo</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 123,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<th>Próx. Vencimiento</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 227,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<label>Vehículo</label>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 244,
+    "nonAscii": "º",
+    "suspect": null,
+    "text": "<th>Nº</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 308,
+    "nonAscii": "¿",
+    "suspect": null,
+    "text": "confirmDialog('¿Confirmar pago de esta cuota?', () => {"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 376,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h1 class=\"page-title\">Cuotas Próximas / Vencidas</h1>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 387,
+    "nonAscii": "óí",
+    "suspect": null,
+    "text": "<h2 class=\"card-title text-warning\">Cuotas por Vencer (próximos 30 días)</h2>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 394,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th>Vehículo</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 395,
+    "nonAscii": "º",
+    "suspect": null,
+    "text": "<th>Cuota Nº</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 398,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th>Días Restantes</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 406,
+    "nonAscii": "óí",
+    "suspect": null,
+    "text": "html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas por vencer en los próximos 30 días.</td></tr>`;"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 410,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "? `<span class=\"badge badge-warning\">${p.daysDiff} días</span>`"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 411,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": ": `<span class=\"badge badge-info\">${p.daysDiff} días</span>`;"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 446,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th>Vehículo</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 447,
+    "nonAscii": "º",
+    "suspect": null,
+    "text": "<th>Cuota Nº</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 450,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th>Días Vencidos</th>"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 458,
+    "nonAscii": "¡",
+    "suspect": null,
+    "text": "html += `<tr><td colspan=\"7\" class=\"text-center text-muted\">No hay cuotas vencidas. ¡Excelente!</td></tr>`;"
+  },
+  {
+    "file": "modules/financing/financing.js",
+    "line": 470,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<td><span class=\"badge badge-danger\">${daysOverdue} días</span></td>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { Vehicles, Clients, Sales, generateId, formatCurrency, formatDate, Config, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 15,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "consigned: 'Consignación'"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 30,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "in_preparation: 'En Preparación',"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 31,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "in_transit: 'En Tránsito'"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 38,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "consignment: 'Consignación'"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 61,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<h1>Inventario de Vehículos</h1>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 62,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<p class=\"text-muted\">Gestiona el stock de vehículos disponibles</p>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 66,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<i data-lucide=\"plus\"></i> Nuevo Vehículo"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 75,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<div class=\"kpi-label\">Total Vehículos</div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 109,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"\">Condición...</option>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 122,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "<option value=\"in_transit\">En Tránsito</option>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 131,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th>Vehículo</th>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 132,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<th>Año/Color/KM</th>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 133,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<th>Condición</th>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 155,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "tbody.innerHTML = `<tr><td colspan=\"8\" class=\"text-center text-muted\">No hay vehículos registrados</td></tr>`;"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 167,
+    "nonAscii": "â€¢",
+    "suspect": null,
+    "text": "<div class=\"text-muted text-sm\">${v.version || ''} â€¢ ${v.vin}</div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 170,
+    "nonAscii": "â€¢",
+    "suspect": null,
+    "text": "<div>${v.year} â€¢ ${v.color}</div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 200,
+    "nonAscii": "í¿á",
+    "suspect": null,
+    "text": "confirmDialog('Eliminar Vehículo', '¿Estás seguro de que deseas eliminar este vehículo?', () => {"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 202,
+    "nonAscii": "íé",
+    "suspect": null,
+    "text": "showToast('Vehículo eliminado con éxito', 'success');"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 243,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">Vehículo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 279,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<div class=\"text-muted text-sm\">Año</div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 308,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div class=\"tab-item active\" style=\"padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--gold); color: var(--gold);\" data-tab=\"info\">Información</div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 318,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div><label class=\"text-muted\">Versión</label><div>${vehicle.version || '-'}</div></div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 320,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<div><label class=\"text-muted\">Año</label><div>${vehicle.year}</div></div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 323,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div><label class=\"text-muted\">Condición</label><div>${conditionLabels[vehicle.condition]}</div></div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 334,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<tr><td>Costos de Importación</td><td class=\"text-right\">${fmt(vehicle.importCosts, vehicle.currency)}</td></tr>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 335,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<tr><td>Costo de Preparación</td><td class=\"text-right\">${fmt(vehicle.prepCost, vehicle.currency)}</td></tr>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 336,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<tr><td>Comisión</td><td class=\"text-right\">${fmt(vehicle.commission, vehicle.currency)}</td></tr>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 367,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<div class=\"card-header\"><h3 class=\"card-title\">Galería de fotos</h3></div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 413,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "pageContent.innerHTML = `<div class=\"card\"><div class=\"card-title\">Vehículo no encontrado</div><button class=\"btn btn-primary\" id=\"btn-back\">Volver</button></div>`;"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 419,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "const title = isEdit ? 'Editar Vehículo' : 'Nuevo Vehículo';"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 434,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div class=\"card-header\"><h3 class=\"card-title\">Información Base</h3></div>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 449,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Versión</label>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 453,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<label>Año <span class=\"text-danger\">*</span></label>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 471,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Condición</label>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 484,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"consignment\" ${vehicle.origin === 'consignment' ? 'selected' : ''}>Consignación</option>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 493,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"in_preparation\" ${vehicle.commercialStatus === 'in_preparation' ? 'selected' : ''}>En Preparación</option>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 494,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "<option value=\"in_transit\" ${vehicle.commercialStatus === 'in_transit' ? 'selected' : ''}>En Tránsito</option>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 499,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<input type=\"text\" id=\"v-branch\" class=\"form-control\" value=\"${vehicle.branch || 'Asunción'}\">"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 519,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Costos de Importación</label>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 523,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Costo de Preparación</label>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 527,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Comisión</label>"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 577,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "showToast('Vehículo actualizado', 'success');"
+  },
+  {
+    "file": "modules/inventory/inventory.js",
+    "line": 581,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "showToast('Vehículo creado', 'success');"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { EmailTemplates, EmailLog, Clients, Financing, generateId, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 17,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h2 class=\"page-title\">Configuración de Notificaciones</h2>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 32,
+    "nonAscii": "⚡ó",
+    "suspect": null,
+    "text": "<p style=\"margin: 0; color: var(--text-primary); font-weight: 500;\">⚡ Preparado para conectar con n8n o cualquier plataforma de automatización.</p>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 33,
+    "nonAscii": "óíá",
+    "suspect": null,
+    "text": "<p style=\"margin: 0; font-size: 0.875rem; color: var(--text-secondary);\">En el entorno de producción, los emails se envían automáticamente vía webhook.</p>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 47,
+    "nonAscii": "É",
+    "suspect": null,
+    "text": "<h3 class=\"metric-title\">Tasa de Éxito</h3>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 59,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h4 style=\"margin: 0 0 4px 0; font-weight: 500;\">Recordatorio de cuota próxima a vencer</h4>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 61,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "Enviar <input type=\"number\" value=\"3\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> días antes"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 76,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "Enviar cada <input type=\"number\" value=\"5\" style=\"width: 50px; padding: 2px 4px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;\"> días"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 117,
+    "nonAscii": "óñ",
+    "suspect": null,
+    "text": "<h3 class=\"card-title\">Segmentación para Campañas</h3>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 131,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<label>Segmento (Condición)</label>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 134,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "<option value=\"vip\">Clientes VIP (Más de 1 compra)</option>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 141,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<button class=\"btn btn-primary\" id=\"btn-send-campaign\" disabled>Enviar campaña (simulado)</button>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 227,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "showToast(`Campaña enviada a ${count} clientes`, 'success');"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 247,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<option value=\"offer\" ${t.type === 'offer' ? 'selected' : ''}>Oferta / Campaña</option>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 338,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast(`Simulación: ${count} emails enviados`, 'success');"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 367,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast(`Simulación: ${count} emails enviados`, 'success');"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 382,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<h2 class=\"page-title\">Historial de Envíos</h2>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 405,
+    "nonAscii": "É",
+    "suspect": null,
+    "text": "<h3 class=\"metric-title\">Tasa de Éxito</h3>"
+  },
+  {
+    "file": "modules/notifications/notifications.js",
+    "line": 505,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "tbody.innerHTML = `<tr><td colspan=\"7\" style=\"text-align: center; padding: 24px;\">No hay registros de envío</td></tr>`;"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 1,
+    "nonAscii": "﻿",
+    "suspect": null,
+    "text": "import { Sales, Vehicles, Clients, Sellers, Financing, CashBox, generateId, now } from '../../data/store.js';"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 34,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "quote: { title: 'Cotización', color: 'info', items: Sales.all().filter(s => s.stage === 'quote') },"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 66,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<i data-lucide=\"plus\"></i> Nueva Cotización"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 116,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "${col.items.length === 0 ? '<div class=\"text-center text-muted p-3\">Vacío</div>' : ''}"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 159,
+    "nonAscii": "¿",
+    "suspect": null,
+    "text": "confirmDialog(`¿Avanzar venta ${sale.saleNumber} a ${nextStage}?`, () => {"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 186,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "description: `Venta ${sale.saleNumber} - Vehículo ${vehicle?.brand} ${vehicle?.model}`,"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 215,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "{ id: 'quote', label: 'Cotización' },"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 261,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<!-- Vehículo -->"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 263,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<div class=\"card-header\"><h3 class=\"card-title\">Vehículo</h3></div>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 267,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<p><strong>Versión:</strong> ${vehicle.version || '-'}</p>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 268,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<p><strong>Año:</strong> ${vehicle.year || '-'}</p>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 281,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<p><strong>Teléfono:</strong> ${client.phone || '-'}</p>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 297,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<!-- Resumen económico -->"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 299,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div class=\"card-header\"><h3 class=\"card-title\">Resumen Económico</h3></div>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 306,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "sale.paymentType === 'financed_own' ? 'Financiación Propia' : 'Financiación Bancaria'}"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 343,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<i data-lucide=\"credit-card\"></i> Configurar Financiación"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 389,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "showToast('Funcionalidad de vehículo en parte de pago en desarrollo', 'info');"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 396,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast('Funcionalidad de financiación en desarrollo', 'info');"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 403,
+    "nonAscii": "á",
+    "suspect": null,
+    "text": "showToast('Error: jsPDF no está cargado', 'danger');"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 410,
+    "nonAscii": "Í",
+    "suspect": null,
+    "text": "doc.text('CONTRATO DE COMPRAVENTA DE VEHÍCULO AUTOMOTOR', 105, 20, { align: 'center' });"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 414,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "doc.text(`Nro de Operación: ${sale.saleNumber}`, 20, 42);"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 419,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "doc.text('VENDEDOR: AutoERP S.A., con RUC 80012345-6, domiciliado en Asunción, Paraguay.', 20, 65);"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 420,
+    "nonAscii": null,
+    "suspect": "RADO",
+    "text": "doc.text(`COMPRADOR: ${client.firstName || ''} ${client.lastName || ''}, con Documento: ${client.document || ''},`, 20, 72);"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 424,
+    "nonAscii": "Í",
+    "suspect": null,
+    "text": "doc.text('2. VEHÍCULO', 20, 95);"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 428,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "doc.text(`Año: ${vehicle.year || ''}`, 20, 119);"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 440,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "doc.text('Ambas partes aceptan los términos de este contrato.', 20, 200);"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 463,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<h2>Nueva Cotización</h2>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 470,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<h3 class=\"mb-3\">Paso 1: Seleccionar Vehículo</h3>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 480,
+    "nonAscii": "ñ",
+    "suspect": null,
+    "text": "<div class=\"text-sm text-muted\">Año: ${v.year} | Color: ${v.color}</div>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 486,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "${availableVehicles.length === 0 ? '<div class=\"col-12 text-muted\">No hay vehículos disponibles</div>' : ''}"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 497,
+    "nonAscii": "éó",
+    "suspect": null,
+    "text": "<div class=\"mt-2 text-sm text-muted\">Para cliente nuevo, primero agréguelo en el módulo de clientes.</div>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 529,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"financed_own\">Financiación Propia</option>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 530,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<option value=\"financed_bank\">Financiación Bancaria</option>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 541,
+    "nonAscii": "é",
+    "suspect": null,
+    "text": "<label>Tasa de Interés (%)</label>"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 553,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<i data-lucide=\"save\"></i> Crear Cotización"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 619,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "note: 'Cotización creada'"
+  },
+  {
+    "file": "modules/sales/sales.js",
+    "line": 628,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast('Cotización creada exitosamente', 'success');"
+  },
+  {
+    "file": "modules/sellers/sellers.js",
+    "line": 200,
+    "nonAscii": "ú",
+    "suspect": null,
+    "text": "showToast('Formulario para nuevo vendedor no implementado aún', 'info');"
+  },
+  {
+    "file": "modules/sellers/sellers.js",
+    "line": 293,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "<div style=\"color:var(--text-muted); margin-bottom:0.5rem;\">Comisión Estimada (2%)</div>"
+  },
+  {
+    "file": "modules/sellers/sellers.js",
+    "line": 303,
+    "nonAscii": "Ú",
+    "suspect": null,
+    "text": "<h3 class=\"card-title\" style=\"margin-bottom: 1rem;\">Ventas (Últimos 6 meses)</h3>"
+  },
+  {
+    "file": "modules/sellers/sellers.js",
+    "line": 316,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "<th style=\"padding: 0.75rem;\">Vehículo</th>"
+  },
+  {
+    "file": "modules/sellers/sellers.js",
+    "line": 643,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "showToast('Modal de configuración general de metas - No implementado', 'info');"
+  },
+  {
+    "file": "package-lock.json",
+    "line": 195,
+    "nonAscii": null,
+    "suspect": "pA3U",
+    "text": "\"integrity\": \"sha512-QxULHAm7cNu72w97JUNCBFODFaXpbDg+dP8b/oWFAZ2MTRppA3U00Y2L1HqaS4J6yBqxwa/Y3nMBaxVKbB/NsA==\","
+  },
+  {
+    "file": "package-lock.json",
+    "line": 376,
+    "nonAscii": null,
+    "suspect": "hA9E",
+    "text": "\"integrity\": \"sha512-+ys997U96po4Kx/ABpBCqhA9EuxJaQWDQg7295H4hBphv3IZg0boBKuwYpt4YXp6MZ5AmZQnU/tyMTlRpaSejg==\","
+  },
+  {
+    "file": "package-lock.json",
+    "line": 505,
+    "nonAscii": null,
+    "suspect": "VA3u",
+    "text": "\"integrity\": \"sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==\","
+  },
+  {
+    "file": "package-lock.json",
+    "line": 708,
+    "nonAscii": null,
+    "suspect": "xA9L",
+    "text": "\"integrity\": \"sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==\","
+  },
+  {
+    "file": "package-lock.json",
+    "line": 892,
+    "nonAscii": null,
+    "suspect": "LA1m",
+    "text": "\"integrity\": \"sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==\","
+  },
+  {
+    "file": "package-lock.json",
+    "line": 1546,
+    "nonAscii": null,
+    "suspect": "sA3h",
+    "text": "\"integrity\": \"sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==\","
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 15,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `app.js` — Main entry point, application bootstrap, routing & event wiring"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 16,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `index.html` — Base layout & shell structure"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 17,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `data/store.js` — Mock data store & initial state seeding (UTF-8 clean)"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 18,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `modules/` — Scalable modular vanilla JS domain packages:"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 19,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `core/` / `store/` — State store, reactive state listeners, action dispatchers"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 20,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `services/` — Business logic, calculations, filter/sort aggregations"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 21,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `components/` or `views/` — Modular UI component renderers"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 22,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `utils/` — Helper functions, formatting, DOM utilities"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 23,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `style.css` — Modern design engineering stylesheet with custom easings, spring variables, micro-interaction press/hover rules"
+  },
+  {
+    "file": "PROJECT.md",
+    "line": 24,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "- `test.js` — Automated jsdom test suite verifying module loading & DOM rendering"
+  },
+  {
+    "file": "style.css",
+    "line": 2,
+    "nonAscii": "—",
+    "suspect": null,
+    "text": "AutoERP — Design System"
+  },
+  {
+    "file": "style.css",
+    "line": 380,
+    "nonAscii": null,
+    "suspect": "EADE",
+    "text": "HEADER"
+  },
+  {
+    "file": "style.css",
+    "line": 607,
+    "nonAscii": null,
+    "suspect": "BADG",
+    "text": "BADGES / STATUS CHIPS"
+  },
+  {
+    "file": "style.css",
+    "line": 1147,
+    "nonAscii": null,
+    "suspect": "OADI",
+    "text": "LOADING"
+  },
+  {
+    "file": "style.css",
+    "line": 1280,
+    "nonAscii": null,
+    "suspect": "EADE",
+    "text": "RANKING / LEADERBOARD"
+  },
+  {
+    "file": "test.js",
+    "line": 91,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "assert(!content.includes('Error al cargar el módulo'), 'renderInventoryList executed without error state');"
+  },
+  {
+    "file": "test.js",
+    "line": 103,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "assert(!content.includes('Error al cargar el módulo'), 'renderDashboard executed without error screen');"
+  },
+  {
+    "file": "test.js",
+    "line": 107,
+    "nonAscii": "í",
+    "suspect": null,
+    "text": "assert(content.includes('Buenos días') || content.includes('Buenas tardes'), 'renderDashboard contains expected greeting header');"
+  },
+  {
+    "file": "test.js",
+    "line": 119,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "assert(!content.includes('Error al cargar el módulo'), 'renderSellersList executed without error screen');"
+  },
+  {
+    "file": "test.js",
+    "line": 132,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "assert(!content.includes('Error al cargar el módulo'), 'renderSellerDetail executed without error screen');"
+  },
+  {
+    "file": "test.js",
+    "line": 136,
+    "nonAscii": "₲",
+    "suspect": null,
+    "text": "assert(content.includes('₲ 370.000.000'), 'renderSellerDetail calculates non-zero total sales amount (₲ 370.000.000)');"
+  },
+  {
+    "file": "test.js",
+    "line": 146,
+    "nonAscii": "ó",
+    "suspect": null,
+    "text": "assert(!content.includes('Error al cargar el módulo'), 'renderGoals executed without error screen');"
+  },
+  {
+    "file": "test.js",
+    "line": 161,
+    "nonAscii": "❌",
+    "suspect": null,
+    "text": "console.error('\\n❌ TEST RUN FAILED');"
+  },
+  {
+    "file": "test.js",
+    "line": 164,
+    "nonAscii": "✅",
+    "suspect": null,
+    "text": "console.log('\\n✅ ALL TESTS PASSED SUCCESSFULLY');"
+  }
+]
