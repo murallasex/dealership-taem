@@ -186,16 +186,30 @@ img { max-width: 100%; display: block; }
 .login-logo p { color: var(--text-secondary); font-size: 0.875rem; }
 
 .login-hint {
-  display: flex; align-items: center; gap: 0.5rem;
-  background: var(--info-dim);
-  border: 1px solid rgba(59,130,246,0.2);
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  background: rgba(201,162,39,0.08);
+  border: 1px solid rgba(201,162,39,0.25);
   border-radius: var(--radius);
-  padding: 0.625rem 0.875rem;
+  padding: 0.75rem 0.875rem;
   font-size: 0.8rem;
-  color: #93c5fd;
+  color: var(--text-muted);
   margin-bottom: 1.25rem;
 }
 .login-hint svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.demo-account-btn:hover {
+  border-color: var(--gold) !important;
+  background: rgba(201,162,39,0.08) !important;
+}
+
+/* Developer role badge in sidebar */
+.sidebar-user-role[data-dev="true"] {
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+/* Suspended screen uses same login-screen styles */
+#suspended-screen .login-card { padding: 3rem 2.5rem; }
 
 .btn-full { width: 100%; justify-content: center; }
 

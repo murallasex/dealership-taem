@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoERP — Sistema de Gestión para Concesionarias</title>
-  <meta name="description" content="Sistema ERP completo para concesionarias de automóviles. Gestión de inventario, ventas, clientes, financiación, vendedores y más." />
+  <title>Dealership TAEM — Sistema de Gestión Multi-Empresa</title>
+  <meta name="description" content="Sistema ERP multi-empresa para concesionarias. Gestión de inventario, ventas, clientes, financiación y más." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,7 +25,9 @@
 </head>
 <body>
 
-  <!-- Login Screen -->
+  <!-- ══════════════════════════════════════════════════════
+       LOGIN SCREEN
+  ══════════════════════════════════════════════════════ -->
   <div id="login-screen" class="login-screen">
     <div class="login-backdrop"></div>
     <div class="login-card">
@@ -33,28 +35,36 @@
         <div class="login-logo-icon">
           <i data-lucide="car"></i>
         </div>
-        <h1>AutoERP</h1>
-        <p>Sistema de Gestión para Concesionarias</p>
+        <h1>Dealership TAEM</h1>
+        <p>Plataforma de Gestión Multi-Empresa</p>
       </div>
+
       <form id="login-form" class="login-form">
         <div class="form-group">
           <label for="login-email">Correo electrónico</label>
           <div class="input-icon-wrap">
             <i data-lucide="mail"></i>
-            <input type="email" id="login-email" value="admin@autoerp.com" placeholder="admin@autoerp.com" required />
+            <input type="email" id="login-email" placeholder="usuario@empresa.com" required />
           </div>
         </div>
         <div class="form-group">
           <label for="login-password">Contraseña</label>
           <div class="input-icon-wrap">
             <i data-lucide="lock"></i>
-            <input type="password" id="login-password" value="admin123" placeholder="••••••••" required />
+            <input type="password" id="login-password" placeholder="••••••••" required />
           </div>
         </div>
-        <div class="login-hint">
-          <i data-lucide="info"></i>
-          <span>Demo: admin@autoerp.com / admin123</span>
+
+        <!-- Demo accounts hint -->
+        <div class="login-hint" id="login-hint-block" style="flex-direction:column;align-items:flex-start;gap:0.5rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--gold);font-size:0.8rem;">
+            <i data-lucide="key-round" style="width:14px;height:14px;"></i> Cuentas demo disponibles
+          </div>
+          <div id="demo-accounts" style="display:flex;flex-direction:column;gap:0.35rem;width:100%;"></div>
         </div>
+
+        <div id="login-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid var(--danger);border-radius:8px;padding:0.75rem 1rem;font-size:0.85rem;color:var(--danger);margin-bottom:0.5rem;"></div>
+
         <button type="submit" class="btn btn-primary btn-full" id="login-btn">
           <i data-lucide="log-in"></i>
           Ingresar al Sistema
@@ -63,7 +73,33 @@
     </div>
   </div>
 
-  <!-- App Shell -->
+  <!-- ══════════════════════════════════════════════════════
+       SUSPENDED SCREEN (shown when company is paused)
+  ══════════════════════════════════════════════════════ -->
+  <div id="suspended-screen" class="login-screen hidden">
+    <div class="login-backdrop"></div>
+    <div class="login-card" style="text-align:center;max-width:480px;">
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(234,179,8,0.15);border:2px solid var(--warning);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+        <i data-lucide="pause-circle" style="width:40px;height:40px;color:var(--warning);"></i>
+      </div>
+      <h2 style="margin-bottom:0.75rem;">Servicio Suspendido</h2>
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;line-height:1.6;">
+        El acceso a <strong id="suspended-company-name">esta empresa</strong> ha sido temporalmente suspendido.
+        Por favor contacta al administrador de la plataforma para regularizar el servicio.
+      </p>
+      <div style="background:var(--bg-base);border-radius:10px;padding:1rem;margin-bottom:1.5rem;font-size:0.85rem;color:var(--text-muted);">
+        <i data-lucide="mail" style="width:14px;height:14px;margin-right:0.4rem;"></i>
+        soporte@dealershipteam.com
+      </div>
+      <button class="btn btn-ghost" id="btn-suspended-logout">
+        <i data-lucide="log-out"></i> Cerrar Sesión
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       APP SHELL
+  ══════════════════════════════════════════════════════ -->
   <div id="app" class="app-shell hidden">
 
     <!-- Sidebar -->
@@ -74,7 +110,7 @@
             <i data-lucide="car"></i>
           </div>
           <div class="sidebar-logo-text">
-            <span class="sidebar-logo-title">AutoERP</span>
+            <span class="sidebar-logo-title">TAEM</span>
             <span class="sidebar-logo-sub" id="company-name-sidebar">Cargando...</span>
           </div>
         </div>
@@ -83,59 +119,72 @@
         </button>
       </div>
 
-      <nav class="sidebar-nav">
-        <div class="sidebar-section-label">Principal</div>
-        <a href="#/dashboard" class="nav-item" data-route="dashboard" id="nav-dashboard">
+      <nav class="sidebar-nav" id="sidebar-nav">
+
+        <!-- DEVELOPER SECTION — only visible to role:developer -->
+        <div class="sidebar-section-label" data-role-required="developer">Plataforma</div>
+        <a href="#/platform" class="nav-item" data-route="platform" id="nav-platform" data-role-required="developer">
+          <i data-lucide="server"></i>
+          <span>Panel Developer</span>
+        </a>
+
+        <!-- MAIN -->
+        <div class="sidebar-section-label" data-role-required="seller">Principal</div>
+        <a href="#/dashboard" class="nav-item" data-route="dashboard" id="nav-dashboard" data-role-required="seller">
           <i data-lucide="layout-dashboard"></i>
           <span>Dashboard</span>
         </a>
 
-        <div class="sidebar-section-label">Negocio</div>
-        <a href="#/inventory" class="nav-item" data-route="inventory" id="nav-inventory">
+        <!-- BUSINESS -->
+        <div class="sidebar-section-label" data-role-required="seller">Negocio</div>
+        <a href="#/inventory" class="nav-item" data-route="inventory" id="nav-inventory" data-role-required="seller">
           <i data-lucide="car"></i>
           <span>Inventario</span>
         </a>
-        <a href="#/sales" class="nav-item" data-route="sales" id="nav-sales">
+        <a href="#/sales" class="nav-item" data-route="sales" id="nav-sales" data-role-required="seller">
           <i data-lucide="handshake"></i>
           <span>Ventas</span>
         </a>
-        <a href="#/crm" class="nav-item" data-route="crm" id="nav-crm">
+        <a href="#/crm" class="nav-item" data-route="crm" id="nav-crm" data-role-required="seller">
           <i data-lucide="users"></i>
           <span>Clientes / CRM</span>
         </a>
 
-        <div class="sidebar-section-label">Operaciones</div>
-        <a href="#/financing" class="nav-item" data-route="financing" id="nav-financing">
+        <!-- OPERATIONS — manager+ only -->
+        <div class="sidebar-section-label" data-role-required="manager">Operaciones</div>
+        <a href="#/financing" class="nav-item" data-route="financing" id="nav-financing" data-role-required="manager">
           <i data-lucide="credit-card"></i>
           <span>Financiación</span>
         </a>
-        <a href="#/sellers" class="nav-item" data-route="sellers" id="nav-sellers">
+        <a href="#/sellers" class="nav-item" data-route="sellers" id="nav-sellers" data-role-required="manager">
           <i data-lucide="trophy"></i>
           <span>Vendedores</span>
         </a>
-        <a href="#/accounting" class="nav-item" data-route="accounting" id="nav-accounting">
+        <a href="#/accounting" class="nav-item" data-route="accounting" id="nav-accounting" data-role-required="manager">
           <i data-lucide="bar-chart-3"></i>
           <span>Contabilidad</span>
         </a>
 
-        <div class="sidebar-section-label">Sistema</div>
-        <a href="#/notifications" class="nav-item" data-route="notifications" id="nav-notifications">
+        <!-- SYSTEM — manager+ only -->
+        <div class="sidebar-section-label" data-role-required="manager">Sistema</div>
+        <a href="#/notifications" class="nav-item" data-route="notifications" id="nav-notifications" data-role-required="manager">
           <i data-lucide="bell"></i>
           <span>Notificaciones</span>
           <span class="nav-badge" id="notif-badge">0</span>
         </a>
-        <a href="#/admin" class="nav-item" data-route="admin" id="nav-admin">
+        <a href="#/admin" class="nav-item" data-route="admin" id="nav-admin" data-role-required="manager">
           <i data-lucide="settings"></i>
           <span>Administración</span>
         </a>
+
       </nav>
 
       <div class="sidebar-footer">
         <div class="sidebar-user" id="sidebar-user">
           <div class="sidebar-user-avatar" id="user-avatar-sidebar">A</div>
           <div class="sidebar-user-info">
-            <span class="sidebar-user-name" id="user-name-sidebar">Admin</span>
-            <span class="sidebar-user-role" id="user-role-sidebar">Administrador</span>
+            <span class="sidebar-user-name" id="user-name-sidebar">Usuario</span>
+            <span class="sidebar-user-role" id="user-role-sidebar">Rol</span>
           </div>
         </div>
         <button class="btn-icon-ghost" id="logout-btn" title="Cerrar sesión">

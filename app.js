@@ -11,7 +11,14 @@ import { initSidebar } from './src/ui/components/sidebar.js';
 import { updateNotifBadge } from './src/ui/components/header.js';
 import { initRouter, navigate, go } from './src/core/router.js';
 
-// Import all module renderers from src/ui/views/
+// Auth system
+import {
+  seedAuthData, attemptLogin, clearSession, getSession,
+  getCurrentUser, getCurrentCompany, getCompany,
+  isDeveloper, isManager, ROLES
+} from './src/core/auth.js';
+
+// Import all module renderers
 import { renderDashboard } from './src/ui/views/dashboardView.js';
 import { renderInventoryList, renderInventoryDetail, renderInventoryForm } from './src/ui/views/inventoryView.js';
 import { renderSalesPipeline, renderSaleDetail, renderSaleForm } from './src/ui/views/salesView.js';
@@ -21,42 +28,64 @@ import { renderSellersList, renderSellerDetail, renderGoals } from './src/ui/vie
 import { renderEmailTemplates, renderEmailHistory } from './src/ui/views/notificationsView.js';
 import { renderCashBox, renderReports } from './src/ui/views/accountingView.js';
 import { renderUsers, renderSettings } from './src/ui/views/adminView.js';
+import { renderPlatformView } from './src/ui/views/platformView.js';
 
-// Re-export utilities & modal system for backward compatibility
 export { AppState, showToast, openModal, closeModal, confirmDialog, fmt, fmtDate, go };
 
-// Route Table Mapping
+// ─── Route Guard ─────────────────────────────────────────
+// Returns true if the current user is allowed to view the route
+function canAccess(route) {
+  const user = getCurrentUser();
+  if (!user) return false;
+  const role = user.role;
+
+  // Developer can see everything
+  if (role === ROLES.DEVELOPER) return true;
+
+  // Platform view only for developer
+  if (route === 'platform') return false;
+
+  // Manager-only routes
+  const managerRoutes = ['financing', 'sellers', 'accounting', 'accounting/reports', 'reports', 'notifications', 'notifications/history', 'admin', 'admin/settings', 'settings'];
+  if (managerRoutes.some(r => route.startsWith(r))) {
+    return role === ROLES.MANAGER;
+  }
+
+  // Seller and above can access everything else
+  return true;
+}
+
+// ─── Route Table ──────────────────────────────────────────
 const ROUTES = {
-  'dashboard': () => renderDashboard(),
-  'inventory': () => renderInventoryList(),
-  'inventory/new': () => renderInventoryForm(),
-  'inventory/detail': (params) => renderInventoryDetail(params[0]),
-  'inventory/edit': (params) => renderInventoryForm(params[0]),
-  'sales': () => renderSalesPipeline(),
-  'sales/new': () => renderSaleForm(),
-  'sales/detail': (params) => renderSaleDetail(params[0]),
-  'crm': () => renderCRMList(),
-  'crm/leads': () => renderLeadPipeline(),
-  'crm/pipeline': () => renderLeadPipeline(),
-  'crm/detail': (params) => renderCRMDetail(params[0]),
-  'financing': () => renderFinancingPlans(),
-  'financing/installments': () => renderInstallments(),
-  'sellers': () => renderSellersList(),
-  'sellers/detail': (params) => renderSellerDetail(params[0]),
-  'sellers/goals': () => renderGoals(),
-  'notifications': () => renderEmailTemplates(),
-  'notifications/history': () => renderEmailHistory(),
-  'accounting': () => renderCashBox(),
-  'accounting/reports': () => renderReports(),
-  'reports': () => renderReports(),
-  'admin': () => renderUsers(),
-  'admin/settings': () => renderSettings(),
-  'settings': () => renderSettings(),
+  'platform':                () => renderPlatformView(),
+  'dashboard':               () => renderDashboard(),
+  'inventory':               () => renderInventoryList(),
+  'inventory/new':           () => renderInventoryForm(),
+  'inventory/detail':        (p) => renderInventoryDetail(p[0]),
+  'inventory/edit':          (p) => renderInventoryForm(p[0]),
+  'sales':                   () => renderSalesPipeline(),
+  'sales/new':               () => renderSaleForm(),
+  'sales/detail':            (p) => renderSaleDetail(p[0]),
+  'crm':                     () => renderCRMList(),
+  'crm/leads':               () => renderLeadPipeline(),
+  'crm/pipeline':            () => renderLeadPipeline(),
+  'crm/detail':              (p) => renderCRMDetail(p[0]),
+  'financing':               () => renderFinancingPlans(),
+  'financing/installments':  () => renderInstallments(),
+  'sellers':                 () => renderSellersList(),
+  'sellers/detail':          (p) => renderSellerDetail(p[0]),
+  'sellers/goals':           () => renderGoals(),
+  'notifications':           () => renderEmailTemplates(),
+  'notifications/history':   () => renderEmailHistory(),
+  'accounting':              () => renderCashBox(),
+  'accounting/reports':      () => renderReports(),
+  'reports':                 () => renderReports(),
+  'admin':                   () => renderUsers(),
+  'admin/settings':          () => renderSettings(),
+  'settings':                () => renderSettings(),
 };
 
-// =====================================================
-// Currency Switcher
-// =====================================================
+// ─── Currency Switcher ────────────────────────────────────
 function initCurrencySwitch() {
   const cfg = Config.get();
   AppState.currency = cfg.currency || 'PYG';
@@ -77,74 +106,183 @@ function initCurrencySwitch() {
   usdBtn.addEventListener('click', () => update('USD'));
 }
 
-// =====================================================
-// Login System
-// =====================================================
+// ─── Apply Role Visibility to Sidebar ────────────────────
+function applySidebarRoles() {
+  const user = getCurrentUser();
+  if (!user) return;
+  const role = user.role;
+
+  document.querySelectorAll('[data-role-required]').forEach(el => {
+    const required = el.dataset.roleRequired;
+    let visible = false;
+
+    if (role === ROLES.DEVELOPER) {
+      visible = true; // developer sees everything
+    } else if (required === 'developer') {
+      visible = false; // only developer
+    } else if (required === 'manager') {
+      visible = role === ROLES.MANAGER;
+    } else if (required === 'seller') {
+      visible = true; // seller and above
+    }
+
+    el.style.display = visible ? '' : 'none';
+  });
+}
+
+// ─── Show App after login ─────────────────────────────────
+function showApp(user, company) {
+  document.getElementById('login-screen')?.classList.add('hidden');
+  document.getElementById('suspended-screen')?.classList.add('hidden');
+  document.getElementById('app')?.classList.remove('hidden');
+
+  // Fill in user info on sidebar/header
+  ['user-name-sidebar', 'header-user-name'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = user.name;
+  });
+  ['user-avatar-sidebar', 'header-user-avatar'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = user.avatar || user.name[0];
+  });
+
+  const roleLabels = { developer: 'Developer', manager: 'Gerente', seller: 'Vendedor' };
+  const roleEl = document.getElementById('user-role-sidebar');
+  if (roleEl) roleEl.textContent = roleLabels[user.role] || user.role;
+
+  const compEl = document.getElementById('company-name-sidebar');
+  if (compEl) compEl.textContent = user.role === ROLES.DEVELOPER ? 'Plataforma' : (company?.name || 'Empresa');
+
+  // Apply role-based sidebar visibility
+  applySidebarRoles();
+
+  // Navigate
+  const defaultRoute = user.role === ROLES.DEVELOPER ? '#/platform' : '#/dashboard';
+  navigate(window.location.hash || defaultRoute, updateNotifBadge);
+}
+
+// ─── Show Suspended Screen ────────────────────────────────
+function showSuspended(company) {
+  document.getElementById('login-screen')?.classList.add('hidden');
+  document.getElementById('app')?.classList.add('hidden');
+  document.getElementById('suspended-screen')?.classList.remove('hidden');
+  const nameEl = document.getElementById('suspended-company-name');
+  if (nameEl) nameEl.textContent = company?.name || 'esta empresa';
+  safeCreateIcons({ nodes: [document.getElementById('suspended-screen')] });
+}
+
+// ─── Login System ─────────────────────────────────────────
 function initLogin() {
+  // Populate demo accounts
+  const demoContainer = document.getElementById('demo-accounts');
+  if (demoContainer) {
+    const demos = [
+      { email: 'dev@platform.com',          pass: 'dev123',      label: 'Developer (plataforma completa)', color: '#3b82f6' },
+      { email: 'gerente@autocentral.com',   pass: 'manager123',  label: 'Gerente — Auto Central PY',       color: '#c9a227' },
+      { email: 'roberto@autocentral.com',   pass: 'seller123',   label: 'Vendedor — Auto Central PY',      color: '#10b981' },
+      { email: 'gerente@garagenorte.com',   pass: 'manager123',  label: 'Gerente — Garage Norte',          color: '#8b5cf6' },
+    ];
+    demoContainer.innerHTML = demos.map(d => `
+      <button type="button" class="demo-account-btn" data-email="${d.email}" data-pass="${d.pass}"
+        style="display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.75rem;cursor:pointer;text-align:left;font-size:0.78rem;width:100%;transition:border-color 150ms;">
+        <span style="width:8px;height:8px;border-radius:50%;background:${d.color};flex-shrink:0;"></span>
+        <span style="color:var(--text-muted);">${d.label}</span>
+      </button>
+    `).join('');
+
+    demoContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.demo-account-btn');
+      if (!btn) return;
+      document.getElementById('login-email').value = btn.dataset.email;
+      document.getElementById('login-password').value = btn.dataset.pass;
+    });
+  }
+
   const form = document.getElementById('login-form');
   if (!form) return;
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('login-email')?.value.trim();
     const password = document.getElementById('login-password')?.value;
-    const user = Users.byEmail(email);
-    if (user && user.password === password) {
-      AppState.currentUser = user;
-      document.getElementById('login-screen')?.classList.add('hidden');
-      document.getElementById('app')?.classList.remove('hidden');
-      
-      ['sidebar-user-name', 'header-user-name'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = user.name; });
-      ['user-avatar-sidebar', 'header-user-avatar'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = user.avatar || user.name[0]; });
-      const roleEl = document.getElementById('user-role-sidebar');
-      if (roleEl) roleEl.textContent = { admin: 'Administrador', seller: 'Vendedor', administrative: 'Administrativo' }[user.role] || user.role;
-      
-      const cfg = Config.get();
-      const compEl = document.getElementById('company-name-sidebar');
-      if (compEl) compEl.textContent = cfg.companyName || 'AutoERP';
+    const errorEl = document.getElementById('login-error');
 
-      navigate(window.location.hash || '#/dashboard', updateNotifBadge);
-    } else {
-      showToast('Credenciales incorrectas. Intente nuevamente.', 'error');
+    const result = attemptLogin(email, password);
+    if (!result.success) {
+      if (errorEl) { errorEl.textContent = result.error; errorEl.style.display = 'block'; }
+      return;
     }
+    if (errorEl) errorEl.style.display = 'none';
+
+    const { user, company } = result;
+    AppState.currentUser = user;
+
+    // Check if company is suspended (non-developer users only)
+    if (user.role !== ROLES.DEVELOPER && company?.status === 'paused') {
+      showSuspended(company);
+      return;
+    }
+
+    showApp(user, company);
+  });
+
+  // Suspended screen logout
+  document.getElementById('btn-suspended-logout')?.addEventListener('click', () => {
+    clearSession();
+    document.getElementById('suspended-screen')?.classList.add('hidden');
+    document.getElementById('login-screen')?.classList.remove('hidden');
   });
 }
 
-// =====================================================
-// Logout System
-// =====================================================
+// ─── Logout System ────────────────────────────────────────
 function initLogout() {
-  const logoutBtn = document.getElementById('logout-btn');
-  if (!logoutBtn) return;
-  logoutBtn.addEventListener('click', () => {
+  document.getElementById('logout-btn')?.addEventListener('click', () => {
+    clearSession();
     AppState.currentUser = null;
     document.getElementById('app')?.classList.add('hidden');
     document.getElementById('login-screen')?.classList.remove('hidden');
   });
 }
 
-// =====================================================
-// Bootstrap Application
-// =====================================================
+// ─── Route Guard (before each navigation) ────────────────
+function guardedNavigate(hash, callback) {
+  // Extract route key from hash
+  const raw = (hash || '').replace(/^#\/?/, '');
+  const routeKey = raw.split('/').slice(0,2).join('/') || 'dashboard';
+  const simpleKey = raw.split('/')[0] || 'dashboard';
+
+  if (!canAccess(routeKey) && !canAccess(simpleKey)) {
+    const user = getCurrentUser();
+    const fallback = user?.role === ROLES.DEVELOPER ? '#/platform' : '#/dashboard';
+    showToast('No tienes permiso para acceder a esta sección', 'warning');
+    navigate(fallback, callback);
+    return;
+  }
+  navigate(hash, callback);
+}
+
+// ─── Bootstrap ────────────────────────────────────────────
 async function boot() {
-  // Seed demo data first
+  // Seed auth demo data before anything else
+  seedAuthData();
   seedDemoData();
 
-  // Init UI components & handlers
+  // Init UI components
   initSidebar();
   initCurrencySwitch();
   initModalSystem();
-
-  // Init auth
   initLogin();
   initLogout();
 
-  // Init Router with notification badge updater
+  // Custom router with role guard
   initRouter(ROUTES, updateNotifBadge);
 
-  // Init lucide icons on login screen
+  // Override go() to use guarded navigation
+  const origGo = go;
+  window._guardedGo = (hash) => guardedNavigate(hash, updateNotifBadge);
+
+  // Init lucide icons
   safeCreateIcons({});
 
-  // Header notification button
+  // Header notif button
   document.getElementById('header-notif-btn')?.addEventListener('click', () => go('#/notifications/history'));
 
   // Theme Toggle
@@ -161,16 +299,26 @@ async function boot() {
     btn.addEventListener('click', () => {
       body.classList.toggle('theme-light');
       const isLight = body.classList.contains('theme-light');
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
-      }
+      if (typeof localStorage !== 'undefined') localStorage.setItem('theme', isLight ? 'light' : 'dark');
       btn.innerHTML = isLight ? '<i data-lucide="moon"></i>' : '<i data-lucide="sun"></i>';
       safeCreateIcons({ nodes: [btn] });
     });
   }
 
-  // Initial navigation
-  if (typeof window !== 'undefined' && window.location) {
+  // Check if there's a persisted session
+  const session = getSession();
+  if (session) {
+    const { user, company } = session;
+    AppState.currentUser = user;
+
+    // Re-check company status in case it was paused since last login
+    const freshCompany = user.companyId ? getCompany(user.companyId) : null;
+    if (user.role !== ROLES.DEVELOPER && freshCompany?.status === 'paused') {
+      showSuspended(freshCompany);
+    } else {
+      showApp(user, freshCompany || company);
+    }
+  } else {
     navigate(window.location.hash, updateNotifBadge);
   }
 }
