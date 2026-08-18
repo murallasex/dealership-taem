@@ -26,29 +26,9 @@ export function setActiveCurrency(currency) {
 }
 
 export function fmt(amount) {
-  // Always respect the global active currency for display
-  const cur = getActiveCurrency();
   const rawNum = Number(amount);
   let num = (!isNaN(rawNum) && isFinite(rawNum)) ? rawNum : 0;
-  
-  // Get global exchange rate
-  let exchangeRate = 7500;
-  try {
-    const raw = localStorage.getItem('erp_config');
-    if (raw) {
-      const cfg = JSON.parse(raw);
-      if (cfg && cfg.globalExchangeRate) exchangeRate = Number(cfg.globalExchangeRate);
-    }
-  } catch (err) {}
-  
-  // Base data is stored in PYG
-  if (cur === 'USD') {
-    num = num / exchangeRate;
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(num);
-  }
-  
-  // PYG - Guaraníes
-  return '₲ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(num);
+  return '$ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(num);
 }
 
 export function formatCurrency(amount) {
@@ -77,18 +57,11 @@ export function getGlobalExchangeRate() {
 }
 
 export function parseInputAmount(val) {
-  const num = parseFloat(String(val).replace(/\D/g, '')) || 0;
-  if (getActiveCurrency() === 'USD') {
-    return num * getGlobalExchangeRate();
-  }
-  return num;
+  return parseFloat(String(val).replace(/\D/g, '')) || 0;
 }
 
 export function formatInputValue(rawAmountFromDB) {
   let num = Number(rawAmountFromDB) || 0;
-  if (getActiveCurrency() === 'USD') {
-    num = Math.round(num / getGlobalExchangeRate());
-  }
   return num.toLocaleString('es-PY');
 }
 
