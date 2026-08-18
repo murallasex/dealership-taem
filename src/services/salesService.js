@@ -231,25 +231,23 @@ export function registerTradeIn(saleId, tradeInData) {
   return Sales.save(sale);
 }
 
-export function calculateEstimatedProfit(vehicleId, salePrice, tradeInValue = 0, saleCurrency = 'PYG', exchangeRate = 7500) {
-  const vehicle = Vehicles.find(vehicleId);
-  if (!vehicle) return { profit: 0, margin: 0, cost: 0 };
+export function calculateEstimatedProfit(vehicleId, salePrice, tradeInTotal = 0) {
+  const v = Vehicles.find(vehicleId);
+  if (!v) return { cost: 0, profit: 0, margin: 0 };
   
-  let cost = Number(vehicle.purchaseCost || 0) + Number(vehicle.importCosts || 0) + Number(vehicle.prepCost || 0);
-  const vehicleCurrency = vehicle.currency || 'PYG';
+  // En base a la moneda del sistema (global)
+  // Como simplificamos el sistema, asumimos que todos los montos ya están en la misma moneda base (PYG)
+  const totalCost = (v.purchaseCost || 0) + (v.importCosts || 0) + (v.prepCost || 0) + (v.commission || 0);
   
-  // Normalize cost to the sale currency
-  if (vehicleCurrency === 'PYG' && saleCurrency === 'USD') {
-    cost = cost / exchangeRate;
-  } else if (vehicleCurrency === 'USD' && saleCurrency === 'PYG') {
-    cost = cost * exchangeRate;
-  }
-
-  const price = Number(salePrice || 0);
-  const profit = price - cost;
-  const margin = price > 0 ? (profit / price) * 100 : 0;
+  const totalIncome = parseFloat(salePrice) + parseFloat(tradeInTotal);
+  const profit = totalIncome - totalCost;
+  const margin = totalCost > 0 ? (profit / totalCost) * 100 : 100;
   
-  return { profit, margin, cost };
+  return {
+    cost: totalCost,
+    profit,
+    margin
+  };
 }
 
 export function suggestDeposit(salePrice, estimatedProfit) {

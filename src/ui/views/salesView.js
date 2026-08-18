@@ -610,15 +610,14 @@ export function renderSaleDetail(saleId) {
     if (sale.stage === 'quote') {
       import('../components/modal.js').then(({ openModal, closeModal }) => {
         // Suggest deposit for reservation
-        const exchangeRate = parseFloat(sale.exchangeRate) || 7500;
-        const calc = calculateEstimatedProfit(sale.vehicleId, sale.totalPrice, 0, sale.currency, exchangeRate);
+        const calc = calculateEstimatedProfit(sale.vehicleId, sale.totalPrice, 0);
         const suggested = suggestDeposit(sale.totalPrice, calc.profit);
 
         openModal('Registrar Seña para Reserva', `
           <p style="margin-bottom:1rem;">Para avanzar a <strong>Reserva</strong>, registra la seña acordada con el cliente.</p>
           <form id="deposit-form" class="form-grid">
             <div class="form-group" style="grid-column:span 2;">
-              <label>Monto de la Seña <span class="text-muted">(Sugerido: ${fmt(suggested, sale.currency, exchangeRate)})</span></label>
+              <label>Monto de la Seña <span class="text-muted">(Sugerido: ${fmt(suggested)})</span></label>
               <input type="text" id="deposit-amount" class="form-control" value="${(sale.downPayment || suggested).toLocaleString('es-PY')}" required>
             </div>
             <div class="form-group">
@@ -942,18 +941,6 @@ export function renderSaleForm() {
             </select>
           </div>
           <div class="form-group">
-            <label>Moneda</label>
-            <select name="currency" id="sale-currency" class="form-control" required>
-              <option value="USD">USD</option>
-              <option value="PYG" selected>PYG</option>
-            </select>
-          </div>
-          <div class="form-group" id="sale-exchange-rate-group" style="display: none;">
-            <label>Cambio del Día (PYG por USD)</label>
-            <input type="number" name="exchangeRate" id="sale-exchange-rate" class="form-control" min="1" placeholder="Ej: 7500">
-            <small class="text-muted">Cambio acordado con el cliente.</small>
-          </div>
-          <div class="form-group">
             <label>Precio de Venta Sugerido / Acordado</label>
             <input type="text" name="totalPrice" id="sale-total-price" class="form-control format-currency" required>
           </div>
@@ -1140,24 +1127,22 @@ export function renderSaleForm() {
   const updateSaleCalc = () => {
     const price = parseCurrency(document.getElementById('sale-total-price')?.value);
     const down = parseCurrency(document.getElementById('sale-down-payment')?.value);
-    const currency = document.getElementById('sale-currency')?.value || 'PYG';
-    const exchangeRate = parseFloat(document.getElementById('sale-exchange-rate')?.value) || 7500;
     
     // Profit calc
     const selectedVehicleRadio = document.querySelector('input[name="vehicleId"]:checked');
     if (selectedVehicleRadio) {
       const vId = selectedVehicleRadio.value;
-      const calc = calculateEstimatedProfit(vId, price, 0, currency, exchangeRate);
+      const calc = calculateEstimatedProfit(vId, price, 0);
       
       const pEl = document.getElementById('proj-profit');
       const mEl = document.getElementById('proj-margin');
       if (pEl && mEl) {
         if (price > 0 && calc.profit > 0) {
-          pEl.textContent = fmt(calc.profit, currency, exchangeRate);
+          pEl.textContent = fmt(calc.profit);
           pEl.style.color = 'var(--success)';
           mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
         } else if (price > 0) {
-          pEl.textContent = fmt(calc.profit, currency, exchangeRate);
+          pEl.textContent = fmt(calc.profit);
           pEl.style.color = 'var(--danger)';
           mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
         } else {
@@ -1194,7 +1179,6 @@ export function renderSaleForm() {
 
   // Financing calculator (French amortization)
   const calcFinancing = () => {
-    const currency = document.getElementById('sale-currency')?.value || 'PYG';
     const amount = parseCurrency(document.getElementById('fin-amount')?.value);
     const months = parseInt(document.getElementById('fin-months')?.value) || 12;
     const rateMonthly = (parseFloat(document.getElementById('fin-rate')?.value) || 0) / 100;
@@ -1221,15 +1205,10 @@ export function renderSaleForm() {
     const totalInteres = (cuota * months) - amount;
     const tna = rateMonthly * 12 * 100;
 
-    const fmtNum = (n) => {
-      if (currency === 'USD') return '$ ' + n.toLocaleString('es-PY', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-      return 'Gs. ' + n.toLocaleString('es-PY', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    };
-
     const el = (id) => document.getElementById(id);
-    if(el('res-installment')) el('res-installment').textContent = fmtNum(cuotaTotal);
-    if(el('res-total')) el('res-total').textContent = fmtNum(totalPago);
-    if(el('res-interest')) el('res-interest').textContent = fmtNum(Math.max(0, totalInteres));
+    if(el('res-installment')) el('res-installment').textContent = fmt(cuotaTotal);
+    if(el('res-total')) el('res-total').textContent = fmt(totalPago);
+    if(el('res-interest')) el('res-interest').textContent = fmt(Math.max(0, totalInteres));
     if(el('res-tna')) el('res-tna').textContent = tna.toFixed(1) + '% TNA';
     if(el('fin-installment-hidden')) el('fin-installment-hidden').value = cuotaTotal.toFixed(0);
   };
@@ -1259,35 +1238,8 @@ export function renderSaleForm() {
     }
   });
 
-  // Show/hide exchange rate based on currency
-  document.getElementById('sale-currency')?.addEventListener('change', (e) => {
-    const cur = e.target.value;
-    const rateGroup = document.getElementById('sale-exchange-rate-group');
-    if (rateGroup) {
-      if (cur === 'USD') {
-        rateGroup.style.display = 'block';
-        // Try to prepopulate with global exchange rate
-        const rateInput = document.getElementById('sale-exchange-rate');
-        if (rateInput && !rateInput.value) {
-          try {
-            const raw = localStorage.getItem('erp_config');
-            if (raw) {
-              const cfg = JSON.parse(raw);
-              if (cfg && cfg.globalExchangeRate) {
-                rateInput.value = cfg.globalExchangeRate;
-              }
-            }
-          } catch(e) {}
-        }
-      } else {
-        rateGroup.style.display = 'none';
-      }
-    }
-    updateSaleCalc();
-  });
-
   // Wire live recalculation inputs
-  ['sale-total-price','sale-down-payment','sale-exchange-rate'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSaleCalc));
+  ['sale-total-price','sale-down-payment'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSaleCalc));
   ['fin-months','fin-rate','fin-insurance','fin-admin-fee'].forEach(id => document.getElementById(id)?.addEventListener('input', calcFinancing));
   ['fin-months'].forEach(id => document.getElementById(id)?.addEventListener('change', calcFinancing));
 
@@ -1299,7 +1251,6 @@ export function renderSaleForm() {
     // Parse currency fields back to numbers
     if (data.totalPrice) data.totalPrice = parseCurrency(data.totalPrice);
     if (data.downPayment) data.downPayment = parseCurrency(data.downPayment);
-    if (data.exchangeRate) data.exchangeRate = parseFloat(data.exchangeRate);
 
     const finishCreation = (clientId) => {
       data.clientId = clientId;

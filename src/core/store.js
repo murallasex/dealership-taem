@@ -259,7 +259,7 @@ export const Payments = {
 // DEMO DATA SEEDER (UTF-8 Clean)
 // =====================================================
 export function seedDemoData() {
-  if (dbGet('erp_seeded_v3')) return;
+  if (dbGet('erp_seeded_v4')) return;
 
   // Config
   dbSet(DB_KEYS.config, {
@@ -315,214 +315,24 @@ export function seedDemoData() {
   ];
   dbSet(DB_KEYS.clients, clientsData);
 
-  // Vehicles (Note: VIN for vehicle v5 is '5YJSA1DG0DFP00123')
-  const vehiclesData = [
-    {
-      id: 'v1', vin: '1HGBH41JXMN109186', brand: 'Toyota', model: 'Hilux', version: 'SRX 4x4 AT', year: 2024,
-      color: 'Blanco Perlado', mileage: 0, condition: 'new', origin: 'imported',
-      commercialStatus: 'available', purchaseCost: 185000000, importCosts: 12000000, prepCost: 1500000, commission: 5000000,
-      suggestedPrice: 215000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-06-01T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },
-        { date: '2026-06-02T00:00:00Z', action: 'Verificación técnica completada', by: 'Taller' },
-      ],
-      createdAt: '2026-06-01T00:00:00Z',
-    },
-    {
-      id: 'v2', vin: '2T1BURHE0JC012345', brand: 'Toyota', model: 'Corolla', version: 'XEi CVT', year: 2023,
-      color: 'Gris Oscuro', mileage: 28500, condition: 'used', origin: 'trade_in',
-      commercialStatus: 'available', purchaseCost: 95000000, importCosts: 0, prepCost: 2000000, commission: 3000000,
-      suggestedPrice: 112000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-05-15T00:00:00Z', action: 'Ingresado como parte de pago de venta #VT-0012', by: 'María Fernández' },
-        { date: '2026-05-16T00:00:00Z', action: 'Tasación técnica realizada', by: 'Carlos Méndez' },
-      ],
-      createdAt: '2026-05-15T00:00:00Z',
-    },
-    {
-      id: 'v3', vin: '3GNAXUEV8JS123456', brand: 'Chevrolet', model: 'Tracker', version: 'Premier Turbo', year: 2024,
-      color: 'Rojo Cereza', mileage: 0, condition: 'new', origin: 'direct',
-      commercialStatus: 'reserved', purchaseCost: 130000000, importCosts: 0, prepCost: 800000, commission: 4000000,
-      suggestedPrice: 152000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-07-01T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },
-        { date: '2026-08-01T00:00:00Z', action: 'Reservado por cliente Ana Lucía Rodríguez', by: 'Roberto López' },
-      ],
-      createdAt: '2026-07-01T00:00:00Z',
-    },
-    {
-      id: 'v4', vin: '4T1BF1FK0HU123789', brand: 'Toyota', model: 'Fortuner', version: 'SR5 4x4', year: 2025,
-      color: 'Negro', mileage: 0, condition: 'new', origin: 'imported',
-      commercialStatus: 'available', purchaseCost: 260000000, importCosts: 18000000, prepCost: 2000000, commission: 8000000,
-      suggestedPrice: 310000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-07-20T00:00:00Z', action: 'Ingreso al inventario desde importación', by: 'Carlos Méndez' },
-      ],
-      createdAt: '2026-07-20T00:00:00Z',
-    },
-    {
-      id: 'v5', vin: '5YJSA1DG0DFP00123', brand: 'Volkswagen', model: 'Amarok', version: 'V6 Extreme 4Motion', year: 2024,
-      color: 'Plata Metalizado', mileage: 0, condition: 'new', origin: 'imported',
-      commercialStatus: 'available', purchaseCost: 280000000, importCosts: 20000000, prepCost: 1800000, commission: 9000000,
-      suggestedPrice: 335000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-06-15T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },
-      ],
-      createdAt: '2026-06-15T00:00:00Z',
-    },
-    {
-      id: 'v6', vin: '6FPAAAJ36FH123456', brand: 'Honda', model: 'CR-V', version: 'EX-L Hybrid', year: 2023,
-      color: 'Azul Oscuro', mileage: 18000, condition: 'used', origin: 'direct',
-      commercialStatus: 'sold', purchaseCost: 130000000, importCosts: 0, prepCost: 3000000, commission: 4000000,
-      suggestedPrice: 155000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-04-01T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },
-        { date: '2026-05-10T00:00:00Z', action: 'Vendido a Juan Carlos Pérez', by: 'María Fernández' },
-        { date: '2026-05-15T00:00:00Z', action: 'Entregado al cliente', by: 'María Fernández' },
-      ],
-      createdAt: '2026-04-01T00:00:00Z',
-    },
-    {
-      id: 'v7', vin: '7SAYGDEE0PF123456', brand: 'Nissan', model: 'Frontier', version: 'Pro-4X AT 4WD', year: 2024,
-      color: 'Gris Grafito', mileage: 0, condition: 'new', origin: 'direct',
-      commercialStatus: 'in_preparation', purchaseCost: 175000000, importCosts: 5000000, prepCost: 2500000, commission: 5500000,
-      suggestedPrice: 205000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-07-25T00:00:00Z', action: 'Ingreso al inventario', by: 'Carlos Méndez' },
-        { date: '2026-08-01T00:00:00Z', action: 'Enviado a preparación y detailing', by: 'Diego Sánchez' },
-      ],
-      createdAt: '2026-07-25T00:00:00Z',
-    },
-    {
-      id: 'v8', vin: '8JNBAAEV6JW123456', brand: 'Chevrolet', model: 'S10', version: 'High Country 4x4', year: 2023,
-      color: 'Blanco', mileage: 42000, condition: 'consigned', origin: 'consignment',
-      commercialStatus: 'available', purchaseCost: 105000000, importCosts: 0, prepCost: 1200000, commission: 3500000,
-      suggestedPrice: 122000000, currency: 'PYG', branch: 'Casa Central', photos: [], documents: [],
-      history: [
-        { date: '2026-06-28T00:00:00Z', action: 'Ingresado en consignación por cliente particular', by: 'Diego Sánchez' },
-      ],
-      createdAt: '2026-06-28T00:00:00Z',
-    },
-  ];
+  // Vehicles
+  const vehiclesData = [];
   dbSet(DB_KEYS.vehicles, vehiclesData);
 
   // Sales
-  const salesData = [
-    {
-      id: 'sale1', saleNumber: 'VT-0015', vehicleId: 'v3', clientId: 'c2', sellerId: 's2',
-      stage: 'reservation', paymentType: 'financed_own', downPayment: 30000000, totalPrice: 152000000,
-      currency: 'PYG', advanceAmount: 10000000, notes: 'Cliente solicita patente incluida.',
-      tradeInVehicleId: null, contractGenerated: false, deliveryStatus: 'pending',
-      createdAt: '2026-08-01T00:00:00Z', updatedAt: '2026-08-05T00:00:00Z',
-      history: [
-        { date: '2026-08-01T00:00:00Z', stage: 'quote', by: 'Roberto López', note: 'Cotización inicial enviada al cliente.' },
-        { date: '2026-08-05T00:00:00Z', stage: 'reservation', by: 'Roberto López', note: 'Seña recibida: ₲ 10.000.000' },
-      ],
-    },
-    {
-      id: 'sale2', saleNumber: 'VT-0014', vehicleId: 'v1', clientId: 'c3', sellerId: 's1',
-      stage: 'contract', paymentType: 'financed_bank', downPayment: 50000000, totalPrice: 215000000,
-      currency: 'PYG', advanceAmount: 20000000, notes: 'Financiado con Banco Continental.',
-      tradeInVehicleId: null, contractGenerated: true, deliveryStatus: 'pending',
-      createdAt: '2026-07-20T00:00:00Z', updatedAt: '2026-08-02T00:00:00Z',
-      history: [
-        { date: '2026-07-20T00:00:00Z', stage: 'quote', by: 'María Fernández', note: 'Cotización para flota de Empresa Logística SA.' },
-        { date: '2026-07-25T00:00:00Z', stage: 'reservation', by: 'María Fernández', note: 'Reserva con seña ₲ 20.000.000.' },
-        { date: '2026-08-02T00:00:00Z', stage: 'contract', by: 'María Fernández', note: 'Contrato de compraventa firmado.' },
-      ],
-    },
-    {
-      id: 'sale3', saleNumber: 'VT-0013', vehicleId: 'v6', clientId: 'c1', sellerId: 's1',
-      stage: 'delivery', paymentType: 'cash', downPayment: 155000000, totalPrice: 155000000,
-      currency: 'PYG', advanceAmount: 0, notes: 'Pago contado. Incluye 1er service gratis.',
-      tradeInVehicleId: 'v2', contractGenerated: true, deliveryStatus: 'delivered',
-      createdAt: '2026-05-10T00:00:00Z', updatedAt: '2026-05-15T00:00:00Z',
-      history: [
-        { date: '2026-05-10T00:00:00Z', stage: 'quote', by: 'María Fernández', note: 'Cotización inicial.' },
-        { date: '2026-05-11T00:00:00Z', stage: 'reservation', by: 'María Fernández', note: 'Vehículo reservado.' },
-        { date: '2026-05-12T00:00:00Z', stage: 'contract', by: 'María Fernández', note: 'Contrato firmado. Toyota Corolla aceptado como parte de pago.' },
-        { date: '2026-05-15T00:00:00Z', stage: 'delivery', by: 'María Fernández', note: 'Vehículo entregado. Trámite de transferencia iniciado.' },
-      ],
-    },
-    {
-      id: 'sale4', saleNumber: 'VT-0016', vehicleId: 'v5', clientId: 'c4', sellerId: 's3',
-      stage: 'quote', paymentType: 'financed_own', downPayment: 100000000, totalPrice: 335000000,
-      currency: 'PYG', advanceAmount: 0, notes: 'Cliente evaluando opciones de financiación.',
-      tradeInVehicleId: null, contractGenerated: false, deliveryStatus: 'pending',
-      createdAt: '2026-08-05T00:00:00Z', updatedAt: '2026-08-05T00:00:00Z',
-      history: [
-        { date: '2026-08-05T00:00:00Z', stage: 'quote', by: 'Diego Sánchez', note: 'Primera cotización enviada.' },
-      ],
-    },
-  ];
+  const salesData = [];
   dbSet(DB_KEYS.sales, salesData);
 
   // Financing plans
-  const todayDate = new Date();
-  const mkDate = (offsetDays) => {
-    const d = new Date(todayDate);
-    d.setDate(d.getDate() + offsetDays);
-    return d.toISOString();
-  };
-
-  const financingData = [
-    {
-      id: 'fin1', saleId: 'sale1', clientId: 'c2', vehicleId: 'v3',
-      totalAmount: 152000000, downPayment: 30000000, financedAmount: 122000000,
-      installments: 24, monthlyRate: 0.018,
-      currency: 'PYG',
-      installmentAmount: Math.round(122000000 * 0.018 * Math.pow(1.018, 24) / (Math.pow(1.018, 24) - 1)),
-      payments: Array.from({ length: 24 }, (_, i) => ({
-        id: `fin1-p${i+1}`,
-        number: i + 1,
-        dueDate: mkDate((i + 1) * 30),
-        amount: Math.round(122000000 * 0.018 * Math.pow(1.018, 24) / (Math.pow(1.018, 24) - 1)),
-        status: i < 0 ? 'paid' : 'pending',
-        paidAt: null,
-      })),
-      createdAt: '2026-08-05T00:00:00Z',
-    },
-    {
-      id: 'fin2', saleId: 'sale4', clientId: 'c4', vehicleId: 'v5',
-      totalAmount: 335000000, downPayment: 100000000, financedAmount: 235000000,
-      installments: 36, monthlyRate: 0.02,
-      currency: 'PYG',
-      installmentAmount: Math.round(235000000 * 0.02 * Math.pow(1.02, 36) / (Math.pow(1.02, 36) - 1)),
-      payments: Array.from({ length: 36 }, (_, i) => ({
-        id: `fin2-p${i+1}`,
-        number: i + 1,
-        dueDate: mkDate((i + 1) * 30 - 60),
-        amount: Math.round(235000000 * 0.02 * Math.pow(1.02, 36) / (Math.pow(1.02, 36) - 1)),
-        status: i < 2 ? 'paid' : (i === 2 ? 'overdue' : 'pending'),
-        paidAt: i < 2 ? mkDate(i * 30 - 70) : null,
-      })),
-      createdAt: '2026-06-07T00:00:00Z',
-    },
-  ];
+  const financingData = [];
   dbSet(DB_KEYS.financing, financingData);
 
   // Leads
-  const leadsData = [
-    { id: 'lead1', name: 'Gabriel Rojas', email: 'gabriel.rojas@gmail.com', phone: '+595 981 321-123', interestedIn: 'Toyota Hilux', origin: 'social', stage: 'new', assignedTo: 's1', notes: 'Vio el vehículo en Instagram.', createdAt: '2026-08-06T00:00:00Z' },
-    { id: 'lead2', name: 'Natalia Bogado', email: 'nbogado@empresa.py', phone: '+595 981 654-456', interestedIn: 'Chevrolet Tracker', origin: 'web', stage: 'interested', assignedTo: 's2', notes: 'Completó formulario online.', createdAt: '2026-08-04T00:00:00Z' },
-    { id: 'lead3', name: 'Lucas Estigarribia', email: 'lucas@gmail.com', phone: '+595 981 987-789', interestedIn: 'Nissan Frontier', origin: 'walkin', stage: 'quoted', assignedTo: 's3', notes: 'Vino sin cita, muy interesado.', createdAt: '2026-08-02T00:00:00Z' },
-    { id: 'lead4', name: 'Sofía Almada', email: 'sofia.almada@outlook.com', phone: '+595 981 111-999', interestedIn: 'Honda CR-V', origin: 'referral', stage: 'negotiation', assignedTo: 's1', notes: 'Referida por cliente Juan Pérez.', createdAt: '2026-07-28T00:00:00Z' },
-    { id: 'lead5', name: 'Carlos Brítez', email: 'c.britez@gmail.com', phone: '+595 981 222-888', interestedIn: 'VW Amarok', origin: 'social', stage: 'won', assignedTo: 's2', notes: 'Cerró cotización.', createdAt: '2026-07-20T00:00:00Z' },
-    { id: 'lead6', name: 'Rosa Giménez', email: 'rgimenez@gmail.com', phone: '+595 981 333-777', interestedIn: 'Toyota Corolla', origin: 'walkin', stage: 'lost', assignedTo: 's3', notes: 'Se fue con la competencia.', createdAt: '2026-07-15T00:00:00Z' },
-  ];
+  const leadsData = [];
   dbSet(DB_KEYS.leads, leadsData);
 
   // Cash box entries
-  const cashData = [
-    { id: 'cash1', type: 'income', category: 'sale', description: 'Pago contado venta VT-0013 - Juan Carlos Pérez', amount: 155000000, currency: 'PYG', saleId: 'sale3', date: '2026-05-15T00:00:00Z', registeredBy: 'Carlos Méndez' },
-    { id: 'cash2', type: 'expense', category: 'preparation', description: 'Gastos de detailing - Toyota Corolla v2', amount: 2000000, currency: 'PYG', date: '2026-05-16T00:00:00Z', registeredBy: 'Carlos Méndez' },
-    { id: 'cash3', type: 'income', category: 'advance', description: 'Seña reserva VT-0014 - Empresa Logística SA', amount: 20000000, currency: 'PYG', saleId: 'sale2', date: '2026-07-25T00:00:00Z', registeredBy: 'Carlos Méndez' },
-    { id: 'cash4', type: 'expense', category: 'import', description: 'Gastos de importación Toyota Fortuner', amount: 18000000, currency: 'PYG', date: '2026-07-22T00:00:00Z', registeredBy: 'Carlos Méndez' },
-    { id: 'cash5', type: 'income', category: 'advance', description: 'Seña reserva VT-0015 - Ana Rodríguez', amount: 10000000, currency: 'PYG', saleId: 'sale1', date: '2026-08-05T00:00:00Z', registeredBy: 'Carlos Méndez' },
-    { id: 'cash6', type: 'expense', category: 'services', description: 'Servicio de limpieza y mantenimiento local', amount: 1500000, currency: 'PYG', date: '2026-08-01T00:00:00Z', registeredBy: 'Carlos Méndez' },
-    { id: 'cash7', type: 'income', category: 'installment', description: 'Pago cuota 1 - Financiación VT-0016', amount: 9820000, currency: 'PYG', date: '2026-07-07T00:00:00Z', registeredBy: 'Andrea Torres' },
-    { id: 'cash8', type: 'income', category: 'installment', description: 'Pago cuota 2 - Financiación VT-0016', amount: 9820000, currency: 'PYG', date: '2026-08-06T00:00:00Z', registeredBy: 'Andrea Torres' },
-  ];
+  const cashData = [];
   dbSet(DB_KEYS.cashbox, cashData);
 
   // Email Templates
@@ -615,6 +425,9 @@ Horarios: Lunes a Sábados de 8:00 a 18:00 hs.
     globalExchangeRate: 7500, // Default PYG per USD
   });
 
+  // Payments (Empty)
+  dbSet(DB_KEYS.payments, []);
+
   // Mark seeded
-  dbSet('erp_seeded_v3', true);
+  dbSet('erp_seeded_v4', true);
 }

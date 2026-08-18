@@ -497,13 +497,7 @@ export function renderInventoryForm(vehicleId = null) {
       <div class="card">
         <div class="card-header"><h3 class="card-title">Precios y Costos</h3></div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Moneda</label>
-            <select id="v-currency" class="form-control">
-              <option value="USD" ${vehicle.currency === 'USD' ? 'selected' : ''}>USD</option>
-              <option value="PYG" ${vehicle.currency === 'PYG' ? 'selected' : ''}>PYG</option>
-            </select>
-          </div>
+
           <div class="form-group">
             <label>Costo de Compra</label>
             <input type="text" id="v-purchaseCost" class="form-control format-currency" value="${(vehicle.purchaseCost || 0).toLocaleString('es-PY')}">
@@ -604,7 +598,6 @@ export function renderInventoryForm(vehicleId = null) {
       origin: document.getElementById('v-origin').value,
       commercialStatus: document.getElementById('v-status').value,
       branch: document.getElementById('v-branch').value,
-      currency: document.getElementById('v-currency').value,
       purchaseCost: parseCurrency(document.getElementById('v-purchaseCost').value),
       importCosts: parseCurrency(document.getElementById('v-importCosts').value),
       prepCost: parseCurrency(document.getElementById('v-prepCost').value),

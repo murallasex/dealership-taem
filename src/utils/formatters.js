@@ -25,7 +25,7 @@ export function setActiveCurrency(currency) {
   } catch (err) {}
 }
 
-export function fmt(amount, currency = null, explicitExchangeRate = null) {
+export function fmt(amount) {
   // Always respect the global active currency for display
   const cur = getActiveCurrency();
   const rawNum = Number(amount);
@@ -41,27 +41,18 @@ export function fmt(amount, currency = null, explicitExchangeRate = null) {
     }
   } catch (err) {}
   
-  // Use explicit exchange rate if provided (e.g. for a specific sale), otherwise global
-  const rateToUse = explicitExchangeRate ? Number(explicitExchangeRate) : exchangeRate;
-
-  // Assuming base data is stored in the currency specified by the `currency` parameter (default PYG if null)
-  const sourceCurrency = currency || 'PYG';
-  
-  if (cur === 'USD' && sourceCurrency !== 'USD') {
-    num = num / rateToUse;
-  } else if (cur === 'PYG' && sourceCurrency === 'USD') {
-    num = num * rateToUse;
-  }
-
+  // Base data is stored in PYG
   if (cur === 'USD') {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(num);
+    num = num / exchangeRate;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(num);
   }
+  
   // PYG - Guaraníes
   return '₲ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(num);
 }
 
-export function formatCurrency(amount, currency = null) {
-  return fmt(amount, currency);
+export function formatCurrency(amount) {
+  return fmt(amount);
 }
 
 export function fmtDate(isoStr) {
