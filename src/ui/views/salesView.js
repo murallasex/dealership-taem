@@ -2,7 +2,7 @@
 // AutoERP — Sales View Renderer
 // =====================================================
 
-import { getSalesKPIs, getSalesByStage, getClientName, getVehicleName, getSellerName, advanceSaleStage, createSaleQuote } from '../../services/salesService.js';
+import { getSalesKPIs, getSalesByStage, getClientName, getVehicleName, getSellerName, advanceSaleStage, createSaleQuote, markSaleAsLost, reactivateSale, getLostSalesReport, registerTradeIn, LOST_REASONS } from '../../services/salesService.js';
 import { Sales, Vehicles, Clients, Sellers, Invoices } from '../../core/store.js';
 import { createInvoice } from '../../services/billingService.js';
 import { openBillingPrintModal } from '../components/billingModal.js';
@@ -18,27 +18,24 @@ export function renderSalesPipeline() {
 
   const kpis = getSalesKPIs();
   const columns = getSalesByStage();
+  const lostReport = getLostSalesReport();
 
   const stageIcons = {
-    quote: 'file-text',
-    reservation: 'bookmark',
-    contract: 'file-signature',
-    delivery: 'truck'
+    quote: 'file-text', reservation: 'bookmark',
+    contract: 'file-signature', delivery: 'truck'
   };
-
   const stageColors = {
-    quote: 'var(--info)',
-    reservation: 'var(--warning)',
-    contract: 'var(--gold)',
-    delivery: 'var(--success)'
+    quote: 'var(--info)', reservation: 'var(--warning)',
+    contract: 'var(--gold)', delivery: 'var(--success)'
   };
+  const stageLabels = { quote: 'Cotización', reservation: 'Reserva', contract: 'Contrato' };
 
   const renderCard = (sale, stageKey) => {
     const clientName = getClientName(sale.clientId);
     const vehicleName = getVehicleName(sale.vehicleId);
     const sellerName = getSellerName(sale.sellerId);
     const initials = clientName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-    const color = stageColors[stageKey];
+    const color = stageColors[stageKey] || 'var(--danger)';
 
     return `
     <div class="sale-pipeline-card" data-sale-id="${sale.id}">
@@ -69,6 +66,34 @@ export function renderSalesPipeline() {
     </div>`;
   };
 
+  const renderLostCard = (sale) => {
+    const clientName = getClientName(sale.clientId);
+    const vehicleName = getVehicleName(sale.vehicleId);
+    const initials = clientName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    return `
+    <div class="sale-pipeline-card" data-sale-id="${sale.id}" style="border-left: 3px solid var(--danger); opacity: 0.85;">
+      <div class="sale-pipeline-card__header">
+        <span class="sale-pipeline-card__number">${sale.saleNumber}</span>
+        <span class="badge badge-danger" style="font-size:0.7rem;">${stageLabels[sale.stage] || sale.stage}</span>
+      </div>
+      <div class="sale-pipeline-card__client">
+        <div class="sale-pipeline-card__avatar" style="background: rgba(239,68,68,0.15); color: var(--danger);">${initials}</div>
+        <div class="sale-pipeline-card__client-info">
+          <div class="sale-pipeline-card__client-name">${clientName}</div>
+          <div class="sale-pipeline-card__vehicle" style="color: var(--text-muted); font-size:0.78rem;">${LOST_REASONS[sale.lostReason] || 'Motivo no especificado'}</div>
+        </div>
+      </div>
+      <div class="sale-pipeline-card__footer">
+        <div class="sale-pipeline-card__price" style="color: var(--text-muted); text-decoration:line-through;">${fmt(sale.totalPrice, sale.currency)}</div>
+        <button type="button" class="btn btn-ghost btn-sm reactivate-btn" data-id="${sale.id}" title="Reactivar venta" style="color: var(--success); padding:4px 8px; font-size:0.75rem;">
+          <i data-lucide="rotate-ccw" style="width:13px;height:13px;"></i>
+        </button>
+      </div>
+    </div>`;
+  };
+
+  const activeColumnKeys = ['quote', 'reservation', 'contract', 'delivery'];
+
   let html = `
     <div class="page-header" style="margin-bottom: 1.75rem;">
       <div class="header-title">
@@ -85,7 +110,7 @@ export function renderSalesPipeline() {
       <div class="card kpi-card">
         <div class="kpi-icon badge-info"><i data-lucide="layers"></i></div>
         <div class="kpi-content">
-          <div class="kpi-label">Total Ventas</div>
+          <div class="kpi-label">Total Activas</div>
           <div class="kpi-value">${kpis.totalSales}</div>
         </div>
       </div>
@@ -110,11 +135,19 @@ export function renderSalesPipeline() {
           <div class="kpi-value">${kpis.deliveredSalesCount}</div>
         </div>
       </div>
+      <div class="card kpi-card" style="border-left: 3px solid var(--danger);">
+        <div class="kpi-icon" style="background:rgba(239,68,68,0.15);color:var(--danger);"><i data-lucide="x-circle"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Perdidas</div>
+          <div class="kpi-value" style="color:var(--danger);">${kpis.lostSalesCount}</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Pipeline Stages -->
+    <!-- Active Pipeline Stages -->
     <div class="sales-pipeline-board">
-      ${Object.entries(columns).map(([key, col]) => {
+      ${activeColumnKeys.map(key => {
+        const col = columns[key];
         const color = stageColors[key];
         const icon = stageIcons[key];
         return `
@@ -141,14 +174,57 @@ export function renderSalesPipeline() {
         </div>`;
       }).join('')}
     </div>
+
+    <!-- Lost/Cancelled Section -->
+    ${columns.lost.items.length > 0 ? `
+    <div style="margin-top: 2.5rem;">
+      <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+        <div style="flex:1; height:1px; background:var(--border);"></div>
+        <span style="display:flex;align-items:center;gap:0.5rem;color:var(--danger);font-size:0.85rem;font-weight:600;white-space:nowrap;">
+          <i data-lucide="x-circle" style="width:16px;height:16px;"></i>
+          PERDIDAS / CANCELADAS (${columns.lost.items.length})
+        </span>
+        <div style="flex:1; height:1px; background:var(--border);"></div>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:1rem;">
+        ${columns.lost.items.map(s => renderLostCard(s)).join('')}
+      </div>
+    </div>` : ''}
+
+    <!-- Conversion Report -->
+    ${lostReport.total > 0 ? `
+    <div class="card" style="margin-top: 2rem;">
+      <div class="card-header">
+        <h3 class="card-title" style="display:flex;align-items:center;gap:0.5rem;">
+          <i data-lucide="bar-chart-2" style="width:18px;height:18px;color:var(--gold);"></i>
+          Reporte de Conversión del Embudo
+        </h3>
+      </div>
+      <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+        <div>
+          <div class="text-muted" style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.75rem;">Perdidas por etapa</div>
+          ${Object.entries({ quote: 'Cotización', reservation: 'Reserva', contract: 'Contrato' }).map(([k, label]) => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+            <span>${label}</span>
+            <span style="color:var(--danger);font-weight:600;">${lostReport.byStage[k] || 0}</span>
+          </div>`).join('')}
+        </div>
+        <div>
+          <div class="text-muted" style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.75rem;">Perdidas por motivo</div>
+          ${Object.entries(LOST_REASONS).map(([k, label]) => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:0.9rem;">${label}</span>
+            <span style="color:var(--danger);font-weight:600;">${lostReport.byReason[k] || 0}</span>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>` : ''}
   `;
 
   content.innerHTML = html;
   safeCreateIcons({ nodes: [content] });
 
-  document.getElementById('btn-new-sale')?.addEventListener('click', () => {
-    go('#/sales/new');
-  });
+  document.getElementById('btn-new-sale')?.addEventListener('click', () => go('#/sales/new'));
 
   content.querySelectorAll('.stage-search').forEach(input => {
     input.addEventListener('input', (e) => {
@@ -157,8 +233,7 @@ export function renderSalesPipeline() {
       const container = document.getElementById(`stage-cards-${stageKey}`);
       if (container) {
         container.querySelectorAll('.sale-pipeline-card').forEach(card => {
-          const text = card.textContent.toLowerCase();
-          card.style.display = text.includes(term) ? '' : 'none';
+          card.style.display = card.textContent.toLowerCase().includes(term) ? '' : 'none';
         });
       }
     });
@@ -166,7 +241,7 @@ export function renderSalesPipeline() {
 
   content.querySelectorAll('.sale-pipeline-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('.advance-btn')) return;
+      if (e.target.closest('.advance-btn') || e.target.closest('.reactivate-btn')) return;
       go(`#/sales/detail/${card.dataset.saleId}`);
     });
   });
@@ -182,6 +257,17 @@ export function renderSalesPipeline() {
           showToast(`Venta avanzada a ${res.nextStage}`, 'success');
           renderSalesPipeline();
         }
+      });
+    });
+  });
+
+  content.querySelectorAll('.reactivate-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      confirmDialog('¿Reactivar esta venta al pipeline?', () => {
+        reactivateSale(btn.dataset.id);
+        showToast('Venta reactivada', 'success');
+        renderSalesPipeline();
       });
     });
   });
@@ -233,14 +319,18 @@ export function renderSaleDetail(saleId) {
         <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
           <h1 class="page-title" style="margin:0;">${sale.saleNumber}</h1>
           <span class="badge badge-neutral" style="font-size:0.8rem;">${fmtDate(sale.createdAt)}</span>
+          ${sale.lost ? `<span class="badge badge-danger" style="font-size:0.85rem;"><i data-lucide="x-circle" style="width:13px;height:13px;"></i> Perdida / Cancelada</span>` : ''}
         </div>
+        ${sale.lost ? `<div style="margin-top:0.5rem;color:var(--text-muted);font-size:0.9rem;"><i data-lucide="info" style="width:14px;height:14px;"></i> Motivo: <strong>${LOST_REASONS[sale.lostReason] || 'No especificado'}</strong>${sale.lostNote ? ` — ${sale.lostNote}` : ''}</div>` : ''}
       </div>
       <div class="header-actions">
-        ${sale.stage !== 'delivery' ? `
+        ${!sale.lost && sale.stage !== 'delivery' ? `
+          <button class="btn btn-ghost" id="btn-mark-lost" style="color:var(--danger);border-color:var(--danger);"><i data-lucide="x-circle"></i> Marcar Perdida</button>
           <button class="btn btn-primary" id="btn-advance">
             Avanzar a ${stageFlow[currentStageIndex + 1]?.label || ''} <i data-lucide="arrow-right"></i>
           </button>
         ` : ''}
+        ${sale.lost ? `<button class="btn btn-secondary" id="btn-reactivate" style="color:var(--success);border-color:var(--success);"><i data-lucide="rotate-ccw"></i> Reactivar Venta</button>` : ''}
         <button class="btn btn-secondary" id="btn-billing" style="background: var(--gold); color: #000; border: none;"><i data-lucide="receipt"></i> Factura / Ticket</button>
         <button class="btn btn-secondary" id="btn-pdf"><i data-lucide="file-text"></i> Contrato PDF</button>
       </div>
@@ -256,15 +346,18 @@ export function renderSaleDetail(saleId) {
           let stateClass = 'pending';
           if (isCompleted) stateClass = 'completed';
           if (isCurrent) stateClass = 'current';
+          const isLostHere = sale.lost && isCurrent;
+          const dotColor = isLostHere ? 'var(--danger)' : stage.color;
           return `
           <div class="sale-stepper__step sale-stepper__step--${stateClass}">
-            <div class="sale-stepper__dot" style="--step-color: ${stage.color};">
-              ${isCompleted ? '<i data-lucide="check" style="width:14px;height:14px;color:#fff;"></i>' :
+            <div class="sale-stepper__dot" style="--step-color: ${dotColor}; ${isLostHere ? 'background:var(--danger)!important;' : ''}">
+              ${isLostHere ? '<i data-lucide="x" style="width:14px;height:14px;color:#fff;"></i>' :
+                isCompleted ? '<i data-lucide="check" style="width:14px;height:14px;color:#fff;"></i>' :
                 isCurrent ? `<i data-lucide="${stage.icon}" style="width:14px;height:14px;color:#fff;"></i>` : 
                 `<span style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);opacity:0.4;display:block;"></span>`}
             </div>
             ${idx < stageFlow.length - 1 ? `<div class="sale-stepper__line ${isCompleted ? 'sale-stepper__line--filled' : ''}"></div>` : ''}
-            <div class="sale-stepper__label" style="color: ${isPending ? 'var(--text-muted)' : 'var(--text-primary)'};">${stage.label}</div>
+            <div class="sale-stepper__label" style="color: ${isLostHere ? 'var(--danger)' : isPending ? 'var(--text-muted)' : 'var(--text-primary)'};">${stage.label}${isLostHere ? ' ✕' : ''}</div>
           </div>`;
         }).join('')}
       </div>
@@ -425,15 +518,58 @@ export function renderSaleDetail(saleId) {
           </div>
           <div class="sale-detail-card__body" style="padding-top:0;">
             <div style="display:flex;flex-direction:column;gap:0.5rem;">
-              <button class="btn btn-ghost w-full" id="btn-tradein" style="justify-content:flex-start;gap:0.75rem;padding:0.65rem 1rem;">
-                <i data-lucide="car" style="width:16px;height:16px;"></i> Registrar Parte de Pago
-              </button>
               ${sale.paymentType === 'financed_own' ? `
                 <button class="btn btn-ghost w-full" id="btn-finance" style="justify-content:flex-start;gap:0.75rem;padding:0.65rem 1rem;">
                   <i data-lucide="calculator" style="width:16px;height:16px;"></i> Configurar Financiación
                 </button>
               ` : ''}
             </div>
+          </div>
+        </div>
+
+        <!-- Trade-In Card -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header" style="justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div class="sale-detail-card__icon" style="background:rgba(251,146,60,0.15);color:#f97316;"><i data-lucide="arrow-left-right"></i></div>
+              <div>
+                <h3 class="sale-detail-card__title">Parte de Pago</h3>
+                <p class="sale-detail-card__subtitle">${(sale.tradeIns || []).length} vehículo(s) recibido(s)</p>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="btn-tradein" title="Agregar vehículo" style="color:#f97316;border:1px solid rgba(249,115,22,0.3);">
+              <i data-lucide="plus" style="width:14px;height:14px;"></i> Agregar
+            </button>
+          </div>
+          <div class="sale-detail-card__body" style="padding-top:0;">
+            ${(sale.tradeIns || []).length === 0 ? `
+              <div style="text-align:center;padding:1.25rem;color:var(--text-muted);font-size:0.9rem;">
+                <i data-lucide="car" style="width:32px;height:32px;opacity:0.3;display:block;margin:0 auto 0.5rem;"></i>
+                Sin vehículos en parte de pago
+              </div>
+            ` : (sale.tradeIns || []).map(ti => `
+              <div style="border:1px solid var(--border);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.5rem;background:rgba(249,115,22,0.04);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                  <div>
+                    <div style="font-weight:600;">${ti.brand} ${ti.model} (${ti.year})</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);margin-top:2px;">
+                      ${ti.color ? `Color: ${ti.color}` : ''} ${ti.mileage ? `· ${Number(ti.mileage).toLocaleString()} km` : ''}
+                      ${ti.condition ? `· ${ti.condition}` : ''}
+                    </div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-weight:700;color:#f97316;">${fmt(ti.appraisalValue)}</div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">tasación</div>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+            ${(sale.tradeIns || []).length > 0 ? `
+              <div style="display:flex;justify-content:space-between;padding-top:0.5rem;font-size:0.9rem;">
+                <span style="color:var(--text-muted);">Total tasado:</span>
+                <strong style="color:#f97316;">${fmt((sale.tradeIns || []).reduce((s,t) => s + Number(t.appraisalValue || 0), 0))}</strong>
+              </div>
+            ` : ''}
           </div>
         </div>
       </div>
@@ -512,35 +648,100 @@ export function renderSaleDetail(saleId) {
     showToast('Contrato PDF generado exitosamente', 'success');
   });
 
-  document.getElementById('btn-tradein')?.addEventListener('click', () => {
+  // === MARK AS LOST ===
+  document.getElementById('btn-mark-lost')?.addEventListener('click', () => {
     import('../components/modal.js').then(({ openModal, closeModal }) => {
-      openModal('Recibir Vehículo en Parte de Pago', `
-        <form id="tradein-form" class="form-grid">
-          <div class="form-group"><label>Marca y Modelo</label><input type="text" id="tradein-model" class="form-control" required></div>
-          <div class="form-group"><label>Año</label><input type="number" id="tradein-year" class="form-control" required></div>
-          <div class="form-group"><label>Valor de Tasación</label><input type="number" id="tradein-value" class="form-control" required></div>
+      const reasonOptions = Object.entries(LOST_REASONS).map(([k, v]) =>
+        `<option value="${k}">${v}</option>`
+      ).join('');
+
+      openModal('Marcar Venta como Perdida', `
+        <form id="lost-form" class="form-grid">
+          <div class="form-group" style="grid-column:span 2;">
+            <label>Motivo de Pérdida <span style="color:var(--danger)">*</span></label>
+            <select id="lost-reason" class="form-control" required>
+              <option value="">— Seleccioná un motivo —</option>
+              ${reasonOptions}
+            </select>
+          </div>
+          <div class="form-group" style="grid-column:span 2;">
+            <label>Nota adicional (opcional)</label>
+            <textarea id="lost-note" class="form-control" rows="2" placeholder="Comentario interno..."></textarea>
+          </div>
+          <div style="grid-column:span 2;display:flex;justify-content:flex-end;gap:1rem;">
+            <button type="button" class="btn btn-ghost" onclick="window._closeModal()">Cancelar</button>
+            <button type="submit" class="btn" style="background:var(--danger);color:#fff;">Marcar como Perdida</button>
+          </div>
         </form>
-      `, `
-        <button class="btn btn-secondary" onclick="window._closeModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="document.getElementById('tradein-form').dispatchEvent(new Event('submit'))">Registrar</button>
       `);
       window._closeModal = closeModal;
+
+      document.getElementById('lost-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const reason = document.getElementById('lost-reason').value;
+        const note = document.getElementById('lost-note').value;
+        if (!reason) { showToast('Seleccioná un motivo', 'danger'); return; }
+        markSaleAsLost(saleId, reason, note);
+        closeModal();
+        showToast('Venta marcada como perdida', 'warning');
+        renderSaleDetail(saleId);
+      });
+    });
+  });
+
+  // === REACTIVATE ===
+  document.getElementById('btn-reactivate')?.addEventListener('click', () => {
+    confirmDialog('¿Reactivar esta venta al pipeline activo?', () => {
+      reactivateSale(saleId);
+      showToast('Venta reactivada', 'success');
+      renderSaleDetail(saleId);
+    });
+  });
+
+  // === TRADE-IN ===
+  document.getElementById('btn-tradein')?.addEventListener('click', () => {
+    import('../components/modal.js').then(({ openModal, closeModal }) => {
+      openModal('Agregar Vehículo en Parte de Pago', `
+        <form id="tradein-form" class="form-grid">
+          <div class="form-group"><label>Marca</label><input type="text" id="ti-brand" class="form-control" required placeholder="Toyota"></div>
+          <div class="form-group"><label>Modelo</label><input type="text" id="ti-model" class="form-control" required placeholder="Corolla"></div>
+          <div class="form-group"><label>Año</label><input type="number" id="ti-year" class="form-control" required min="1990" max="2030"></div>
+          <div class="form-group"><label>Color</label><input type="text" id="ti-color" class="form-control" placeholder="Plata"></div>
+          <div class="form-group"><label>Kilometraje (km)</label><input type="number" id="ti-mileage" class="form-control" min="0" placeholder="85000"></div>
+          <div class="form-group"><label>Condición</label>
+            <select id="ti-condition" class="form-control">
+              <option value="used">Usado</option>
+              <option value="new">Nuevo</option>
+              <option value="consigned">Consignado</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column:span 2;">
+            <label>Valor de Tasación <span style="color:var(--danger)">*</span></label>
+            <input type="number" id="ti-value" class="form-control" required min="0" placeholder="25000000">
+          </div>
+          <div style="grid-column:span 2;display:flex;justify-content:flex-end;gap:1rem;">
+            <button type="button" class="btn btn-ghost" onclick="window._closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Registrar Vehículo</button>
+          </div>
+        </form>
+      `);
+      window._closeModal = closeModal;
+
       document.getElementById('tradein-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const model = document.getElementById('tradein-model').value;
-        const year = document.getElementById('tradein-year').value;
-        const value = parseFloat(document.getElementById('tradein-value').value);
-        import('../../core/store.js').then(({ Sales, now }) => {
-          const sToUpdate = Sales.find(saleId);
-          if (sToUpdate) {
-            sToUpdate.tradeIn = { model, year, value };
-            sToUpdate.history.push({ date: now(), stage: sToUpdate.stage, by: 'Sistema', note: 'Agregado vehículo en parte de pago: ' + model });
-            Sales.save(sToUpdate);
-            closeModal();
-            showToast('Vehículo en parte de pago registrado', 'success');
-            renderSaleDetail(saleId);
-          }
-        });
+        const data = {
+          brand: document.getElementById('ti-brand').value,
+          model: document.getElementById('ti-model').value,
+          year: document.getElementById('ti-year').value,
+          color: document.getElementById('ti-color').value,
+          mileage: document.getElementById('ti-mileage').value,
+          condition: document.getElementById('ti-condition').value,
+          appraisalValue: parseFloat(document.getElementById('ti-value').value) || 0
+        };
+        registerTradeIn(saleId, data);
+        closeModal();
+        showToast('Vehículo en parte de pago registrado', 'success');
+        renderSaleDetail(saleId);
       });
     });
   });
