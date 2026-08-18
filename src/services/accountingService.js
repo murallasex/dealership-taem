@@ -3,6 +3,7 @@
 // =====================================================
 
 import { CashBox, Vehicles, Sales, Sellers, generateId, now } from '../core/store.js';
+import { getGlobalExchangeRate } from '../utils/formatters.js';
 
 export function getCashBoxSummary(dateStr) {
   const todayStr = dateStr || new Date().toISOString().split('T')[0];
@@ -13,8 +14,10 @@ export function getCashBoxSummary(dateStr) {
     return mDate === todayStr;
   });
 
-  const incomeToday = todayMovements.filter(m => m.type === 'income').reduce((acc, m) => acc + (m.amount * (m.currency === 'USD' ? 7500 : 1)), 0);
-  const expenseToday = todayMovements.filter(m => m.type === 'expense').reduce((acc, m) => acc + (m.amount * (m.currency === 'USD' ? 7500 : 1)), 0);
+  const getUsdAmount = (m) => m.currency === 'PYG' ? m.amount / getGlobalExchangeRate() : m.amount;
+
+  const incomeToday = todayMovements.filter(m => m.type === 'income').reduce((acc, m) => acc + getUsdAmount(m), 0);
+  const expenseToday = todayMovements.filter(m => m.type === 'expense').reduce((acc, m) => acc + getUsdAmount(m), 0);
   const balanceToday = incomeToday - expenseToday;
 
   const currentMonth = today.getMonth();
@@ -25,8 +28,8 @@ export function getCashBoxSummary(dateStr) {
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });
 
-  const incomeMonth = monthMovements.filter(m => m.type === 'income').reduce((acc, m) => acc + (m.amount * (m.currency === 'USD' ? 7500 : 1)), 0);
-  const expenseMonth = monthMovements.filter(m => m.type === 'expense').reduce((acc, m) => acc + (m.amount * (m.currency === 'USD' ? 7500 : 1)), 0);
+  const incomeMonth = monthMovements.filter(m => m.type === 'income').reduce((acc, m) => acc + getUsdAmount(m), 0);
+  const expenseMonth = monthMovements.filter(m => m.type === 'expense').reduce((acc, m) => acc + getUsdAmount(m), 0);
   const balanceMonth = incomeMonth - expenseMonth;
 
   return {
@@ -64,8 +67,9 @@ export function getReportsData(period = 'current_month') {
     return d >= startDate && d <= endDate;
   });
 
-  const incomeTotal = filteredMoves.filter(m => m.type === 'income').reduce((acc, m) => acc + (m.amount * (m.currency === 'USD' ? 7500 : 1)), 0);
-  const expenseTotal = filteredMoves.filter(m => m.type === 'expense').reduce((acc, m) => acc + (m.amount * (m.currency === 'USD' ? 7500 : 1)), 0);
+  const getUsdAmount = (m) => m.currency === 'PYG' ? m.amount / getGlobalExchangeRate() : m.amount;
+  const incomeTotal = filteredMoves.filter(m => m.type === 'income').reduce((acc, m) => acc + getUsdAmount(m), 0);
+  const expenseTotal = filteredMoves.filter(m => m.type === 'expense').reduce((acc, m) => acc + getUsdAmount(m), 0);
   const netProfit = incomeTotal - expenseTotal;
 
   const soldVehicles = Vehicles.all().filter(v => v.commercialStatus === 'sold' && (v.salePrice || v.suggestedPrice));

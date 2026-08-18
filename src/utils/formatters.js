@@ -25,10 +25,16 @@ export function setActiveCurrency(currency) {
   } catch (err) {}
 }
 
-export function fmt(amount) {
+export function fmt(amount, toPYG = false) {
   const rawNum = Number(amount);
   let num = (!isNaN(rawNum) && isFinite(rawNum)) ? rawNum : 0;
-  return '$ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(num);
+  
+  if (toPYG) {
+    num = num * getGlobalExchangeRate();
+    return '₲ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(Math.round(num));
+  }
+  
+  return '$ ' + new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0 }).format(Math.round(num));
 }
 
 export function formatCurrency(amount) {

@@ -3,7 +3,7 @@
 // =====================================================
 
 import { getCashBoxSummary, getReportsData, saveCashMovement } from '../../services/accountingService.js';
-import { fmt, fmtDate } from '../../utils/formatters.js';
+import { fmt, fmtDate, getGlobalExchangeRate } from '../../utils/formatters.js';
 import { safeCreateIcons } from '../../utils/dom.js';
 import { showToast } from '../components/toast.js';
 import { openModal, closeModal, confirmDialog } from '../components/modal.js';
@@ -82,7 +82,7 @@ export function renderCashBox() {
                     <td style="padding: 12px 16px;">${new Date(m.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                     <td style="padding: 12px 16px;">${m.description}</td>
                     <td style="padding: 12px 16px;"><span class="badge badge-success">${m.category}</span></td>
-                    <td style="padding: 12px 16px; text-align: right; font-weight: 500;">${m.currency} ${fmt(m.amount).replace('PYG', '')}</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 500;">${m.currency === 'PYG' ? '₲ ' : '$ '}${Number(m.amount).toLocaleString('es-PY')}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -114,7 +114,7 @@ export function renderCashBox() {
                     <td style="padding: 12px 16px;">${new Date(m.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                     <td style="padding: 12px 16px;">${m.description}</td>
                     <td style="padding: 12px 16px;"><span class="badge badge-danger">${m.category}</span></td>
-                    <td style="padding: 12px 16px; text-align: right; font-weight: 500;">${m.currency} ${fmt(m.amount).replace('PYG', '')}</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 500;">${m.currency === 'PYG' ? '₲ ' : '$ '}${Number(m.amount).toLocaleString('es-PY')}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -274,7 +274,8 @@ export function renderExpenses() {
 
   const expenses = Expenses.all().sort((a, b) => new Date(b.date) - new Date(a.date));
   
-  let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const getUsdAmount = (e) => e.currency === 'PYG' ? e.amount / getGlobalExchangeRate() : e.amount;
+  let totalExpenses = expenses.reduce((sum, e) => sum + getUsdAmount(e), 0);
 
   const html = `
     <div class="tabs-nav" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); display: flex; gap: 2rem;">
@@ -321,7 +322,7 @@ export function renderExpenses() {
                   <td style="padding: 12px 16px;">${fmtDate(e.date)}</td>
                   <td style="padding: 12px 16px;"><span class="badge badge-neutral">${e.category}</span></td>
                   <td style="padding: 12px 16px;">${e.description}</td>
-                  <td style="padding: 12px 16px; text-align: right; font-weight: 500; color: var(--danger);">${fmt(e.amount)}</td>
+                  <td style="padding: 12px 16px; text-align: right; font-weight: 500; color: var(--danger);">${e.currency === 'PYG' ? '₲ ' : '$ '}${Number(e.amount).toLocaleString('es-PY')}</td>
                   <td style="padding: 12px 16px; text-align: center;">
                     <button class="btn btn-ghost btn-sm btn-delete-exp" data-id="${e.id}" style="color: var(--danger-color); padding: 4px;"><i data-lucide="trash-2" style="width: 16px; height: 16px;"></i></button>
                   </td>
@@ -378,6 +379,13 @@ function openExpenseModal() {
           <label>Monto</label>
           <input type="number" id="exp-amount" class="form-control" required min="1" placeholder="Ej: 500000">
         </div>
+        <div class="form-group">
+          <label>Moneda</label>
+          <select id="exp-currency" class="form-control" required>
+            <option value="USD">USD - Dólares</option>
+            <option value="PYG">PYG - Guaraníes</option>
+          </select>
+        </div>
       </div>
       <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:2rem;">
         <button type="button" class="btn btn-ghost" onclick="window._closeModal()">Cancelar</button>
@@ -396,7 +404,7 @@ function openExpenseModal() {
       category: document.getElementById('exp-category').value,
       description: document.getElementById('exp-description').value,
       amount: parseFloat(document.getElementById('exp-amount').value),
-      currency: 'PYG'
+      currency: document.getElementById('exp-currency').value
     };
 
     Expenses.save(data);
@@ -405,6 +413,8 @@ function openExpenseModal() {
     renderExpenses();
   });
 }
+
+let reportsInPYG = false;
 
 // Reports View
 export function renderReports() {
@@ -426,6 +436,9 @@ export function renderReports() {
         <p class="text-muted">Análisis de rendimiento y ganancias</p>
       </div>
       <div style="display: flex; gap: 10px; align-items: center;">
+        <button class="btn btn-secondary" id="btnToggleCurrency">
+          <i data-lucide="refresh-cw"></i> Ver en ${reportsInPYG ? 'Dólares' : 'Guaraníes'}
+        </button>
         <select id="periodFilter" class="form-control" style="padding: 8px; border-radius: 6px; border: 1px solid var(--border);">
           <option value="current_month" ${currentReportPeriod === 'current_month' ? 'selected' : ''}>Mes actual</option>
           <option value="last_month" ${currentReportPeriod === 'last_month' ? 'selected' : ''}>Mes anterior</option>
@@ -440,15 +453,15 @@ export function renderReports() {
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px;">
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Ingresos Totales</div>
-        <div style="font-size: 1.5rem; font-weight: 600; color: var(--success);">${fmt(data.incomeTotal)}</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: var(--success);">${fmt(data.incomeTotal, reportsInPYG)}</div>
       </div>
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Egresos Totales</div>
-        <div style="font-size: 1.5rem; font-weight: 600; color: var(--danger);">${fmt(data.expenseTotal)}</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: var(--danger);">${fmt(data.expenseTotal, reportsInPYG)}</div>
       </div>
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Ganancia Neta</div>
-        <div style="font-size: 1.5rem; font-weight: 600; color: ${data.netProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt(data.netProfit)}</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: ${data.netProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt(data.netProfit, reportsInPYG)}</div>
       </div>
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Margen Promedio</div>
@@ -496,9 +509,9 @@ export function renderReports() {
                 ${data.vehicleMargins.map(vm => `
                   <tr style="border-bottom: 1px solid var(--border);">
                     <td style="padding: 12px 16px;">${vm.name}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(vm.totalCost)}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(vm.salePrice)}</td>
-                    <td style="padding: 12px 16px; text-align: right; font-weight: 600; color: ${vm.margin >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt(vm.margin)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(vm.totalCost, reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(vm.salePrice, reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 600; color: ${vm.margin >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt(vm.margin, reportsInPYG)}</td>
                     <td style="padding: 12px 16px; text-align: right;">
                       <span class="badge ${vm.marginPct > 15 ? 'badge-success' : (vm.marginPct > 0 ? 'badge-warning' : 'badge-danger')}">
                         ${vm.marginPct.toFixed(1)}%
@@ -509,9 +522,9 @@ export function renderReports() {
                 ${data.vehicleMargins.length > 0 ? `
                   <tr style="background: rgba(255,255,255,0.02); font-weight: bold;">
                     <td style="padding: 12px 16px;">TOTALES</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.totalCost, 0))}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.salePrice, 0))}</td>
-                    <td style="padding: 12px 16px; text-align: right; color: var(--success);">${fmt(data.vehicleMargins.reduce((a, b) => a + b.margin, 0))}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.totalCost, 0), reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.salePrice, 0), reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right; color: var(--success);">${fmt(data.vehicleMargins.reduce((a, b) => a + b.margin, 0), reportsInPYG)}</td>
                     <td style="padding: 12px 16px; text-align: right;"></td>
                   </tr>
                 ` : '<tr><td colspan="5" style="padding: 16px; text-align: center;">No hay vehículos vendidos</td></tr>'}
@@ -541,8 +554,8 @@ export function renderReports() {
                   <tr style="border-bottom: 1px solid var(--border);">
                     <td style="padding: 12px 16px; font-weight: 500;">${ss.name}</td>
                     <td style="padding: 12px 16px; text-align: center;">${ss.qty}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(ss.amount)}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(ss.avg)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(ss.amount, reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(ss.avg, reportsInPYG)}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -555,6 +568,11 @@ export function renderReports() {
 
   container.innerHTML = html;
   safeCreateIcons({ nodes: [container] });
+
+  document.getElementById('btnToggleCurrency')?.addEventListener('click', () => {
+    reportsInPYG = !reportsInPYG;
+    renderReports();
+  });
 
   document.getElementById('periodFilter')?.addEventListener('change', (e) => {
     currentReportPeriod = e.target.value;
@@ -569,10 +587,10 @@ export function renderReports() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     doc.setFontSize(18);
-    doc.text('REPORTE CONTABLE: ' + (currentReportPeriod === 'last_month' ? 'Mes Pasado' : currentReportPeriod === 'ytd' ? 'Año Actual' : 'Este Mes'), 105, 20, { align: 'center' });
+    doc.text('REPORTE CONTABLE', 105, 20, { align: 'center' });
     doc.setFontSize(12);
-    doc.text('Ingresos Totales: ' + fmt(reportData.income), 20, 40);
-    doc.text('Egresos Totales: ' + fmt(reportData.expenses), 20, 50);
+    doc.text('Ingresos Totales: ' + fmt(data.incomeTotal, reportsInPYG), 20, 40);
+    doc.text('Egresos Totales: ' + fmt(data.expenseTotal, reportsInPYG), 20, 50);
     doc.text('Balance Neto: ' + fmt(reportData.balance), 20, 60);
     
     let y = 80;
