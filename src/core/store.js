@@ -1,4 +1,4 @@
-﻿// =====================================================
+// =====================================================
 // AutoERP — Core AppState, Store & Reactive Pub/Sub
 // =====================================================
 
@@ -56,6 +56,8 @@ export const DB_KEYS = {
   emailTemplates: 'erp_email_templates',
   emailLog: 'erp_email_log',
   leads: 'erp_leads',
+  events: 'erp_events',
+  expenses: 'erp_expenses',
 };
 
 // =====================================================
@@ -226,6 +228,18 @@ export const Config = {
   },
 };
 
+export const CalendarEvents = {
+  all: () => dbGetAll(DB_KEYS.events),
+  save: (e) => dbSave(DB_KEYS.events, e),
+  delete: (id) => dbDelete(DB_KEYS.events, id),
+};
+
+export const Expenses = {
+  all: () => dbGetAll(DB_KEYS.expenses),
+  save: (e) => dbSave(DB_KEYS.expenses, e),
+  delete: (id) => dbDelete(DB_KEYS.expenses, id),
+};
+
 // =====================================================
 // DEMO DATA SEEDER (UTF-8 Clean)
 // =====================================================
@@ -276,11 +290,11 @@ export function seedDemoData() {
 
   // Clients
   const clientsData = [
-    { id: 'c1', name: 'Juan Carlos Pérez', email: 'jcperez@gmail.com', phone: '+595 981 222-333', document: '4.567.890', docType: 'CI', address: 'San Lorenzo, Paraguay', segment: 'active', interestedIn: 'Toyota', leadOrigin: 'referral', createdAt: '2026-01-10T00:00:00Z', notes: 'Cliente frecuente, compra cada 2 años.' },
-    { id: 'c2', name: 'Ana Lucía Rodríguez', email: 'ana.rodriguez@outlook.com', phone: '+595 981 444-555', document: '5.678.901', docType: 'CI', address: 'Asunción, Paraguay', segment: 'active', interestedIn: 'Honda', leadOrigin: 'web', createdAt: '2026-02-05T00:00:00Z', notes: '' },
+    { id: 'c1', name: 'Juan Carlos Pérez', email: 'jcperez@gmail.com', phone: '+595 981 222-333', document: '4.567.890', docType: 'CI', address: 'San Lorenzo, Paraguay', segment: 'active', interestedIn: 'Toyota', leadOrigin: 'referral', createdAt: '2026-01-10T00:00:00Z', notes: 'Cliente frecuente, compra cada 2 años.', birthDate: '1985-08-20' },
+    { id: 'c2', name: 'Ana Lucía Rodríguez', email: 'ana.rodriguez@outlook.com', phone: '+595 981 444-555', document: '5.678.901', docType: 'CI', address: 'Asunción, Paraguay', segment: 'active', interestedIn: 'Honda', leadOrigin: 'web', createdAt: '2026-02-05T00:00:00Z', notes: '', birthDate: '1992-05-15' },
     { id: 'c3', name: 'Empresa Logística SA', email: 'compras@logisticasa.com.py', phone: '+595 21 666-777', document: '80098765-4', docType: 'RUC', address: 'Luque, Paraguay', segment: 'active', interestedIn: 'Toyota', leadOrigin: 'walkin', createdAt: '2026-03-01T00:00:00Z', notes: 'Compra flota corporativa.' },
-    { id: 'c4', name: 'Miguel Ángel Ortiz', email: 'miguel.ortiz@yahoo.com', phone: '+595 981 777-888', document: '6.789.012', docType: 'CI', address: 'Fernando de la Mora, Paraguay', segment: 'prospect', interestedIn: 'Volkswagen', leadOrigin: 'social', createdAt: '2026-06-01T00:00:00Z', notes: 'Interesado en Amarok 0km.' },
-    { id: 'c5', name: 'Patricia González', email: 'patri.gonzalez@gmail.com', phone: '+595 981 999-000', document: '7.890.123', docType: 'CI', address: 'Capiatá, Paraguay', segment: 'prospect', interestedIn: 'Chevrolet', leadOrigin: 'referral', createdAt: '2026-07-10T00:00:00Z', notes: '' },
+    { id: 'c4', name: 'Miguel Ángel Ortiz', email: 'miguel.ortiz@yahoo.com', phone: '+595 981 777-888', document: '6.789.012', docType: 'CI', address: 'Fernando de la Mora, Paraguay', segment: 'prospect', interestedIn: 'Volkswagen', leadOrigin: 'social', createdAt: '2026-06-01T00:00:00Z', notes: 'Interesado en Amarok 0km.', birthDate: '1978-11-03' },
+    { id: 'c5', name: 'Patricia González', email: 'patri.gonzalez@gmail.com', phone: '+595 981 999-000', document: '7.890.123', docType: 'CI', address: 'Capiatá, Paraguay', segment: 'prospect', interestedIn: 'Chevrolet', leadOrigin: 'referral', createdAt: '2026-07-10T00:00:00Z', notes: '', birthDate: '1995-02-28' },
     { id: 'c6', name: 'Fernando Villalba', email: 'fvillalba@empresa.com', phone: '+595 981 100-200', document: '3.456.789', docType: 'CI', address: 'Asunción, Paraguay', segment: 'active', interestedIn: 'Nissan', leadOrigin: 'walkin', createdAt: '2026-04-20T00:00:00Z', notes: '' },
     { id: 'c7', name: 'Constructora Itapúa SRL', email: 'admin@constructora-itapua.com', phone: '+595 71 222-333', document: '80055443-1', docType: 'RUC', address: 'Encarnación, Paraguay', segment: 'inactive', interestedIn: 'Toyota', leadOrigin: 'referral', createdAt: '2025-08-01T00:00:00Z', notes: 'Ex-cliente, no renueva desde 2025.' },
   ];
@@ -566,5 +580,20 @@ Horarios: Lunes a Sábados de 8:00 a 18:00 hs.
   ];
   dbSet(DB_KEYS.notifications, notifData);
 
+  // Events
+  const eventsData = [
+    { id: 'e1', title: 'Reunión de Ventas', date: '2026-08-15', recurrence: 'none', color: '#3b82f6', type: 'company' },
+    { id: 'e2', title: 'Pago de Salarios', date: '2026-08-30', recurrence: 'monthly', color: '#ef4444', type: 'company' }
+  ];
+  dbSet(DB_KEYS.events, eventsData);
+
+  // Expenses
+  const expensesData = [
+    { id: 'exp1', date: '2026-08-05', category: 'Servicios', amount: 1500000, description: 'Pago ANDE y Essap', currency: 'PYG' },
+    { id: 'exp2', date: '2026-08-10', category: 'Marketing', amount: 3500000, description: 'Campaña Redes Sociales', currency: 'PYG' },
+  ];
+  dbSet(DB_KEYS.expenses, expensesData);
+
+  // Mark seeded
   dbSet('erp_seeded_v3', true);
 }

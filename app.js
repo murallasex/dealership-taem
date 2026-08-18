@@ -26,7 +26,8 @@ import { renderCRMList, renderCRMDetail, renderLeadPipeline } from './src/ui/vie
 import { renderFinancingPlans, renderInstallments } from './src/ui/views/financingView.js';
 import { renderSellersList, renderSellerDetail, renderGoals } from './src/ui/views/sellersView.js';
 import { renderEmailTemplates, renderEmailHistory } from './src/ui/views/notificationsView.js';
-import { renderCashBox, renderReports } from './src/ui/views/accountingView.js';
+import { renderCashBox, renderReports, renderExpenses } from './src/ui/views/accountingView.js';
+import { renderCalendar } from './src/ui/views/calendarView.js';
 import { renderUsers, renderSettings } from './src/ui/views/adminView.js';
 import { renderPlatformView } from './src/ui/views/platformView.js';
 import { renderTermsOfUse, renderSupport } from './src/ui/views/legalSupportView.js';
@@ -49,7 +50,7 @@ function canAccess(route) {
   if (route === 'platform') return false;
 
   // Manager-only routes
-  const managerRoutes = ['financing', 'sellers', 'accounting', 'accounting/reports', 'reports', 'notifications', 'notifications/history', 'admin', 'admin/settings', 'settings'];
+  const managerRoutes = ['financing', 'sellers', 'accounting', 'accounting/reports', 'accounting/expenses', 'reports', 'notifications', 'notifications/history', 'admin', 'admin/settings', 'settings'];
   if (managerRoutes.some(r => route.startsWith(r))) {
     return role === ROLES.MANAGER;
   }
@@ -81,8 +82,10 @@ const ROUTES = {
   'notifications':           () => renderEmailTemplates(),
   'notifications/history':   () => renderEmailHistory(),
   'accounting':              () => renderCashBox(),
+  'accounting/expenses':     () => renderExpenses(),
   'accounting/reports':      () => renderReports(),
   'reports':                 () => renderReports(),
+  'calendar':                () => renderCalendar(),
   'admin':                   () => renderUsers(),
   'admin/settings':          () => renderSettings(),
   'settings':                () => renderSettings(),

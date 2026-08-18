@@ -230,7 +230,7 @@ export function renderCRMDetail(clientId) {
             ${getSegmentBadge(client.segment)}
             ${getOriginBadge(client.leadOrigin)}
           </div>
-          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
             <div>
               <div style="font-size: 0.875rem; color: var(--text-muted);">Documento</div>
               <div>${client.docType} ${client.document}</div>
@@ -245,6 +245,10 @@ export function renderCRMDetail(clientId) {
                 ${client.phone}
                 ${client.phone ? `<a href="https://wa.me/${client.phone.replace(/\D/g, '')}?text=Hola%20${encodeURIComponent(client.name)},%20te%20escribimos%20de%20Dealership%20TAEM" target="_blank" class="btn btn-sm" style="background:#25D366; color:#fff; border:none; padding: 2px 8px; font-size: 0.75rem;"><i data-lucide="message-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> WhatsApp</a>` : ''}
               </div>
+            </div>
+            <div>
+              <div style="font-size: 0.875rem; color: var(--text-muted);">Nacimiento</div>
+              <div>${client.birthDate ? `${fmtDate(client.birthDate)} (${Math.floor((new Date() - new Date(client.birthDate)) / 31557600000)} años)` : 'No registrado'}</div>
             </div>
           </div>
         </div>
@@ -304,7 +308,7 @@ export function renderCRMDetail(clientId) {
 }
 
 function openClientModal(id = null) {
-  let client = { name: '', email: '', phone: '', document: '', docType: 'CI', address: '', segment: 'prospect', interestedIn: '', leadOrigin: 'walkin', notes: [] };
+  let client = { name: '', email: '', phone: '', document: '', docType: 'CI', address: '', segment: 'prospect', interestedIn: '', leadOrigin: 'walkin', notes: [], birthDate: '' };
   if (id) {
     client = Clients.find(id) || client;
   }
@@ -337,6 +341,10 @@ function openClientModal(id = null) {
         <div class="form-group">
           <label>Teléfono</label>
           <input type="text" id="c-phone" class="form-control" required value="${client.phone}">
+        </div>
+        <div class="form-group">
+          <label>Fecha de Nacimiento</label>
+          <input type="date" id="c-birthdate" class="form-control" value="${client.birthDate || ''}">
         </div>
 
         <div class="form-group" style="grid-column: span 2;">
@@ -388,6 +396,7 @@ function openClientModal(id = null) {
       segment: document.getElementById('c-segment').value,
       leadOrigin: document.getElementById('c-origin').value,
       interestedIn: document.getElementById('c-interested').value,
+      birthDate: document.getElementById('c-birthdate').value,
       notes: client.notes || [],
       createdAt: id ? client.createdAt : now()
     };

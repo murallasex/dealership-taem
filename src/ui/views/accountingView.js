@@ -6,8 +6,9 @@ import { getCashBoxSummary, getReportsData, saveCashMovement } from '../../servi
 import { fmt, fmtDate } from '../../utils/formatters.js';
 import { safeCreateIcons } from '../../utils/dom.js';
 import { showToast } from '../components/toast.js';
-import { openModal, closeModal } from '../components/modal.js';
+import { openModal, closeModal, confirmDialog } from '../components/modal.js';
 import { go } from '../../core/router.js';
+import { Expenses, generateId, now } from '../../core/store.js';
 
 let currentDateFilter = new Date().toISOString().split('T')[0];
 let currentReportPeriod = 'current_month';
@@ -20,6 +21,12 @@ export function renderCashBox() {
   const summary = getCashBoxSummary(currentDateFilter);
 
   const html = `
+    <div class="tabs-nav" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); display: flex; gap: 2rem;">
+      <a href="#/accounting" class="tab-item active" style="padding: 0.5rem 0; color: var(--gold); text-decoration: none; border-bottom: 2px solid var(--gold); font-weight: 500;">Caja Diaria</a>
+      <a href="#/accounting/expenses" class="tab-item" style="padding: 0.5rem 0; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500;">Egresos Empresariales</a>
+      <a href="#/accounting/reports" class="tab-item" style="padding: 0.5rem 0; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500;">Reportes</a>
+    </div>
+
     <div class="page-header">
       <div>
         <h1 class="page-title">Caja Diaria</h1>
@@ -258,6 +265,147 @@ function openMoveModal() {
   });
 }
 
+// =====================================================
+// Expenses (Egresos Empresariales)
+// =====================================================
+export function renderExpenses() {
+  const container = document.getElementById('page-content');
+  if (!container) return;
+
+  const expenses = Expenses.all().sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+
+  const html = `
+    <div class="tabs-nav" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); display: flex; gap: 2rem;">
+      <a href="#/accounting" class="tab-item" style="padding: 0.5rem 0; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500;">Caja Diaria</a>
+      <a href="#/accounting/expenses" class="tab-item active" style="padding: 0.5rem 0; color: var(--gold); text-decoration: none; border-bottom: 2px solid var(--gold); font-weight: 500;">Egresos Empresariales</a>
+      <a href="#/accounting/reports" class="tab-item" style="padding: 0.5rem 0; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500;">Reportes</a>
+    </div>
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Egresos Empresariales</h1>
+        <p class="text-muted">Control de gastos fijos y variables de la empresa</p>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <button class="btn btn-primary" id="btn-new-expense"><i data-lucide="plus"></i> Nuevo Egreso</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Total Egresos Registrados</div>
+      <div style="font-size: 1.5rem; font-weight: 600; color: var(--danger);">${fmt(totalExpenses)}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Listado de Gastos</h3>
+      </div>
+      <div class="table-container">
+        <div class="table-wrap">
+          <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <th style="padding: 12px 16px; font-weight: 500; color: var(--text-muted);">Fecha</th>
+                <th style="padding: 12px 16px; font-weight: 500; color: var(--text-muted);">Categoría</th>
+                <th style="padding: 12px 16px; font-weight: 500; color: var(--text-muted);">Descripción</th>
+                <th style="padding: 12px 16px; font-weight: 500; color: var(--text-muted); text-align: right;">Monto</th>
+                <th style="padding: 12px 16px; font-weight: 500; color: var(--text-muted); text-align: center;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${expenses.length === 0 ? '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">No hay egresos registrados</td></tr>' : ''}
+              ${expenses.map(e => `
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 12px 16px;">${fmtDate(e.date)}</td>
+                  <td style="padding: 12px 16px;"><span class="badge badge-neutral">${e.category}</span></td>
+                  <td style="padding: 12px 16px;">${e.description}</td>
+                  <td style="padding: 12px 16px; text-align: right; font-weight: 500; color: var(--danger);">${fmt(e.amount)}</td>
+                  <td style="padding: 12px 16px; text-align: center;">
+                    <button class="btn btn-ghost btn-sm btn-delete-exp" data-id="${e.id}" style="color: var(--danger-color); padding: 4px;"><i data-lucide="trash-2" style="width: 16px; height: 16px;"></i></button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+  safeCreateIcons({ nodes: [container] });
+
+  document.getElementById('btn-new-expense')?.addEventListener('click', openExpenseModal);
+
+  container.querySelectorAll('.btn-delete-exp').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.currentTarget.dataset.id;
+      confirmDialog('¿Seguro que deseas eliminar este egreso?', () => {
+        Expenses.delete(id);
+        showToast('Egreso eliminado', 'success');
+        renderExpenses();
+      });
+    });
+  });
+}
+
+function openExpenseModal() {
+  const html = `
+    <form id="expense-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" id="exp-date" class="form-control" required value="${new Date().toISOString().split('T')[0]}">
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="exp-category" class="form-control" required>
+            <option value="Servicios">Servicios (Agua, Luz, Internet)</option>
+            <option value="Nómina">Nómina / Salarios</option>
+            <option value="Marketing">Marketing / Publicidad</option>
+            <option value="Mantenimiento">Mantenimiento y Reparaciones</option>
+            <option value="Compras">Compras Generales</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+        <div class="form-group" style="grid-column: span 2;">
+          <label>Descripción</label>
+          <input type="text" id="exp-description" class="form-control" required placeholder="Detalles del gasto">
+        </div>
+        <div class="form-group">
+          <label>Monto</label>
+          <input type="number" id="exp-amount" class="form-control" required min="1" placeholder="Ej: 500000">
+        </div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:2rem;">
+        <button type="button" class="btn btn-ghost" onclick="window._closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar Egreso</button>
+      </div>
+    </form>
+  `;
+
+  openModal('Nuevo Egreso', html);
+
+  document.getElementById('expense-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = {
+      id: generateId(),
+      date: document.getElementById('exp-date').value,
+      category: document.getElementById('exp-category').value,
+      description: document.getElementById('exp-description').value,
+      amount: parseFloat(document.getElementById('exp-amount').value),
+      currency: 'PYG'
+    };
+
+    Expenses.save(data);
+    showToast('Egreso registrado exitosamente', 'success');
+    closeModal();
+    renderExpenses();
+  });
+}
+
 // Reports View
 export function renderReports() {
   const container = document.getElementById('page-content');
@@ -266,6 +414,12 @@ export function renderReports() {
   const data = getReportsData(currentReportPeriod);
 
   const html = `
+    <div class="tabs-nav" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); display: flex; gap: 2rem;">
+      <a href="#/accounting" class="tab-item" style="padding: 0.5rem 0; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500;">Caja Diaria</a>
+      <a href="#/accounting/expenses" class="tab-item" style="padding: 0.5rem 0; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; font-weight: 500;">Egresos Empresariales</a>
+      <a href="#/accounting/reports" class="tab-item active" style="padding: 0.5rem 0; color: var(--gold); text-decoration: none; border-bottom: 2px solid var(--gold); font-weight: 500;">Reportes</a>
+    </div>
+
     <div class="page-header">
       <div>
         <h1 class="page-title">Reportes Financieros</h1>
