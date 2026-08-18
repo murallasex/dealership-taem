@@ -25,18 +25,32 @@ export function setActiveCurrency(currency) {
   } catch (err) {}
 }
 
-export function fmt(amount, currency = null) {
+export function fmt(amount, currency = null, explicitExchangeRate = null) {
   // Always respect the global active currency for display
   const cur = getActiveCurrency();
   const rawNum = Number(amount);
   let num = (!isNaN(rawNum) && isFinite(rawNum)) ? rawNum : 0;
   
-  // Basic mock exchange rate for demo purposes
-  // Assuming base data is stored in PYG
-  if (cur === 'USD' && currency !== 'USD') {
-    num = num / 7500;
-  } else if (cur === 'PYG' && currency === 'USD') {
-    num = num * 7500;
+  // Get global exchange rate
+  let exchangeRate = 7500;
+  try {
+    const raw = localStorage.getItem('erp_config');
+    if (raw) {
+      const cfg = JSON.parse(raw);
+      if (cfg && cfg.globalExchangeRate) exchangeRate = Number(cfg.globalExchangeRate);
+    }
+  } catch (err) {}
+  
+  // Use explicit exchange rate if provided (e.g. for a specific sale), otherwise global
+  const rateToUse = explicitExchangeRate ? Number(explicitExchangeRate) : exchangeRate;
+
+  // Assuming base data is stored in the currency specified by the `currency` parameter (default PYG if null)
+  const sourceCurrency = currency || 'PYG';
+  
+  if (cur === 'USD' && sourceCurrency !== 'USD') {
+    num = num / rateToUse;
+  } else if (cur === 'PYG' && sourceCurrency === 'USD') {
+    num = num * rateToUse;
   }
 
   if (cur === 'USD') {

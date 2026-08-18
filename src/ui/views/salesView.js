@@ -610,14 +610,15 @@ export function renderSaleDetail(saleId) {
     if (sale.stage === 'quote') {
       import('../components/modal.js').then(({ openModal, closeModal }) => {
         // Suggest deposit for reservation
-        const calc = calculateEstimatedProfit(sale.vehicleId, sale.totalPrice);
+        const exchangeRate = parseFloat(sale.exchangeRate) || 7500;
+        const calc = calculateEstimatedProfit(sale.vehicleId, sale.totalPrice, 0, sale.currency, exchangeRate);
         const suggested = suggestDeposit(sale.totalPrice, calc.profit);
 
         openModal('Registrar Seña para Reserva', `
           <p style="margin-bottom:1rem;">Para avanzar a <strong>Reserva</strong>, registra la seña acordada con el cliente.</p>
           <form id="deposit-form" class="form-grid">
             <div class="form-group" style="grid-column:span 2;">
-              <label>Monto de la Seña <span class="text-muted">(Sugerido: ${fmt(suggested, sale.currency)})</span></label>
+              <label>Monto de la Seña <span class="text-muted">(Sugerido: ${fmt(suggested, sale.currency, exchangeRate)})</span></label>
               <input type="number" id="deposit-amount" class="form-control" value="${sale.downPayment || suggested}" required>
             </div>
             <div class="form-group">
@@ -933,6 +934,11 @@ export function renderSaleForm() {
               <option value="PYG" selected>PYG</option>
             </select>
           </div>
+          <div class="form-group" id="sale-exchange-rate-group" style="display: none;">
+            <label>Cambio del Día (PYG por USD)</label>
+            <input type="number" name="exchangeRate" id="sale-exchange-rate" class="form-control" min="1" placeholder="Ej: 7500">
+            <small class="text-muted">Cambio acordado con el cliente.</small>
+          </div>
           <div class="form-group">
             <label>Precio de Venta Sugerido / Acordado</label>
             <input type="number" name="totalPrice" id="sale-total-price" class="form-control" required min="0">
@@ -1096,22 +1102,24 @@ export function renderSaleForm() {
   const updateSaleCalc = () => {
     const price = parseFloat(document.getElementById('sale-total-price')?.value) || 0;
     const down = parseFloat(document.getElementById('sale-down-payment')?.value) || 0;
+    const currency = document.getElementById('sale-currency')?.value || 'PYG';
+    const exchangeRate = parseFloat(document.getElementById('sale-exchange-rate')?.value) || 7500;
     
     // Profit calc
     const selectedVehicleRadio = document.querySelector('input[name="vehicleId"]:checked');
     if (selectedVehicleRadio) {
       const vId = selectedVehicleRadio.value;
-      const calc = calculateEstimatedProfit(vId, price);
+      const calc = calculateEstimatedProfit(vId, price, 0, currency, exchangeRate);
       
       const pEl = document.getElementById('proj-profit');
       const mEl = document.getElementById('proj-margin');
       if (pEl && mEl) {
         if (price > 0 && calc.profit > 0) {
-          pEl.textContent = fmt(calc.profit, document.getElementById('sale-currency')?.value || 'PYG');
+          pEl.textContent = fmt(calc.profit, currency, exchangeRate);
           pEl.style.color = 'var(--success)';
           mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
         } else if (price > 0) {
-          pEl.textContent = fmt(calc.profit, document.getElementById('sale-currency')?.value || 'PYG');
+          pEl.textContent = fmt(calc.profit, currency, exchangeRate);
           pEl.style.color = 'var(--danger)';
           mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
         } else {
@@ -1213,8 +1221,35 @@ export function renderSaleForm() {
     }
   });
 
+  // Show/hide exchange rate based on currency
+  document.getElementById('sale-currency')?.addEventListener('change', (e) => {
+    const cur = e.target.value;
+    const rateGroup = document.getElementById('sale-exchange-rate-group');
+    if (rateGroup) {
+      if (cur === 'USD') {
+        rateGroup.style.display = 'block';
+        // Try to prepopulate with global exchange rate
+        const rateInput = document.getElementById('sale-exchange-rate');
+        if (rateInput && !rateInput.value) {
+          try {
+            const raw = localStorage.getItem('erp_config');
+            if (raw) {
+              const cfg = JSON.parse(raw);
+              if (cfg && cfg.globalExchangeRate) {
+                rateInput.value = cfg.globalExchangeRate;
+              }
+            }
+          } catch(e) {}
+        }
+      } else {
+        rateGroup.style.display = 'none';
+      }
+    }
+    updateSaleCalc();
+  });
+
   // Wire live recalculation inputs
-  ['sale-total-price','sale-down-payment'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSaleCalc));
+  ['sale-total-price','sale-down-payment','sale-exchange-rate'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSaleCalc));
   ['fin-months','fin-rate','fin-insurance','fin-admin-fee'].forEach(id => document.getElementById(id)?.addEventListener('input', calcFinancing));
   ['fin-months'].forEach(id => document.getElementById(id)?.addEventListener('change', calcFinancing));
 

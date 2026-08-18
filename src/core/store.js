@@ -609,6 +609,12 @@ Horarios: Lunes a Sábados de 8:00 a 18:00 hs.
   ];
   dbSet(DB_KEYS.expenses, expensesData);
 
+  // Config
+  dbSet(DB_KEYS.config, {
+    currency: 'PYG',
+    globalExchangeRate: 7500, // Default PYG per USD
+  });
+
   // Mark seeded
   dbSet('erp_seeded_v3', true);
 }

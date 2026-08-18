@@ -231,14 +231,21 @@ export function registerTradeIn(saleId, tradeInData) {
   return Sales.save(sale);
 }
 
-export function calculateEstimatedProfit(vehicleId, salePrice, tradeInValue = 0) {
+export function calculateEstimatedProfit(vehicleId, salePrice, tradeInValue = 0, saleCurrency = 'PYG', exchangeRate = 7500) {
   const vehicle = Vehicles.find(vehicleId);
   if (!vehicle) return { profit: 0, margin: 0, cost: 0 };
   
-  const cost = Number(vehicle.purchaseCost || 0) + Number(vehicle.importCosts || 0) + Number(vehicle.prepCost || 0);
+  let cost = Number(vehicle.purchaseCost || 0) + Number(vehicle.importCosts || 0) + Number(vehicle.prepCost || 0);
+  const vehicleCurrency = vehicle.currency || 'PYG';
+  
+  // Normalize cost to the sale currency
+  if (vehicleCurrency === 'PYG' && saleCurrency === 'USD') {
+    cost = cost / exchangeRate;
+  } else if (vehicleCurrency === 'USD' && saleCurrency === 'PYG') {
+    cost = cost * exchangeRate;
+  }
+
   const price = Number(salePrice || 0);
-  // Optional: trade-in value might affect immediate cash flow, but pure profit is still price - cost.
-  // We can include it in the breakdown if needed.
   const profit = price - cost;
   const margin = price > 0 ? (profit / price) * 100 : 0;
   

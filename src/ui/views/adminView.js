@@ -274,6 +274,11 @@ export function renderSettings() {
               <option value="USD" ${config.currency === 'USD' ? 'selected' : ''}>Dólares (USD)</option>
             </select>
           </div>
+          <div class="form-group">
+            <label>Cotización Base (PYG por USD)</label>
+            <input type="number" id="cfg-exchange-rate" class="form-control" value="${config.globalExchangeRate || 7500}">
+            <small style="color: var(--text-muted);">Se usa para unificar las métricas en reportes.</small>
+          </div>
         </div>
         <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-base); border-radius: 0.5rem; border: 1px solid var(--border);">
           <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Vista Previa de Formato:</p>
@@ -378,6 +383,7 @@ export function renderSettings() {
       address: document.getElementById('cfg-address').value,
       email: document.getElementById('cfg-email').value,
       currency: document.getElementById('cfg-currency').value,
+      globalExchangeRate: parseFloat(document.getElementById('cfg-exchange-rate').value) || 7500,
     };
     saveCompanyConfig(patch);
 
