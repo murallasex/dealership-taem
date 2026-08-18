@@ -58,6 +58,7 @@ export const DB_KEYS = {
   leads: 'erp_leads',
   events: 'erp_events',
   expenses: 'erp_expenses',
+  invoices: 'erp_invoices',
 };
 
 // =====================================================
@@ -238,6 +239,12 @@ export const Expenses = {
   all: () => dbGetAll(DB_KEYS.expenses),
   save: (e) => dbSave(DB_KEYS.expenses, e),
   delete: (id) => dbDelete(DB_KEYS.expenses, id),
+};
+
+export const Invoices = {
+  all: () => dbGetAll(DB_KEYS.invoices),
+  find: (id) => dbFind(DB_KEYS.invoices, id),
+  save: (i) => dbSave(DB_KEYS.invoices, i),
 };
 
 // =====================================================

@@ -1,0 +1,71 @@
+/* =====================================================
+   AutoERP — Print Styles (Facturas y Tickets)
+   ===================================================== */
+
+@media print {
+  /* Ocultar elementos de la interfaz */
+  #sidebar,
+  .page-header,
+  .tabs-nav,
+  .btn,
+  .modal-overlay,
+  .toast-container {
+    display: none !important;
+  }
+
+  /* Resetear márgenes de página */
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* El contenedor principal debe ocupar todo */
+  .app-shell {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  #page-content {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Contenedores de impresión específicos */
+  .print-area {
+    display: block !important;
+    background: white;
+    color: black;
+  }
+
+  /* Formato A4 (Factura/KuDE) */
+  .print-a4 {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+  }
+
+  /* Formato Térmico 80mm (Ticket) */
+  .print-ticket {
+    width: 80mm;
+    margin: 0 auto;
+    padding: 5mm;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+  }
+
+  /* Ocultar todo lo demás cuando se imprima un comprobante específico */
+  body.printing-invoice #page-content > *:not(.print-area) {
+    display: none !important;
+  }
+}
+
+/* Ocultar en pantalla (solo visible al imprimir si se añade a la vista) */
+.print-area {
+  display: none;
+}

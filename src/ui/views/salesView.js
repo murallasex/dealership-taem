@@ -3,7 +3,9 @@
 // =====================================================
 
 import { getSalesKPIs, getSalesByStage, getClientName, getVehicleName, getSellerName, advanceSaleStage, createSaleQuote } from '../../services/salesService.js';
-import { Sales, Vehicles, Clients, Sellers } from '../../core/store.js';
+import { Sales, Vehicles, Clients, Sellers, Invoices } from '../../core/store.js';
+import { createInvoice } from '../../services/billingService.js';
+import { openBillingPrintModal } from '../components/billingModal.js';
 import { fmt, fmtDate } from '../../utils/formatters.js';
 import { safeCreateIcons } from '../../utils/dom.js';
 import { showToast } from '../components/toast.js';
@@ -239,6 +241,7 @@ export function renderSaleDetail(saleId) {
             Avanzar a ${stageFlow[currentStageIndex + 1]?.label || ''} <i data-lucide="arrow-right"></i>
           </button>
         ` : ''}
+        <button class="btn btn-secondary" id="btn-billing" style="background: var(--gold); color: #000; border: none;"><i data-lucide="receipt"></i> Factura / Ticket</button>
         <button class="btn btn-secondary" id="btn-pdf"><i data-lucide="file-text"></i> Contrato PDF</button>
       </div>
     </div>
@@ -473,8 +476,17 @@ export function renderSaleDetail(saleId) {
       if (res) {
         showToast(`Venta avanzada a ${res.nextStage}`, 'success');
         renderSaleDetail(saleId);
+        
+        // Si avanzó a Entrega (cobrado), sugerir facturación
+        if (res.nextStage === 'delivery') {
+          handleFacturacion(sale, vehicle, client);
+        }
       }
     });
+  });
+
+  document.getElementById('btn-billing')?.addEventListener('click', () => {
+    handleFacturacion(sale, vehicle, client);
   });
 
   document.getElementById('btn-pdf')?.addEventListener('click', () => {
@@ -903,4 +915,25 @@ export function renderSaleForm() {
       go('#/sales');
     }
   });
+}
+
+/**
+ * Handles generating or retrieving an invoice and opening the print modal
+ */
+function handleFacturacion(sale, vehicle, client) {
+  let invoice = Invoices.all().find(i => i.saleId === sale.id);
+  
+  if (!invoice) {
+    // Generate new invoice
+    invoice = createInvoice({
+      saleId: sale.id,
+      clientId: client.id,
+      vehicleId: vehicle.id,
+      amount: sale.totalAmount || sale.salePrice || 0,
+      condition: vehicle.condition || 'used',
+      type: 'factura'
+    });
+  }
+  
+  openBillingPrintModal(invoice);
 }
