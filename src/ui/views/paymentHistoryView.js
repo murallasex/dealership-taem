@@ -35,26 +35,26 @@ export function renderPaymentHistory() {
     </div>
 
     <!-- KPIs -->
-    <div class="dashboard-grid" style="margin-bottom: 2rem;">
-      <div class="kpi-card card">
-        <div class="kpi-card__icon" style="background: rgba(34,197,94,0.15); color: #22c55e;"><i data-lucide="banknote"></i></div>
-        <div>
-          <div class="kpi-card__title">Total Cobrado (Histórico)</div>
-          <div class="kpi-card__value">${fmt(totalReceived)}</div>
+    <div class="kpi-grid" style="margin-bottom: 2rem;">
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-success"><i data-lucide="banknote"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Total Cobrado (Histórico)</div>
+          <div class="kpi-value" style="font-size:1.2rem;color:var(--success);">${fmt(totalReceived)}</div>
         </div>
       </div>
-      <div class="kpi-card card">
-        <div class="kpi-card__icon" style="background: rgba(59,130,246,0.15); color: #3b82f6;"><i data-lucide="bookmark"></i></div>
-        <div>
-          <div class="kpi-card__title">En Concepto de Señas</div>
-          <div class="kpi-card__value">${fmt(totalDeposits)}</div>
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-info"><i data-lucide="bookmark"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">En Concepto de Señas</div>
+          <div class="kpi-value">${fmt(totalDeposits)}</div>
         </div>
       </div>
-      <div class="kpi-card card">
-        <div class="kpi-card__icon" style="background: rgba(249,115,22,0.15); color: #f97316;"><i data-lucide="calendar-check"></i></div>
-        <div>
-          <div class="kpi-card__title">Cuotas y Saldos</div>
-          <div class="kpi-card__value">${fmt(totalOthers)}</div>
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-gold"><i data-lucide="calendar-check"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Cuotas y Saldos</div>
+          <div class="kpi-value">${fmt(totalOthers)}</div>
         </div>
       </div>
     </div>

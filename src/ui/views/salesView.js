@@ -619,7 +619,7 @@ export function renderSaleDetail(saleId) {
           <form id="deposit-form" class="form-grid">
             <div class="form-group" style="grid-column:span 2;">
               <label>Monto de la Seña <span class="text-muted">(Sugerido: ${fmt(suggested, sale.currency, exchangeRate)})</span></label>
-              <input type="number" id="deposit-amount" class="form-control" value="${sale.downPayment || suggested}" required>
+              <input type="text" id="deposit-amount" class="form-control" value="${(sale.downPayment || suggested).toLocaleString('es-PY')}" required>
             </div>
             <div class="form-group">
               <label>Método de Pago</label>
@@ -640,9 +640,23 @@ export function renderSaleDetail(saleId) {
           </form>
         `);
         window._closeModal = closeModal;
+        
+        const depInput = document.getElementById('deposit-amount');
+        if (depInput) {
+          depInput.addEventListener('input', (e) => {
+            const val = parseFloat(String(e.target.value).replace(/\D/g, '')) || 0;
+            if (val === 0 && e.target.value === '') return;
+            const start = e.target.selectionStart;
+            const oldLen = e.target.value.length;
+            e.target.value = val.toLocaleString('es-PY');
+            const newLen = e.target.value.length;
+            e.target.setSelectionRange(start + (newLen - oldLen), start + (newLen - oldLen));
+          });
+        }
+
         document.getElementById('deposit-form').addEventListener('submit', (e) => {
           e.preventDefault();
-          const amount = parseFloat(document.getElementById('deposit-amount').value) || 0;
+          const amount = parseFloat(String(document.getElementById('deposit-amount').value).replace(/\D/g, '')) || 0;
           const method = document.getElementById('deposit-method').value;
           const note = document.getElementById('deposit-note').value;
           
@@ -941,7 +955,7 @@ export function renderSaleForm() {
           </div>
           <div class="form-group">
             <label>Precio de Venta Sugerido / Acordado</label>
-            <input type="number" name="totalPrice" id="sale-total-price" class="form-control" required min="0">
+            <input type="text" name="totalPrice" id="sale-total-price" class="form-control format-currency" required>
           </div>
           <div class="form-group">
             <label>Tipo de Pago</label>
@@ -976,18 +990,21 @@ export function renderSaleForm() {
                   <i data-lucide="arrow-left-right" style="width:16px;height:16px;"></i> Vehículo en Parte de Pago Inicial
                 </h4>
               </div>
-              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Podrás registrar más vehículos desde el detalle de la venta una vez creada.</p>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Al confirmar la venta, este vehículo pasará al inventario automáticamente.</p>
               
-              <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
-                <div class="form-group"><label>Marca y Modelo</label><input type="text" id="initial-ti-model" class="form-control" placeholder="Ej: Toyota Corolla"></div>
-                <div class="form-group"><label>Año</label><input type="number" id="initial-ti-year" class="form-control" placeholder="2015"></div>
-                <div class="form-group"><label>Tasación Estimada</label><input type="number" id="initial-ti-value" class="form-control" placeholder="0"></div>
+              <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="form-group"><label>Marca</label><input type="text" id="initial-ti-brand" class="form-control" placeholder="Ej: Toyota"></div>
+                <div class="form-group"><label>Modelo</label><input type="text" id="initial-ti-model" class="form-control" placeholder="Ej: Tacoma"></div>
+                <div class="form-group"><label>Año</label><input type="number" id="initial-ti-year" class="form-control" placeholder="2020"></div>
+                <div class="form-group"><label>Color</label><input type="text" id="initial-ti-color" class="form-control" placeholder="Ej: Blanco"></div>
+                <div class="form-group"><label>Kilometraje</label><input type="text" id="initial-ti-mileage" class="form-control format-currency" placeholder="0"></div>
+                <div class="form-group"><label>Tasación Estimada</label><input type="text" id="initial-ti-value" class="form-control format-currency" placeholder="0"></div>
               </div>
             </div>
 
             <div class="form-group">
                 <label>Monto de Entrega Inicial (Seña / Anticipo)</label>
-                <input type="number" name="downPayment" id="sale-down-payment" class="form-control" value="0" min="0">
+                <input type="text" name="downPayment" id="sale-down-payment" class="form-control format-currency" value="0">
             </div>
         </div>
 
@@ -1001,7 +1018,7 @@ export function renderSaleForm() {
           <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 1.25rem;">
             <div class="form-group">
               <label>Monto a Financiar</label>
-              <input type="number" id="fin-amount" class="form-control" readonly style="background: var(--bg-card); font-weight: 700; color: var(--gold);">
+              <input type="text" id="fin-amount" class="form-control format-currency" readonly style="background: var(--bg-card); font-weight: 700; color: var(--gold);">
             </div>
             <div class="form-group">
               <label>Plazo (meses)</label>
@@ -1022,7 +1039,7 @@ export function renderSaleForm() {
             </div>
             <div class="form-group">
               <label>Seguro Mensual <small style="color:var(--text-muted)">(opcional)</small></label>
-              <input type="number" id="fin-insurance" class="form-control" value="0" min="0">
+              <input type="text" id="fin-insurance" class="form-control format-currency" value="0">
             </div>
             <div class="form-group" id="fin-bank-group" style="display:none;">
               <label>Banco / Entidad</label>
@@ -1030,7 +1047,7 @@ export function renderSaleForm() {
             </div>
             <div class="form-group" id="fin-admin-group" style="display:none;">
               <label>Gastos Administrativos</label>
-              <input type="number" id="fin-admin-fee" class="form-control" value="0" min="0">
+              <input type="text" id="fin-admin-fee" class="form-control format-currency" value="0">
             </div>
           </div>
 
@@ -1098,10 +1115,31 @@ export function renderSaleForm() {
     });
   });
 
+  // Auto-format currency inputs
+  const parseCurrency = (val) => parseFloat(String(val).replace(/\D/g, '')) || 0;
+  
+  const formatCurrencyInputs = () => {
+    document.querySelectorAll('.format-currency').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const val = parseCurrency(e.target.value);
+        if (val === 0 && e.target.value === '') return;
+        
+        const start = e.target.selectionStart;
+        const oldLen = e.target.value.length;
+        
+        e.target.value = val.toLocaleString('es-PY');
+        
+        const newLen = e.target.value.length;
+        e.target.setSelectionRange(start + (newLen - oldLen), start + (newLen - oldLen));
+      });
+    });
+  };
+  formatCurrencyInputs();
+
   // Update financing amount and profit projection whenever price or down payment changes
   const updateSaleCalc = () => {
-    const price = parseFloat(document.getElementById('sale-total-price')?.value) || 0;
-    const down = parseFloat(document.getElementById('sale-down-payment')?.value) || 0;
+    const price = parseCurrency(document.getElementById('sale-total-price')?.value);
+    const down = parseCurrency(document.getElementById('sale-down-payment')?.value);
     const currency = document.getElementById('sale-currency')?.value || 'PYG';
     const exchangeRate = parseFloat(document.getElementById('sale-exchange-rate')?.value) || 7500;
     
@@ -1133,16 +1171,16 @@ export function renderSaleForm() {
       const downInput = document.getElementById('sale-down-payment');
       if (downInput && price > 0 && !downInput.dataset.manual) {
         const suggested = suggestDeposit(price, calc.profit);
-        downInput.value = suggested;
+        downInput.value = suggested.toLocaleString('es-PY');
         // Need to update the local 'down' var for financing calc below
         const downUpdated = suggested;
         const financed = Math.max(0, price - downUpdated);
         const finAmount = document.getElementById('fin-amount');
-        if (finAmount) finAmount.value = financed;
+        if (finAmount) finAmount.value = financed.toLocaleString('es-PY');
       } else {
         const financed = Math.max(0, price - down);
         const finAmount = document.getElementById('fin-amount');
-        if (finAmount) finAmount.value = financed;
+        if (finAmount) finAmount.value = financed.toLocaleString('es-PY');
       }
     }
 
@@ -1157,11 +1195,11 @@ export function renderSaleForm() {
   // Financing calculator (French amortization)
   const calcFinancing = () => {
     const currency = document.getElementById('sale-currency')?.value || 'PYG';
-    const amount = parseFloat(document.getElementById('fin-amount')?.value) || 0;
+    const amount = parseCurrency(document.getElementById('fin-amount')?.value);
     const months = parseInt(document.getElementById('fin-months')?.value) || 12;
     const rateMonthly = (parseFloat(document.getElementById('fin-rate')?.value) || 0) / 100;
-    const insurance = parseFloat(document.getElementById('fin-insurance')?.value) || 0;
-    const adminFee = parseFloat(document.getElementById('fin-admin-fee')?.value) || 0;
+    const insurance = parseCurrency(document.getElementById('fin-insurance')?.value);
+    const adminFee = parseCurrency(document.getElementById('fin-admin-fee')?.value);
 
     document.getElementById('fin-months-hidden').value = months;
     document.getElementById('fin-rate-hidden').value = (rateMonthly * 100).toFixed(4);
@@ -1257,17 +1295,26 @@ export function renderSaleForm() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
+    
+    // Parse currency fields back to numbers
+    if (data.totalPrice) data.totalPrice = parseCurrency(data.totalPrice);
+    if (data.downPayment) data.downPayment = parseCurrency(data.downPayment);
+    if (data.exchangeRate) data.exchangeRate = parseFloat(data.exchangeRate);
 
     const finishCreation = (clientId) => {
       data.clientId = clientId;
       const sale = createSaleQuote(data);
       
       // Register initial trade-in if provided
+      const tiBrand = document.getElementById('initial-ti-brand')?.value?.trim();
       const tiModel = document.getElementById('initial-ti-model')?.value?.trim();
       const tiYear = document.getElementById('initial-ti-year')?.value?.trim();
-      const tiValue = parseFloat(document.getElementById('initial-ti-value')?.value) || 0;
+      const tiColor = document.getElementById('initial-ti-color')?.value?.trim();
+      const tiMileage = parseCurrency(document.getElementById('initial-ti-mileage')?.value);
+      const tiValue = parseCurrency(document.getElementById('initial-ti-value')?.value);
+      
       if (tiModel && tiValue > 0) {
-        registerTradeIn(sale.id, { brand: '', model: tiModel, year: tiYear, appraisalValue: tiValue });
+        registerTradeIn(sale.id, { brand: tiBrand, model: tiModel, year: tiYear, color: tiColor, mileage: tiMileage, appraisalValue: tiValue });
       }
 
       showToast('Cotización creada exitosamente', 'success');

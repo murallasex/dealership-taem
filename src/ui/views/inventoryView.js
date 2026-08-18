@@ -506,23 +506,23 @@ export function renderInventoryForm(vehicleId = null) {
           </div>
           <div class="form-group">
             <label>Costo de Compra</label>
-            <input type="number" id="v-purchaseCost" class="form-control" value="${vehicle.purchaseCost || 0}">
+            <input type="text" id="v-purchaseCost" class="form-control format-currency" value="${(vehicle.purchaseCost || 0).toLocaleString('es-PY')}">
           </div>
           <div class="form-group">
             <label>Costos de Importación</label>
-            <input type="number" id="v-importCosts" class="form-control" value="${vehicle.importCosts || 0}">
+            <input type="text" id="v-importCosts" class="form-control format-currency" value="${(vehicle.importCosts || 0).toLocaleString('es-PY')}">
           </div>
           <div class="form-group">
             <label>Costo de Preparación</label>
-            <input type="number" id="v-prepCost" class="form-control" value="${vehicle.prepCost || 0}">
+            <input type="text" id="v-prepCost" class="form-control format-currency" value="${(vehicle.prepCost || 0).toLocaleString('es-PY')}">
           </div>
           <div class="form-group">
             <label>Comisión</label>
-            <input type="number" id="v-commission" class="form-control" value="${vehicle.commission || 0}">
+            <input type="text" id="v-commission" class="form-control format-currency" value="${(vehicle.commission || 0).toLocaleString('es-PY')}">
           </div>
           <div class="form-group">
             <label>Precio Sugerido</label>
-            <input type="number" id="v-suggestedPrice" class="form-control" value="${vehicle.suggestedPrice || 0}">
+            <input type="text" id="v-suggestedPrice" class="form-control format-currency" value="${(vehicle.suggestedPrice || 0).toLocaleString('es-PY')}">
           </div>
         </div>
       </div>
@@ -531,6 +531,54 @@ export function renderInventoryForm(vehicleId = null) {
 
   pageContent.innerHTML = html;
   safeCreateIcons({ nodes: [pageContent] });
+
+  // Auto-format currency inputs
+  const parseCurrency = (val) => parseFloat(val.replace(/\D/g, '')) || 0;
+  
+  const formatCurrencyInputs = () => {
+    document.querySelectorAll('.format-currency').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const val = parseCurrency(e.target.value);
+        if (val === 0 && e.target.value === '') return;
+        
+        // Preserve cursor position roughly
+        const start = e.target.selectionStart;
+        const oldLen = e.target.value.length;
+        
+        e.target.value = val.toLocaleString('es-PY');
+        
+        const newLen = e.target.value.length;
+        e.target.setSelectionRange(start + (newLen - oldLen), start + (newLen - oldLen));
+      });
+    });
+  };
+  formatCurrencyInputs();
+
+  // Auto-calculate suggested price (Total Costs + Margin). We'll set a standard margin or just sum costs + commission
+  const calcCosts = () => {
+    const pc = parseCurrency(document.getElementById('v-purchaseCost').value);
+    const ic = parseCurrency(document.getElementById('v-importCosts').value);
+    const prc = parseCurrency(document.getElementById('v-prepCost').value);
+    const comm = parseCurrency(document.getElementById('v-commission').value);
+    const suggested = document.getElementById('v-suggestedPrice');
+    
+    // Auto calculate if the user hasn't explicitly overridden the suggested price much differently than total costs
+    const totalCost = pc + ic + prc + comm;
+    // Suggest +20% margin if it's completely empty or default
+    const defaultSuggested = Math.round(totalCost * 1.2);
+    
+    if (!suggested.dataset.manual) {
+      suggested.value = defaultSuggested.toLocaleString('es-PY');
+    }
+  };
+
+  ['v-purchaseCost', 'v-importCosts', 'v-prepCost', 'v-commission'].forEach(id => {
+    document.getElementById(id)?.addEventListener('input', calcCosts);
+  });
+  
+  document.getElementById('v-suggestedPrice')?.addEventListener('input', (e) => {
+    e.target.dataset.manual = "true";
+  });
 
   document.getElementById('btn-cancel')?.addEventListener('click', () => {
     if (isEdit) go('#/inventory/detail/' + vehicleId);
@@ -551,17 +599,17 @@ export function renderInventoryForm(vehicleId = null) {
       version: document.getElementById('v-version').value,
       year: parseInt(document.getElementById('v-year').value, 10),
       color: document.getElementById('v-color').value,
-      mileage: parseInt(document.getElementById('v-mileage').value, 10),
+      mileage: parseInt(document.getElementById('v-mileage').value, 10) || 0,
       condition: document.getElementById('v-condition').value,
       origin: document.getElementById('v-origin').value,
       commercialStatus: document.getElementById('v-status').value,
       branch: document.getElementById('v-branch').value,
       currency: document.getElementById('v-currency').value,
-      purchaseCost: parseFloat(document.getElementById('v-purchaseCost').value) || 0,
-      importCosts: parseFloat(document.getElementById('v-importCosts').value) || 0,
-      prepCost: parseFloat(document.getElementById('v-prepCost').value) || 0,
-      commission: parseFloat(document.getElementById('v-commission').value) || 0,
-      suggestedPrice: parseFloat(document.getElementById('v-suggestedPrice').value) || 0
+      purchaseCost: parseCurrency(document.getElementById('v-purchaseCost').value),
+      importCosts: parseCurrency(document.getElementById('v-importCosts').value),
+      prepCost: parseCurrency(document.getElementById('v-prepCost').value),
+      commission: parseCurrency(document.getElementById('v-commission').value),
+      suggestedPrice: parseCurrency(document.getElementById('v-suggestedPrice').value)
     };
 
     if (isEdit) {
