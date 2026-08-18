@@ -94,6 +94,13 @@ export function renderInventoryList() {
           <div class="kpi-value">${kpis.sold}</div>
         </div>
       </div>
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-warning"><i data-lucide="calendar"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Stock Promedio (Días)</div>
+          <div class="kpi-value">${kpis.avgDaysInStock}</div>
+        </div>
+      </div>
     </div>
 
     <div class="card table-container">

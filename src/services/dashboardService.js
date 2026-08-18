@@ -14,9 +14,9 @@ export function getDashboardKPIs() {
     const d = new Date(s.date || s.createdAt);
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });
-  const salesCountThisMonth = salesThisMonth.length;
-
   const deliveredSalesThisMonth = salesThisMonth.filter(s => s.stage === 'delivery');
+  const salesCountThisMonth = deliveredSalesThisMonth.length;
+  
   const amountSoldThisMonth = deliveredSalesThisMonth.reduce((sum, s) => {
     const price = Number(s.totalPrice);
     return sum + (!isNaN(price) && isFinite(price) ? price : 0);
@@ -108,7 +108,7 @@ export function getTopSellersStats(limit = 3) {
       salesAmount,
       progress
     };
-  }).sort((a, b) => b.salesCount - a.salesCount).slice(0, limit);
+  }).sort((a, b) => b.salesAmount - a.salesAmount).slice(0, limit);
 }
 
 export function getRecentActivity(limit = 5) {

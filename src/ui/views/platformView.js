@@ -8,6 +8,7 @@ import {
   getCompanies, upsertCompany, deleteCompany,
   pauseCompany, activateCompany,
   getPlatformUsers, upsertPlatformUser, getUsersByCompany,
+  getAuditLog,
   ROLES
 } from '../../core/auth.js';
 
@@ -36,10 +37,11 @@ export function renderPlatformView() {
   const content = document.getElementById('page-content');
   if (!content) return;
 
-  const companies = getCompanies();
+  const companies = getCompanies().filter(c => c.status !== 'deleted');
   const allUsers = getPlatformUsers();
   const activeCount = companies.filter(c => c.status === 'active').length;
   const pausedCount = companies.filter(c => c.status === 'paused').length;
+  const logs = getAuditLog().sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
 
   content.innerHTML = `
     <div class="page-header">
@@ -107,7 +109,8 @@ export function renderPlatformView() {
             ${companies.map(c => {
               const users = getUsersByCompany(c.id);
               const days = daysUntil(c.subscriptionDue);
-              const dueClass = days !== null && days < 7 ? 'color:var(--danger)' : days < 30 ? 'color:var(--warning)' : '';
+              const isOverdue = days !== null && days < 0;
+              const dueClass = isOverdue ? 'color:var(--danger);font-weight:700;' : (days !== null && days < 7 ? 'color:var(--warning)' : '');
               return `
               <tr>
                 <td>
@@ -122,11 +125,14 @@ export function renderPlatformView() {
                   </div>
                 </td>
                 <td>${planBadge(c.plan)}</td>
-                <td>${statusBadge(c.status)}</td>
+                <td>
+                  ${statusBadge(c.status)}
+                  ${c.status === 'active' && isOverdue ? '<span class="badge badge-danger" style="margin-left:4px;font-size:0.65rem;">VENCIDO</span>' : ''}
+                </td>
                 <td>
                   <div style="${dueClass};font-size:0.85rem;">
                     ${c.subscriptionDue ? new Date(c.subscriptionDue).toLocaleDateString('es-PY') : '—'}
-                    ${days !== null ? `<br><small>${days >= 0 ? days + ' días' : 'VENCIDO'}</small>` : ''}
+                    ${days !== null && !isOverdue ? `<br><small>${days} días restantes</small>` : ''}
                   </div>
                 </td>
                 <td>
@@ -156,6 +162,38 @@ export function renderPlatformView() {
               </tr>`;
             }).join('')}
             ${companies.length === 0 ? `<tr><td colspan="6" class="text-center text-muted" style="padding:3rem;">No hay empresas registradas</td></tr>` : ''}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Audit Log -->
+    <div class="card table-container" style="margin-top:2rem;">
+      <div class="card-header">
+        <h3>Registro de Auditoría (Últimas 10 acciones)</h3>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Acción</th>
+              <th>Empresa</th>
+              <th>Autor</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${logs.map(log => {
+              const actionColors = { PAUSE: 'var(--warning)', RESUME: 'var(--success)', DELETE: 'var(--danger)', CREATE: 'var(--info)' };
+              return `
+              <tr>
+                <td class="text-muted" style="font-size:0.85rem;">${new Date(log.date).toLocaleString('es-PY')}</td>
+                <td><span style="color:${actionColors[log.action]||'inherit'};font-weight:600;">${log.action}</span></td>
+                <td>${log.companyId}</td>
+                <td>${log.actor}</td>
+              </tr>`;
+            }).join('')}
+            ${logs.length === 0 ? `<tr><td colspan="4" class="text-center text-muted" style="padding:2rem;">No hay registros recientes</td></tr>` : ''}
           </tbody>
         </table>
       </div>

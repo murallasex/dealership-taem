@@ -13,11 +13,24 @@ export function calculateMargin(vehicle) {
 
 export function getInventoryKPIs() {
   const all = Vehicles.all();
+  const available = all.filter(v => v.commercialStatus === 'available');
+  
+  let totalDays = 0;
+  const now = new Date();
+  available.forEach(v => {
+    const d = new Date(v.receptionDate || v.createdAt);
+    if (!isNaN(d)) {
+      totalDays += Math.max(0, Math.floor((now - d) / (1000 * 60 * 60 * 24)));
+    }
+  });
+  const avgDaysInStock = available.length > 0 ? Math.round(totalDays / available.length) : 0;
+
   return {
     total: all.length,
-    available: all.filter(v => v.commercialStatus === 'available').length,
+    available: available.length,
     reserved: all.filter(v => v.commercialStatus === 'reserved').length,
     sold: all.filter(v => v.commercialStatus === 'sold').length,
+    avgDaysInStock
   };
 }
 

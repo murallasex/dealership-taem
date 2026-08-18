@@ -29,6 +29,7 @@ import { renderEmailTemplates, renderEmailHistory } from './src/ui/views/notific
 import { renderCashBox, renderReports } from './src/ui/views/accountingView.js';
 import { renderUsers, renderSettings } from './src/ui/views/adminView.js';
 import { renderPlatformView } from './src/ui/views/platformView.js';
+import { renderTermsOfUse, renderSupport } from './src/ui/views/legalSupportView.js';
 
 export { AppState, showToast, openModal, closeModal, confirmDialog, fmt, fmtDate, go };
 
@@ -39,8 +40,10 @@ function canAccess(route) {
   if (!user) return false;
   const role = user.role;
 
-  // Developer can see everything
-  if (role === ROLES.DEVELOPER) return true;
+  // Developer solo puede ver la plataforma (no accede a datos de empresas por temas legales)
+  if (role === ROLES.DEVELOPER) {
+    return route === 'platform';
+  }
 
   // Platform view only for developer
   if (route === 'platform') return false;
@@ -83,6 +86,8 @@ const ROUTES = {
   'admin':                   () => renderUsers(),
   'admin/settings':          () => renderSettings(),
   'settings':                () => renderSettings(),
+  'support':                 () => renderSupport(),
+  'legal/terms':             () => renderTermsOfUse(),
 };
 
 // ─── Currency Switcher ────────────────────────────────────
@@ -117,13 +122,13 @@ function applySidebarRoles() {
     let visible = false;
 
     if (role === ROLES.DEVELOPER) {
-      visible = true; // developer sees everything
+      visible = (required === 'developer'); // Developer solo ve panel developer
     } else if (required === 'developer') {
-      visible = false; // only developer
+      visible = false; // solo developer puede ver esto
     } else if (required === 'manager') {
       visible = role === ROLES.MANAGER;
     } else if (required === 'seller') {
-      visible = true; // seller and above
+      visible = true; // seller y manager ven esto
     }
 
     el.style.display = visible ? '' : 'none';
@@ -243,20 +248,32 @@ function initLogout() {
 }
 
 // ─── Route Guard (before each navigation) ────────────────
-function guardedNavigate(hash, callback) {
-  // Extract route key from hash
-  const raw = (hash || '').replace(/^#\/?/, '');
-  const routeKey = raw.split('/').slice(0,2).join('/') || 'dashboard';
-  const simpleKey = raw.split('/')[0] || 'dashboard';
+function routeGuard(key, base, hash, notifCallback) {
+  const user = getCurrentUser();
+  if (!user) return true; // Let it navigate, maybe to login or dashboard where it handles no-user
 
-  if (!canAccess(routeKey) && !canAccess(simpleKey)) {
-    const user = getCurrentUser();
-    const fallback = user?.role === ROLES.DEVELOPER ? '#/platform' : '#/dashboard';
-    showToast('No tienes permiso para acceder a esta sección', 'warning');
-    navigate(fallback, callback);
-    return;
+  // 1. Check if company is paused
+  if (user.role !== ROLES.DEVELOPER) {
+    const company = getCompany(user.companyId);
+    if (company && company.status === 'paused') {
+      showSuspended(company);
+      // Change hash without triggering infinite loop, or just stay
+      if (window.location.hash !== '') {
+        history.replaceState(null, null, ' ');
+      }
+      return false; // block navigation
+    }
   }
-  navigate(hash, callback);
+
+  // 2. Check Role permissions
+  if (!canAccess(key) && !canAccess(base)) {
+    const fallback = user.role === ROLES.DEVELOPER ? '#/platform' : '#/dashboard';
+    showToast('No tienes permiso para acceder a esta sección', 'warning');
+    go(fallback);
+    return false; // block current navigation
+  }
+
+  return true; // allow
 }
 
 // ─── Bootstrap ────────────────────────────────────────────
@@ -273,11 +290,7 @@ async function boot() {
   initLogout();
 
   // Custom router with role guard
-  initRouter(ROUTES, updateNotifBadge);
-
-  // Override go() to use guarded navigation
-  const origGo = go;
-  window._guardedGo = (hash) => guardedNavigate(hash, updateNotifBadge);
+  initRouter(ROUTES, updateNotifBadge, routeGuard);
 
   // Init lucide icons
   safeCreateIcons({});

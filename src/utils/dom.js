@@ -4,13 +4,11 @@
 
 export function safeCreateIcons(opts) {
   try {
-    if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
-      lucide.createIcons(opts);
-    } else if (typeof window !== 'undefined' && window.lucide && typeof window.lucide.createIcons === 'function') {
-      window.lucide.createIcons(opts);
+    if (typeof window !== 'undefined' && window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
     }
   } catch (err) {
-    // Gracefully handle missing lucide icons environment
+    console.error('Error creating icons:', err);
   }
 }
 

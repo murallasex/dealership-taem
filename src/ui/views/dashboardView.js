@@ -3,6 +3,7 @@
 // =====================================================
 
 import { getDashboardKPIs, getSalesChartData, getPipelineStats, getTopSellersStats, getRecentActivity, getAvailableVehiclesData } from '../../services/dashboardService.js';
+import { getCurrentUser } from '../../core/auth.js';
 import { fmt, fmtDate } from '../../utils/formatters.js';
 import { safeCreateIcons } from '../../utils/dom.js';
 
@@ -25,13 +26,13 @@ export function renderDashboard() {
   const html = `
     <div class="page-header">
       <div>
-        <h1 class="page-title">${greeting}, Usuario</h1>
+        <h1 class="page-title">${greeting}, ${getCurrentUser()?.name?.split(' ')[0] || 'Usuario'}</h1>
         <p class="text-muted" style="text-transform: capitalize;">${currentDateStr}</p>
       </div>
     </div>
 
     <!-- KPIs -->
-    <div class="form-grid" style="grid-template-columns: repeat(6, 1fr); margin-bottom: 24px;">
+    <div class="dashboard-kpi-grid">
       <div class="card p-4">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
           <h3 class="text-muted" style="font-size: 0.875rem; font-weight: 500; margin: 0;">Stock</h3>
@@ -81,8 +82,10 @@ export function renderDashboard() {
       </div>
     </div>
 
+    </div>
+
     <!-- Charts Row -->
-    <div style="display: grid; grid-template-columns: 60% 40%; gap: 24px; margin-bottom: 24px;">
+    <div class="dashboard-chart-row">
       <div class="card p-4">
         <h3 class="card-title" style="margin-bottom: 16px;">Ventas por mes (6 meses)</h3>
         <div style="height: 280px; position: relative;">
@@ -113,7 +116,7 @@ export function renderDashboard() {
     </div>
 
     <!-- 3rd Row -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <div class="dashboard-2col-row">
       <div class="card p-4">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <h3 class="card-title">Top Vendedores del Mes</h3>
@@ -167,7 +170,7 @@ export function renderDashboard() {
     </div>
 
     <!-- 4th Row -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <div class="dashboard-2col-row">
       <div class="card p-4">
         <h3 class="card-title" style="margin-bottom: 16px;">Actividad Reciente</h3>
         <div style="display: flex; flex-direction: column; gap: 16px; position: relative; padding-left: 12px;">
@@ -220,58 +223,60 @@ export function renderDashboard() {
     }
     window._charts = [];
 
-    const ctx = document.getElementById('salesChart');
-    if (ctx && window.Chart) {
-      const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
-      gradient.addColorStop(0, 'rgba(201, 162, 39, 0.4)');
-      gradient.addColorStop(1, 'rgba(201, 162, 39, 0)');
+    setTimeout(() => {
+      const ctx = document.getElementById('salesChart');
+      if (ctx && window.Chart) {
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(201, 162, 39, 0.4)');
+        gradient.addColorStop(1, 'rgba(201, 162, 39, 0)');
 
-      const chart = new window.Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: monthsLabels,
-          datasets: [{
-            label: 'Ventas',
-            data: salesData,
-            borderColor: '#c9a227',
-            backgroundColor: gradient,
-            borderWidth: 2,
-            fill: true,
-            tension: 0.4,
-            pointBackgroundColor: '#14171f',
-            pointBorderColor: '#c9a227',
-            pointBorderWidth: 2,
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: '#14171f',
-              titleColor: '#f8fafc',
-              bodyColor: '#c9a227',
-              borderColor: '#2e3340',
-              borderWidth: 1
-            }
+        const chart = new window.Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: monthsLabels,
+            datasets: [{
+              label: 'Ventas',
+              data: salesData,
+              borderColor: '#c9a227',
+              backgroundColor: gradient,
+              borderWidth: 2,
+              fill: true,
+              tension: 0.4,
+              pointBackgroundColor: '#14171f',
+              pointBorderColor: '#c9a227',
+              pointBorderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 6
+            }]
           },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: { display: false, drawBorder: false },
-              ticks: { color: '#94a3b8', stepSize: 1 }
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#14171f',
+                titleColor: '#f8fafc',
+                bodyColor: '#c9a227',
+                borderColor: '#2e3340',
+                borderWidth: 1
+              }
             },
-            x: {
-              grid: { display: false, drawBorder: false },
-              ticks: { color: '#94a3b8' }
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { display: false, drawBorder: false },
+                ticks: { color: '#94a3b8', stepSize: 1 }
+              },
+              x: {
+                grid: { display: false, drawBorder: false },
+                ticks: { color: '#94a3b8' }
+              }
             }
           }
-        }
-      });
-      window._charts.push(chart);
-    }
+        });
+        window._charts.push(chart);
+      }
+    }, 100);
   }
 }

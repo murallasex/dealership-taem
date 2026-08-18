@@ -51,6 +51,22 @@ export function isDeveloper() { return getCurrentUser()?.role === ROLES.DEVELOPE
 export function isManager() { return getCurrentUser()?.role === ROLES.MANAGER || isDeveloper(); }
 export function isSeller() { return !!getCurrentUser(); }
 
+// ─── Route Guard ─────────────────────────────────────────
+export function canAccess(route) {
+  const user = getCurrentUser();
+  if (!user) return false;
+  const role = user.role;
+
+  if (role === ROLES.DEVELOPER) return true;
+  if (route === 'platform') return false;
+
+  const managerRoutes = ['financing', 'sellers', 'accounting', 'accounting/reports', 'reports', 'notifications', 'notifications/history', 'admin', 'admin/settings', 'settings'];
+  if (managerRoutes.some(r => route.startsWith(r))) {
+    return role === ROLES.MANAGER;
+  }
+  return true;
+}
+
 // ─── Companies Store ──────────────────────────────────
 export function getCompanies() {
   try {
@@ -76,18 +92,52 @@ export function upsertCompany(company) {
 }
 
 export function deleteCompany(id) {
-  const list = getCompanies().filter(c => c.id !== id);
-  saveCompanies(list);
+  const c = getCompany(id);
+  if (c) { 
+    c.status = 'deleted'; 
+    c.deletedAt = new Date().toISOString();
+    upsertCompany(c); 
+  }
+}
+
+// ─── Audit Log ─────────────────────────────────────────
+export function getAuditLog() {
+  try {
+    const raw = localStorage.getItem('erp_audit_log');
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+export function addAuditLog(action, companyId, notes = '') {
+  const log = getAuditLog();
+  const user = getCurrentUser();
+  log.push({
+    id: 'log_' + Date.now(),
+    date: new Date().toISOString(),
+    actor: user ? user.name : 'System',
+    action,
+    companyId,
+    notes
+  });
+  localStorage.setItem('erp_audit_log', JSON.stringify(log));
 }
 
 export function pauseCompany(id) {
   const c = getCompany(id);
-  if (c) { c.status = 'paused'; upsertCompany(c); }
+  if (c) { 
+    c.status = 'paused'; 
+    upsertCompany(c); 
+    addAuditLog('PAUSE', id, 'Empresa pausada por developer');
+  }
 }
 
 export function activateCompany(id) {
   const c = getCompany(id);
-  if (c) { c.status = 'active'; upsertCompany(c); }
+  if (c) { 
+    c.status = 'active'; 
+    upsertCompany(c); 
+    addAuditLog('RESUME', id, 'Empresa reactivada por developer');
+  }
 }
 
 // ─── Platform Users Store (all users across companies) ─

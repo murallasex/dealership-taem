@@ -5,6 +5,7 @@
 import { safeCreateIcons } from '../utils/dom.js';
 
 let routesTable = {};
+let routeGuard = null;
 
 export function registerRoutes(routes) {
   routesTable = { ...routesTable, ...routes };
@@ -23,6 +24,11 @@ export function parseRoute(hash) {
 export function navigate(hash, notifCallback = null) {
   if (!hash || hash === '#') hash = '#/dashboard';
   const { key, base, params } = parseRoute(hash);
+
+  if (routeGuard) {
+    const allowed = routeGuard(key, base, hash, notifCallback);
+    if (!allowed) return;
+  }
 
   // Update active nav item
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -92,7 +98,8 @@ export function go(hash) {
   window.location.hash = hash;
 }
 
-export function initRouter(routes, notifCallback = null) {
+export function initRouter(routes, notifCallback = null, guardFn = null) {
   registerRoutes(routes);
+  routeGuard = guardFn;
   window.addEventListener('hashchange', () => navigate(window.location.hash, notifCallback));
 }

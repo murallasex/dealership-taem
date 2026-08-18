@@ -17,76 +17,127 @@ export function renderSalesPipeline() {
   const kpis = getSalesKPIs();
   const columns = getSalesByStage();
 
-  const renderCard = (sale) => `
-    <div class="card mb-2" style="cursor: pointer;" data-sale-id="${sale.id}">
-      <div class="card-body p-2">
-        <div class="d-flex justify-content-between align-items-start mb-2">
-          <span class="badge badge-neutral">${sale.saleNumber}</span>
-          <span class="text-xs text-muted">${fmtDate(sale.createdAt)}</span>
-        </div>
-        <h5 class="m-0 mb-1" style="font-size: 1rem;">${getClientName(sale.clientId)}</h5>
-        <div class="text-sm text-muted mb-2"><i data-lucide="car" class="icon-sm"></i> ${getVehicleName(sale.vehicleId)}</div>
-        <div class="text-sm mb-2"><i data-lucide="user" class="icon-sm"></i> ${getSellerName(sale.sellerId)}</div>
-        <div class="d-flex justify-content-between align-items-center mt-3">
-          <span class="font-bold text-${columns[sale.stage].color}">${fmt(sale.totalPrice, sale.currency)}</span>
-          ${sale.stage !== 'delivery' ? `
-            <button type="button" class="btn btn-ghost btn-sm advance-btn" data-id="${sale.id}" data-stage="${sale.stage}">
-              <i data-lucide="arrow-right"></i>
-            </button>
-          ` : ''}
+  const stageIcons = {
+    quote: 'file-text',
+    reservation: 'bookmark',
+    contract: 'file-signature',
+    delivery: 'truck'
+  };
+
+  const stageColors = {
+    quote: 'var(--info)',
+    reservation: 'var(--warning)',
+    contract: 'var(--gold)',
+    delivery: 'var(--success)'
+  };
+
+  const renderCard = (sale, stageKey) => {
+    const clientName = getClientName(sale.clientId);
+    const vehicleName = getVehicleName(sale.vehicleId);
+    const sellerName = getSellerName(sale.sellerId);
+    const initials = clientName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const color = stageColors[stageKey];
+
+    return `
+    <div class="sale-pipeline-card" data-sale-id="${sale.id}">
+      <div class="sale-pipeline-card__header">
+        <span class="sale-pipeline-card__number">${sale.saleNumber}</span>
+        <span class="sale-pipeline-card__date">${fmtDate(sale.createdAt)}</span>
+      </div>
+      <div class="sale-pipeline-card__client">
+        <div class="sale-pipeline-card__avatar" style="background: ${color}20; color: ${color};">${initials}</div>
+        <div class="sale-pipeline-card__client-info">
+          <div class="sale-pipeline-card__client-name">${clientName}</div>
+          <div class="sale-pipeline-card__vehicle"><i data-lucide="car" style="width:13px;height:13px;"></i> ${vehicleName}</div>
         </div>
       </div>
-    </div>
-  `;
+      <div class="sale-pipeline-card__footer">
+        <div>
+          <div class="sale-pipeline-card__seller"><i data-lucide="user" style="width:12px;height:12px;"></i> ${sellerName}</div>
+          <div class="sale-pipeline-card__price" style="color: ${color};">${fmt(sale.totalPrice, sale.currency)}</div>
+        </div>
+        ${stageKey !== 'delivery' ? `
+          <button type="button" class="sale-pipeline-card__advance advance-btn" data-id="${sale.id}" data-stage="${sale.stage}" title="Avanzar etapa" style="color: ${color}; background: ${color}15; border: 1px solid ${color}30;">
+            <i data-lucide="chevron-right" style="width:16px;height:16px;"></i>
+          </button>
+        ` : `
+          <span class="sale-pipeline-card__delivered"><i data-lucide="check-circle" style="width:14px;height:14px;"></i></span>
+        `}
+      </div>
+    </div>`;
+  };
 
   let html = `
-    <div class="page-header d-flex justify-content-between align-items-center mb-4">
-      <h2 class="m-0">Pipeline de Ventas</h2>
-      <button id="btn-new-sale" class="btn btn-primary">
-        <i data-lucide="plus"></i> Nueva Cotización
-      </button>
+    <div class="page-header" style="margin-bottom: 1.75rem;">
+      <div class="header-title">
+        <h1>Pipeline de Ventas</h1>
+        <p class="text-muted">Gestiona el ciclo de vida de cada operación</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-new-sale" class="btn btn-primary"><i data-lucide="plus"></i> Nueva Cotización</button>
+      </div>
     </div>
 
     <!-- KPIs -->
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-      <div class="card" style="padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem;">Total Ventas</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary); font-family: 'Outfit', sans-serif; line-height: 1;">${kpis.totalSales}</div>
+    <div class="kpi-grid" style="margin-bottom: 2rem;">
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-info"><i data-lucide="layers"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Total Ventas</div>
+          <div class="kpi-value">${kpis.totalSales}</div>
+        </div>
       </div>
-      <div class="card" style="padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem;">Monto Vendido</div>
-        <div style="font-size: 1.5rem; font-weight: 700; color: var(--success); font-family: 'Outfit', sans-serif; line-height: 1;">${fmt(kpis.totalAmountSold, 'PYG')}</div>
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-success"><i data-lucide="trending-up"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Monto Vendido</div>
+          <div class="kpi-value" style="font-size:1.2rem;color:var(--success);">${fmt(kpis.totalAmountSold, 'PYG')}</div>
+        </div>
       </div>
-      <div class="card" style="padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem;">En Proceso</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--warning); font-family: 'Outfit', sans-serif; line-height: 1;">${kpis.inProcessSalesCount}</div>
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-warning"><i data-lucide="clock"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">En Proceso</div>
+          <div class="kpi-value">${kpis.inProcessSalesCount}</div>
+        </div>
       </div>
-      <div class="card" style="padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem;">Entregados</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--gold); font-family: 'Outfit', sans-serif; line-height: 1;">${kpis.deliveredSalesCount}</div>
+      <div class="card kpi-card">
+        <div class="kpi-icon badge-gold"><i data-lucide="check-circle"></i></div>
+        <div class="kpi-content">
+          <div class="kpi-label">Entregados</div>
+          <div class="kpi-value">${kpis.deliveredSalesCount}</div>
+        </div>
       </div>
     </div>
 
-    <!-- Stacked Pipeline Board (per user sketch) -->
-    <div class="pipeline-stacked" style="margin-top: 2rem;">
-      ${Object.entries(columns).map(([key, col]) => `
-        <div class="pipeline-stage" style="margin-bottom: 2.5rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
-            <h3 style="margin: 0; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-weight: 400;">
-              <span style="color: var(--${col.color});">${col.title}</span> 
-              <span style="color: var(--text-muted); font-size: 1.1rem;">(${col.items.length})</span>
-            </h3>
-            <div style="position: relative; width: 320px;">
-              <input type="text" class="form-control stage-search" data-stage="${key}" placeholder="Buscar vehículo, cliente..." style="padding-left: 2.5rem; padding-right: 1rem; background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); height: 40px; transition: box-shadow 0.2s, border-color 0.2s;" onfocus="this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--gold)';" onblur="this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--border-color)';">
-              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 18px; height: 18px;"></i>
+    <!-- Pipeline Stages -->
+    <div class="sales-pipeline-board">
+      ${Object.entries(columns).map(([key, col]) => {
+        const color = stageColors[key];
+        const icon = stageIcons[key];
+        return `
+        <div class="sales-pipeline-stage">
+          <div class="sales-pipeline-stage__header" style="--stage-color: ${color};">
+            <div class="sales-pipeline-stage__title">
+              <i data-lucide="${icon}" style="width:18px;height:18px;color:${color};"></i>
+              <span>${col.title}</span>
+              <span class="sales-pipeline-stage__count" style="background:${color}20;color:${color};">${col.items.length}</span>
+            </div>
+            <div class="sales-pipeline-stage__search">
+              <i data-lucide="search" style="width:14px;height:14px;color:var(--text-muted);position:absolute;left:10px;top:50%;transform:translateY(-50%);"></i>
+              <input type="text" class="stage-search" data-stage="${key}" placeholder="Buscar...">
             </div>
           </div>
-          <div class="stage-cards" id="stage-cards-${key}" style="display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 1rem; min-height: 120px;">
-            ${col.items.map(renderCard).join('')}
-            ${col.items.length === 0 ? '<div style="color: var(--text-muted); padding: 2rem 0; font-size: 1rem;">No hay ventas en esta etapa</div>' : ''}
+          <div class="sales-pipeline-stage__body" id="stage-cards-${key}">
+            ${col.items.map(s => renderCard(s, key)).join('')}
+            ${col.items.length === 0 ? `
+              <div class="sales-pipeline-stage__empty">
+                <i data-lucide="inbox" style="width:28px;height:28px;color:var(--text-muted);opacity:0.4;"></i>
+                <span>Sin operaciones</span>
+              </div>` : ''}
           </div>
-        </div>
-      `).join('')}
+        </div>`;
+      }).join('')}
     </div>
   `;
 
@@ -103,15 +154,15 @@ export function renderSalesPipeline() {
       const stageKey = e.target.dataset.stage;
       const container = document.getElementById(`stage-cards-${stageKey}`);
       if (container) {
-        container.querySelectorAll('.card[data-sale-id]').forEach(card => {
+        container.querySelectorAll('.sale-pipeline-card').forEach(card => {
           const text = card.textContent.toLowerCase();
-          card.style.display = text.includes(term) ? 'block' : 'none';
+          card.style.display = text.includes(term) ? '' : 'none';
         });
       }
     });
   });
 
-  content.querySelectorAll('.card[data-sale-id]').forEach(card => {
+  content.querySelectorAll('.sale-pipeline-card').forEach(card => {
     card.addEventListener('click', (e) => {
       if (e.target.closest('.advance-btn')) return;
       go(`#/sales/detail/${card.dataset.saleId}`);
@@ -140,165 +191,273 @@ export function renderSaleDetail(saleId) {
 
   const sale = Sales.find(saleId);
   if (!sale) {
-    content.innerHTML = `<div class="p-4 text-center">Venta no encontrada. <button class="btn btn-primary" onclick="window.location.hash='#/sales'">Volver</button></div>`;
+    content.innerHTML = `<div class="empty-state"><div class="empty-state-icon"><i data-lucide="alert-triangle"></i></div><h3>Venta no encontrada</h3><button class="btn btn-primary" onclick="window.location.hash='#/sales'">Volver al Pipeline</button></div>`;
+    safeCreateIcons({ nodes: [content] });
     return;
   }
 
   const client = Clients.find(sale.clientId) || {};
   const vehicle = Vehicles.find(sale.vehicleId) || {};
   const seller = Sellers.find(sale.sellerId) || {};
+  const clientName = client.name || `${client.firstName || ''} ${client.lastName || ''}`.trim() || 'N/A';
+  const sellerName = seller.name || `${seller.firstName || ''} ${seller.lastName || ''}`.trim() || 'N/A';
+  const clientInitials = clientName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
   const stageFlow = [
-    { id: 'quote', label: 'Cotización' },
-    { id: 'reservation', label: 'Reserva' },
-    { id: 'contract', label: 'Contrato' },
-    { id: 'delivery', label: 'Entrega' }
+    { id: 'quote', label: 'Cotización', icon: 'file-text', color: 'var(--info)' },
+    { id: 'reservation', label: 'Reserva', icon: 'bookmark', color: 'var(--warning)' },
+    { id: 'contract', label: 'Contrato', icon: 'file-signature', color: 'var(--gold)' },
+    { id: 'delivery', label: 'Entrega', icon: 'truck', color: 'var(--success)' }
   ];
 
   const currentStageIndex = stageFlow.findIndex(s => s.id === sale.stage);
 
+  const paymentLabels = {
+    cash: 'Contado',
+    financed_own: 'Financiación Propia',
+    financed_bank: 'Financiación Bancaria'
+  };
+
+  const paymentIcons = {
+    cash: 'banknote',
+    financed_own: 'landmark',
+    financed_bank: 'building'
+  };
+
   let html = `
-    <div class="mb-4">
-      <button class="btn btn-ghost mb-2" id="btn-back-pipeline">
-        <i data-lucide="arrow-left"></i> Volver al Pipeline
-      </button>
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="m-0">Detalle de Venta: ${sale.saleNumber}</h2>
-        <span class="badge badge-neutral">${fmtDate(sale.createdAt)}</span>
-      </div>
-    </div>
-
-    <!-- Pipeline Breadcrumb -->
-    <div class="card mb-4">
-      <div class="card-body p-4">
-        <div class="d-flex justify-content-between position-relative">
-          <div class="position-absolute" style="top: 15px; left: 0; right: 0; height: 2px; background: var(--border-color); z-index: 1;"></div>
-          ${stageFlow.map((stage, idx) => {
-            const isCompleted = idx <= currentStageIndex;
-            const color = isCompleted ? 'var(--gold)' : 'var(--bg-card)';
-            const border = isCompleted ? 'var(--gold)' : 'var(--border-color)';
-            const textColor = isCompleted ? 'var(--text-color)' : 'var(--text-muted)';
-            return `
-              <div class="text-center position-relative" style="z-index: 2; width: 25%;">
-                <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-radius: 50%; background: ${color}; border: 2px solid ${border};">
-                  ${isCompleted ? '<i data-lucide="check" style="width: 16px; height: 16px; color: #000;"></i>' : ''}
-                </div>
-                <div class="font-bold text-sm" style="color: ${textColor}">${stage.label}</div>
-              </div>
-            `;
-          }).join('')}
+    <div class="page-header" style="margin-bottom:0;">
+      <div>
+        <button class="btn btn-ghost" id="btn-back-pipeline" style="margin-bottom:0.5rem;"><i data-lucide="arrow-left"></i> Pipeline</button>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <h1 class="page-title" style="margin:0;">${sale.saleNumber}</h1>
+          <span class="badge badge-neutral" style="font-size:0.8rem;">${fmtDate(sale.createdAt)}</span>
         </div>
       </div>
+      <div class="header-actions">
+        ${sale.stage !== 'delivery' ? `
+          <button class="btn btn-primary" id="btn-advance">
+            Avanzar a ${stageFlow[currentStageIndex + 1]?.label || ''} <i data-lucide="arrow-right"></i>
+          </button>
+        ` : ''}
+        <button class="btn btn-secondary" id="btn-pdf"><i data-lucide="file-text"></i> Contrato PDF</button>
+      </div>
     </div>
 
-    <div class="row">
+    <!-- Stage Stepper -->
+    <div class="sale-stepper" style="margin: 1.75rem 0 2rem;">
+      <div class="sale-stepper__track">
+        ${stageFlow.map((stage, idx) => {
+          const isCompleted = idx < currentStageIndex;
+          const isCurrent = idx === currentStageIndex;
+          const isPending = idx > currentStageIndex;
+          let stateClass = 'pending';
+          if (isCompleted) stateClass = 'completed';
+          if (isCurrent) stateClass = 'current';
+          return `
+          <div class="sale-stepper__step sale-stepper__step--${stateClass}">
+            <div class="sale-stepper__dot" style="--step-color: ${stage.color};">
+              ${isCompleted ? '<i data-lucide="check" style="width:14px;height:14px;color:#fff;"></i>' :
+                isCurrent ? `<i data-lucide="${stage.icon}" style="width:14px;height:14px;color:#fff;"></i>` : 
+                `<span style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);opacity:0.4;display:block;"></span>`}
+            </div>
+            ${idx < stageFlow.length - 1 ? `<div class="sale-stepper__line ${isCompleted ? 'sale-stepper__line--filled' : ''}"></div>` : ''}
+            <div class="sale-stepper__label" style="color: ${isPending ? 'var(--text-muted)' : 'var(--text-primary)'};">${stage.label}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="sale-detail-grid">
       <!-- Left Column -->
-      <div class="col-md-6 mb-4">
-        <!-- Vehículo -->
-        <div class="card mb-4">
-          <div class="card-header"><h3 class="card-title">Vehículo</h3></div>
-          <div class="card-body">
-            <p><strong>Marca:</strong> ${vehicle.brand || '-'}</p>
-            <p><strong>Modelo:</strong> ${vehicle.model || '-'}</p>
-            <p><strong>Versión:</strong> ${vehicle.version || '-'}</p>
-            <p><strong>Año:</strong> ${vehicle.year || '-'}</p>
-            <p><strong>Color:</strong> ${vehicle.color || '-'}</p>
-            <p><strong>VIN:</strong> ${vehicle.vin || '-'}</p>
+      <div class="sale-detail-grid__left">
+
+        <!-- Vehicle Card -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header">
+            <div class="sale-detail-card__icon" style="background:var(--info-dim);color:var(--info);"><i data-lucide="car"></i></div>
+            <div>
+              <h3 class="sale-detail-card__title">Vehículo</h3>
+              <p class="sale-detail-card__subtitle">${vehicle.brand || ''} ${vehicle.model || ''} ${vehicle.version || ''}</p>
+            </div>
+          </div>
+          <div class="sale-detail-card__body">
+            <div class="sale-detail-data-grid">
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Marca</span>
+                <span class="sale-detail-data-item__value">${vehicle.brand || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Modelo</span>
+                <span class="sale-detail-data-item__value">${vehicle.model || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Versión</span>
+                <span class="sale-detail-data-item__value">${vehicle.version || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Año</span>
+                <span class="sale-detail-data-item__value">${vehicle.year || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Color</span>
+                <span class="sale-detail-data-item__value">${vehicle.color || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">VIN</span>
+                <span class="sale-detail-data-item__value" style="font-family:monospace;font-size:0.8rem;letter-spacing:0.03em;">${vehicle.vin || '-'}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Cliente -->
-        <div class="card mb-4">
-          <div class="card-header"><h3 class="card-title">Cliente</h3></div>
-          <div class="card-body">
-            <p><strong>Nombre:</strong> ${client.name || `${client.firstName || ''} ${client.lastName || ''}`.trim()}</p>
-            <p><strong>Documento:</strong> ${client.document || '-'}</p>
-            <p><strong>Email:</strong> ${client.email || '-'}</p>
-            <p><strong>Teléfono:</strong> ${client.phone || '-'}</p>
+        <!-- Client Card -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header">
+            <div class="sale-detail-card__avatar" style="background:var(--gold-dim);color:var(--gold);">${clientInitials}</div>
+            <div>
+              <h3 class="sale-detail-card__title">Cliente</h3>
+              <p class="sale-detail-card__subtitle">${clientName}</p>
+            </div>
+          </div>
+          <div class="sale-detail-card__body">
+            <div class="sale-detail-data-grid sale-detail-data-grid--2">
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Documento</span>
+                <span class="sale-detail-data-item__value">${client.document || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Teléfono</span>
+                <span class="sale-detail-data-item__value">${client.phone || '-'}</span>
+              </div>
+              <div class="sale-detail-data-item" style="grid-column:1/-1;">
+                <span class="sale-detail-data-item__label">Email</span>
+                <span class="sale-detail-data-item__value">${client.email || '-'}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Vendedor -->
-        <div class="card mb-4">
-          <div class="card-header"><h3 class="card-title">Vendedor</h3></div>
-          <div class="card-body">
-            <p><strong>Nombre:</strong> ${seller.name || `${seller.firstName || ''} ${seller.lastName || ''}`.trim()}</p>
-            <p><strong>Email:</strong> ${seller.email || '-'}</p>
+        <!-- Seller Card -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header">
+            <div class="sale-detail-card__icon" style="background:var(--success-dim);color:var(--success);"><i data-lucide="user-check"></i></div>
+            <div>
+              <h3 class="sale-detail-card__title">Vendedor</h3>
+              <p class="sale-detail-card__subtitle">${sellerName}</p>
+            </div>
+          </div>
+          <div class="sale-detail-card__body">
+            <div class="sale-detail-data-grid sale-detail-data-grid--2">
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Nombre</span>
+                <span class="sale-detail-data-item__value">${sellerName}</span>
+              </div>
+              <div class="sale-detail-data-item">
+                <span class="sale-detail-data-item__label">Email</span>
+                <span class="sale-detail-data-item__value">${seller.email || '-'}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Right Column -->
-      <div class="col-md-6 mb-4">
-        <!-- Resumen económico -->
-        <div class="card mb-4">
-          <div class="card-header"><h3 class="card-title">Resumen Económico</h3></div>
-          <div class="card-body">
-            <p><strong>Precio Total:</strong> <span class="font-bold text-success">${fmt(sale.totalPrice, sale.currency)}</span></p>
-            <p><strong>Entrega Inicial:</strong> ${fmt(sale.downPayment, sale.currency)}</p>
-            <p><strong>Monto Financiado / Saldo:</strong> ${fmt(sale.totalPrice - (sale.downPayment || 0) - (sale.advanceAmount || 0), sale.currency)}</p>
-            <p><strong>Tipo de Pago:</strong> 
-              ${sale.paymentType === 'cash' ? 'Contado' : 
-                sale.paymentType === 'financed_own' ? 'Financiación Propia' : 'Financiación Bancaria'}
-            </p>
+      <div class="sale-detail-grid__right">
+
+        <!-- Financial Summary -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header">
+            <div class="sale-detail-card__icon" style="background:var(--gold-dim);color:var(--gold);"><i data-lucide="receipt"></i></div>
+            <div>
+              <h3 class="sale-detail-card__title">Resumen Económico</h3>
+              <p class="sale-detail-card__subtitle">${paymentLabels[sale.paymentType] || sale.paymentType}</p>
+            </div>
+          </div>
+          <div class="sale-detail-card__body">
+            <div class="sale-detail-financial">
+              <div class="sale-detail-financial__row sale-detail-financial__row--highlight">
+                <span>Precio Total</span>
+                <span class="sale-detail-financial__amount" style="color:var(--gold);font-size:1.3rem;">${fmt(sale.totalPrice, sale.currency)}</span>
+              </div>
+              <div class="sale-detail-financial__row">
+                <span>Entrega Inicial</span>
+                <span class="sale-detail-financial__amount">${fmt(sale.downPayment || 0, sale.currency)}</span>
+              </div>
+              <div class="sale-detail-financial__row">
+                <span>Saldo / Financiado</span>
+                <span class="sale-detail-financial__amount">${fmt(sale.totalPrice - (sale.downPayment || 0) - (sale.advanceAmount || 0), sale.currency)}</span>
+              </div>
+              <div class="sale-detail-financial__divider"></div>
+              <div class="sale-detail-financial__row">
+                <span style="display:flex;align-items:center;gap:0.4rem;"><i data-lucide="${paymentIcons[sale.paymentType] || 'credit-card'}" style="width:14px;height:14px;"></i> Tipo de Pago</span>
+                <span class="badge ${sale.paymentType === 'cash' ? 'badge-success' : 'badge-gold'}">${paymentLabels[sale.paymentType] || sale.paymentType}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Estado de entrega -->
-        <div class="card mb-4">
-          <div class="card-header"><h3 class="card-title">Estado de Entrega</h3></div>
-          <div class="card-body">
-            <p>
-              ${sale.deliveryStatus === 'pending' ? 
-                '<span class="badge badge-warning">Pendiente de entrega</span>' : 
-                '<span class="badge badge-success">Entregado</span>'}
-            </p>
+        <!-- Delivery Status -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header">
+            <div class="sale-detail-card__icon" style="background:${sale.deliveryStatus === 'delivered' ? 'var(--success-dim)' : 'var(--warning-dim)'};color:${sale.deliveryStatus === 'delivered' ? 'var(--success)' : 'var(--warning)'};"><i data-lucide="${sale.deliveryStatus === 'delivered' ? 'check-circle' : 'clock'}"></i></div>
+            <div>
+              <h3 class="sale-detail-card__title">Estado de Entrega</h3>
+              <p class="sale-detail-card__subtitle">${sale.deliveryStatus === 'delivered' ? 'Vehículo entregado al cliente' : 'Pendiente de entrega'}</p>
+            </div>
+          </div>
+          <div class="sale-detail-card__body" style="padding-top:0;">
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:${sale.deliveryStatus === 'delivered' ? 'var(--success-dim)' : 'var(--warning-dim)'};border-radius:var(--radius);border:1px solid ${sale.deliveryStatus === 'delivered' ? 'rgba(34,197,94,0.25)' : 'rgba(245,158,11,0.25)'};">
+              <i data-lucide="${sale.deliveryStatus === 'delivered' ? 'package-check' : 'package'}" style="width:20px;height:20px;color:${sale.deliveryStatus === 'delivered' ? 'var(--success)' : 'var(--warning)'};"></i>
+              <span style="font-weight:600;color:${sale.deliveryStatus === 'delivered' ? 'var(--success)' : 'var(--warning)'};">${sale.deliveryStatus === 'delivered' ? 'Entregado' : 'Pendiente'}</span>
+            </div>
           </div>
         </div>
 
-        <!-- Acciones -->
-        <div class="card mb-4">
-          <div class="card-header"><h3 class="card-title">Acciones</h3></div>
-          <div class="card-body d-flex flex-column gap-2">
-            ${sale.stage !== 'delivery' ? `
-              <button class="btn btn-primary w-100 mb-2" id="btn-advance">
-                Avanzar a ${stageFlow[currentStageIndex + 1]?.label || ''} <i data-lucide="arrow-right"></i>
+        <!-- Quick Actions -->
+        <div class="card sale-detail-card">
+          <div class="sale-detail-card__header">
+            <div class="sale-detail-card__icon" style="background:rgba(139,92,246,0.15);color:#8b5cf6;"><i data-lucide="zap"></i></div>
+            <h3 class="sale-detail-card__title">Acciones</h3>
+          </div>
+          <div class="sale-detail-card__body" style="padding-top:0;">
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <button class="btn btn-ghost w-full" id="btn-tradein" style="justify-content:flex-start;gap:0.75rem;padding:0.65rem 1rem;">
+                <i data-lucide="car" style="width:16px;height:16px;"></i> Registrar Parte de Pago
               </button>
-            ` : ''}
-            
-            <button class="btn btn-secondary w-100 mb-2" id="btn-pdf">
-              <i data-lucide="file-text"></i> Generar Contrato PDF
-            </button>
-            
-            <button class="btn btn-ghost w-100 mb-2" id="btn-tradein">
-              <i data-lucide="car"></i> Registrar Parte de Pago
-            </button>
-
-            ${sale.paymentType === 'financed_own' ? `
-              <button class="btn btn-ghost w-100 mb-2" id="btn-finance">
-                <i data-lucide="credit-card"></i> Configurar Financiación
-              </button>
-            ` : ''}
+              ${sale.paymentType === 'financed_own' ? `
+                <button class="btn btn-ghost w-full" id="btn-finance" style="justify-content:flex-start;gap:0.75rem;padding:0.65rem 1rem;">
+                  <i data-lucide="calculator" style="width:16px;height:16px;"></i> Configurar Financiación
+                </button>
+              ` : ''}
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- History Timeline -->
-    <div class="card">
-      <div class="card-header"><h3 class="card-title">Historial</h3></div>
-      <div class="card-body">
-        <ul style="list-style: none; padding-left: 0; margin-bottom: 0;">
-          ${(sale.history || []).map(h => `
-            <li class="mb-3 d-flex align-items-start">
-              <div class="me-3 mt-1" style="width: 10px; height: 10px; border-radius: 50%; background: var(--gold);"></div>
-              <div>
-                <div class="text-sm font-bold">${fmtDate(h.date)} - ${h.stage}</div>
-                <div class="text-muted text-sm">${h.note || ''} (por ${h.by || 'Sistema'})</div>
+    <!-- Timeline -->
+    <div class="card sale-detail-card" style="margin-top:1.5rem;">
+      <div class="sale-detail-card__header">
+        <div class="sale-detail-card__icon" style="background:rgba(139,92,246,0.15);color:#8b5cf6;"><i data-lucide="history"></i></div>
+        <h3 class="sale-detail-card__title">Historial de la Operación</h3>
+      </div>
+      <div class="sale-detail-card__body">
+        <div class="sale-timeline">
+          ${(sale.history || []).map((h, idx) => {
+            const stageData = stageFlow.find(s => s.id === h.stage) || { color: 'var(--gold)', icon: 'circle' };
+            return `
+            <div class="sale-timeline__item ${idx === 0 ? 'sale-timeline__item--first' : ''}">
+              <div class="sale-timeline__dot" style="background:${stageData.color};"></div>
+              <div class="sale-timeline__content">
+                <div class="sale-timeline__date">${fmtDate(h.date)}</div>
+                <div class="sale-timeline__action">${h.note || `Avanzado a ${h.stage}`}</div>
+                <div class="sale-timeline__actor">por ${h.by || 'Sistema'}</div>
               </div>
-            </li>
-          `).join('')}
-        </ul>
+            </div>`;
+          }).join('')}
+          ${(!sale.history || sale.history.length === 0) ? '<div class="text-muted" style="padding:1rem 0;">Sin historial registrado</div>' : ''}
+        </div>
       </div>
     </div>
   `;
@@ -331,7 +490,7 @@ export function renderSaleDetail(saleId) {
     doc.text('Venta: ' + (sale.saleNumber || sale.id), 20, 40);
     doc.text('Fecha: ' + new Date(sale.createdAt).toLocaleDateString(), 20, 50);
     doc.text('Vehículo: ' + (vehicle ? (vehicle.brand + ' ' + vehicle.model) : 'N/A'), 20, 70);
-    doc.text('Cliente: ' + (client ? client.name : 'N/A'), 20, 80);
+    doc.text('Cliente: ' + (client ? clientName : 'N/A'), 20, 80);
     doc.text('Precio Total: ' + sale.totalPrice, 20, 100);
     doc.text('_____________________________', 40, 150);
     doc.text('Firma Vendedor', 55, 160);
@@ -411,6 +570,7 @@ export function renderSaleDetail(saleId) {
     });
   });
 }
+
 
 export function renderSaleForm() {
   const content = document.getElementById('page-content');

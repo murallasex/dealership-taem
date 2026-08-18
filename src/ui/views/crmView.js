@@ -241,7 +241,10 @@ export function renderCRMDetail(clientId) {
             </div>
             <div>
               <div style="font-size: 0.875rem; color: var(--text-muted);">Teléfono</div>
-              <div>${client.phone}</div>
+              <div style="display:flex; align-items:center; gap: 0.5rem;">
+                ${client.phone}
+                ${client.phone ? `<a href="https://wa.me/${client.phone.replace(/\D/g, '')}?text=Hola%20${encodeURIComponent(client.name)},%20te%20escribimos%20de%20Dealership%20TAEM" target="_blank" class="btn btn-sm" style="background:#25D366; color:#fff; border:none; padding: 2px 8px; font-size: 0.75rem;"><i data-lucide="message-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> WhatsApp</a>` : ''}
+              </div>
             </div>
           </div>
         </div>
