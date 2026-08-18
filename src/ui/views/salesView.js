@@ -2,8 +2,8 @@
 // AutoERP — Sales View Renderer
 // =====================================================
 
-import { getSalesKPIs, getSalesByStage, getClientName, getVehicleName, getSellerName, advanceSaleStage, createSaleQuote, markSaleAsLost, reactivateSale, getLostSalesReport, registerTradeIn, LOST_REASONS } from '../../services/salesService.js';
-import { Sales, Vehicles, Clients, Sellers, Invoices } from '../../core/store.js';
+import { getSalesKPIs, getSalesByStage, getClientName, getVehicleName, getSellerName, advanceSaleStage, createSaleQuote, markSaleAsLost, reactivateSale, getLostSalesReport, registerTradeIn, LOST_REASONS, calculateEstimatedProfit, suggestDeposit, registerPayment } from '../../services/salesService.js';
+import { Sales, Vehicles, Clients, Sellers, Invoices, Payments } from '../../core/store.js';
 import { createInvoice } from '../../services/billingService.js';
 import { openBillingPrintModal } from '../components/billingModal.js';
 import { fmt, fmtDate } from '../../utils/formatters.js';
@@ -607,18 +607,70 @@ export function renderSaleDetail(saleId) {
   document.getElementById('btn-back-pipeline')?.addEventListener('click', () => go('#/sales'));
 
   document.getElementById('btn-advance')?.addEventListener('click', () => {
-    confirmDialog(`¿Avanzar venta a la siguiente etapa?`, () => {
-      const res = advanceSaleStage(saleId, sale.stage);
-      if (res) {
-        showToast(`Venta avanzada a ${res.nextStage}`, 'success');
-        renderSaleDetail(saleId);
-        
-        // Si avanzó a Entrega (cobrado), sugerir facturación
-        if (res.nextStage === 'delivery') {
-          handleFacturacion(sale, vehicle, client);
+    if (sale.stage === 'quote') {
+      import('../components/modal.js').then(({ openModal, closeModal }) => {
+        // Suggest deposit for reservation
+        const calc = calculateEstimatedProfit(sale.vehicleId, sale.totalPrice);
+        const suggested = suggestDeposit(sale.totalPrice, calc.profit);
+
+        openModal('Registrar Seña para Reserva', `
+          <p style="margin-bottom:1rem;">Para avanzar a <strong>Reserva</strong>, registra la seña acordada con el cliente.</p>
+          <form id="deposit-form" class="form-grid">
+            <div class="form-group" style="grid-column:span 2;">
+              <label>Monto de la Seña <span class="text-muted">(Sugerido: ${fmt(suggested, sale.currency)})</span></label>
+              <input type="number" id="deposit-amount" class="form-control" value="${sale.downPayment || suggested}" required>
+            </div>
+            <div class="form-group">
+              <label>Método de Pago</label>
+              <select id="deposit-method" class="form-control">
+                <option value="cash">Efectivo (Caja)</option>
+                <option value="transfer">Transferencia</option>
+                <option value="card">Tarjeta</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column:span 2;">
+              <label>Nota / Ref.</label>
+              <input type="text" id="deposit-note" class="form-control" placeholder="Ej: Transferencia Banco Itaú #1234">
+            </div>
+            <div style="grid-column:span 2;display:flex;justify-content:flex-end;gap:1rem;margin-top:1rem;">
+              <button type="button" class="btn btn-ghost" onclick="window._closeModal()">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Registrar Seña y Reservar</button>
+            </div>
+          </form>
+        `);
+        window._closeModal = closeModal;
+        document.getElementById('deposit-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const amount = parseFloat(document.getElementById('deposit-amount').value) || 0;
+          const method = document.getElementById('deposit-method').value;
+          const note = document.getElementById('deposit-note').value;
+          
+          if (amount > 0) {
+            registerPayment(saleId, amount, 'deposit', method, note);
+          }
+          
+          const res = advanceSaleStage(saleId, sale.stage);
+          if (res) {
+            showToast('Vehículo reservado exitosamente', 'success');
+            closeModal();
+            renderSaleDetail(saleId);
+          }
+        });
+      });
+    } else {
+      confirmDialog(`¿Avanzar venta a la siguiente etapa?`, () => {
+        const res = advanceSaleStage(saleId, sale.stage);
+        if (res) {
+          showToast(`Venta avanzada a ${res.nextStage}`, 'success');
+          renderSaleDetail(saleId);
+          
+          // Si avanzó a Entrega (cobrado), sugerir facturación
+          if (res.nextStage === 'delivery') {
+            handleFacturacion(sale, vehicle, client);
+          }
         }
-      }
-    });
+      });
+    }
   });
 
   document.getElementById('btn-billing')?.addEventListener('click', () => {
@@ -864,7 +916,7 @@ export function renderSaleForm() {
           </div>
         </div>
 
-        <!-- Step 3: Details -->
+        <!-- Step 3: Detalles y Cotización -->
         <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Paso 3: Detalles de la Venta</h3>
         <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 1rem;">
           <div class="form-group">
@@ -882,12 +934,8 @@ export function renderSaleForm() {
             </select>
           </div>
           <div class="form-group">
-            <label>Precio del Vehículo</label>
+            <label>Precio de Venta Sugerido / Acordado</label>
             <input type="number" name="totalPrice" id="sale-total-price" class="form-control" required min="0">
-          </div>
-          <div class="form-group">
-            <label>Entrega Inicial</label>
-            <input type="number" name="downPayment" id="sale-down-payment" class="form-control" value="0" min="0">
           </div>
           <div class="form-group">
             <label>Tipo de Pago</label>
@@ -897,6 +945,44 @@ export function renderSaleForm() {
               <option value="financed_bank">Financiación Bancaria</option>
             </select>
           </div>
+        </div>
+
+        <div style="background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-color); padding: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+          <div style="flex:1">
+            <h4 style="margin:0 0 0.25rem 0; font-size:0.95rem; display:flex; align-items:center; gap:0.5rem;">
+               <i data-lucide="trending-up" style="width:16px;height:16px;color:var(--success);"></i> Proyección de Ganancia Bruta
+            </h4>
+            <p class="text-muted" style="margin:0; font-size:0.8rem;">Basado en costos del vehículo y precio de venta actual</p>
+          </div>
+          <div style="text-align:right">
+            <div id="proj-profit" style="font-size:1.4rem; font-weight:800; color:var(--success); font-family: 'Outfit', sans-serif;">-</div>
+            <div id="proj-margin" style="font-size:0.85rem; color:var(--text-muted);">Margen: 0%</div>
+          </div>
+        </div>
+
+        <!-- Step 4: Parte de Pago y Entrega -->
+        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Paso 4: Entregas y Parte de Pago (Opcional)</h3>
+        
+        <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem;">
+            <div class="card" style="padding:1rem; background:rgba(249,115,22,0.05); border:1px dashed rgba(249,115,22,0.3);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
+                <h4 style="margin:0; color:#f97316; font-size:0.95rem; display:flex; align-items:center; gap:0.5rem;">
+                  <i data-lucide="arrow-left-right" style="width:16px;height:16px;"></i> Vehículo en Parte de Pago Inicial
+                </h4>
+              </div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Podrás registrar más vehículos desde el detalle de la venta una vez creada.</p>
+              
+              <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                <div class="form-group"><label>Marca y Modelo</label><input type="text" id="initial-ti-model" class="form-control" placeholder="Ej: Toyota Corolla"></div>
+                <div class="form-group"><label>Año</label><input type="number" id="initial-ti-year" class="form-control" placeholder="2015"></div>
+                <div class="form-group"><label>Tasación Estimada</label><input type="number" id="initial-ti-value" class="form-control" placeholder="0"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label>Monto de Entrega Inicial (Seña / Anticipo)</label>
+                <input type="number" name="downPayment" id="sale-down-payment" class="form-control" value="0" min="0">
+            </div>
         </div>
 
         <!-- Financing Panel -->
@@ -1006,15 +1092,59 @@ export function renderSaleForm() {
     });
   });
 
-  // Update financing amount whenever price or down payment changes
+  // Update financing amount and profit projection whenever price or down payment changes
   const updateSaleCalc = () => {
     const price = parseFloat(document.getElementById('sale-total-price')?.value) || 0;
     const down = parseFloat(document.getElementById('sale-down-payment')?.value) || 0;
-    const financed = Math.max(0, price - down);
-    const finAmount = document.getElementById('fin-amount');
-    if (finAmount) finAmount.value = financed;
+    
+    // Profit calc
+    const selectedVehicleRadio = document.querySelector('input[name="vehicleId"]:checked');
+    if (selectedVehicleRadio) {
+      const vId = selectedVehicleRadio.value;
+      const calc = calculateEstimatedProfit(vId, price);
+      
+      const pEl = document.getElementById('proj-profit');
+      const mEl = document.getElementById('proj-margin');
+      if (pEl && mEl) {
+        if (price > 0 && calc.profit > 0) {
+          pEl.textContent = fmt(calc.profit, document.getElementById('sale-currency')?.value || 'PYG');
+          pEl.style.color = 'var(--success)';
+          mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
+        } else if (price > 0) {
+          pEl.textContent = fmt(calc.profit, document.getElementById('sale-currency')?.value || 'PYG');
+          pEl.style.color = 'var(--danger)';
+          mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
+        } else {
+          pEl.textContent = '-';
+          pEl.style.color = 'var(--text-primary)';
+          mEl.textContent = 'Margen: 0%';
+        }
+      }
+      
+      // Auto-suggest down payment if not set manually yet
+      const downInput = document.getElementById('sale-down-payment');
+      if (downInput && price > 0 && !downInput.dataset.manual) {
+        const suggested = suggestDeposit(price, calc.profit);
+        downInput.value = suggested;
+        // Need to update the local 'down' var for financing calc below
+        const downUpdated = suggested;
+        const financed = Math.max(0, price - downUpdated);
+        const finAmount = document.getElementById('fin-amount');
+        if (finAmount) finAmount.value = financed;
+      } else {
+        const financed = Math.max(0, price - down);
+        const finAmount = document.getElementById('fin-amount');
+        if (finAmount) finAmount.value = financed;
+      }
+    }
+
     calcFinancing();
   };
+  
+  // Track manual changes to down payment so we don't overwrite it
+  document.getElementById('sale-down-payment')?.addEventListener('input', (e) => {
+    e.target.dataset.manual = "true";
+  });
 
   // Financing calculator (French amortization)
   const calcFinancing = () => {
@@ -1093,6 +1223,22 @@ export function renderSaleForm() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
+    const finishCreation = (clientId) => {
+      data.clientId = clientId;
+      const sale = createSaleQuote(data);
+      
+      // Register initial trade-in if provided
+      const tiModel = document.getElementById('initial-ti-model')?.value?.trim();
+      const tiYear = document.getElementById('initial-ti-year')?.value?.trim();
+      const tiValue = parseFloat(document.getElementById('initial-ti-value')?.value) || 0;
+      if (tiModel && tiValue > 0) {
+        registerTradeIn(sale.id, { brand: '', model: tiModel, year: tiYear, appraisalValue: tiValue });
+      }
+
+      showToast('Cotización creada exitosamente', 'success');
+      go('#/sales');
+    };
+
     const clientMode = document.querySelector('input[name="clientMode"]:checked')?.value;
     if (clientMode === 'new') {
       const name = document.getElementById('nc-name')?.value?.trim();
@@ -1104,16 +1250,11 @@ export function renderSaleForm() {
       import('../../core/store.js').then(({ Clients: CS, now }) => {
         const newClient = { id: 'cli_' + Date.now(), name, document: docNum, phone: document.getElementById('nc-phone')?.value || '', email: document.getElementById('nc-email')?.value || '', segment: 'active', createdAt: now() };
         CS.save(newClient);
-        data.clientId = newClient.id;
-        createSaleQuote(data);
-        showToast('Cliente creado y cotización registrada', 'success');
-        go('#/sales');
+        finishCreation(newClient.id);
       });
     } else {
       if (!data.clientId) { showToast('Por favor selecciona un cliente', 'danger'); return; }
-      createSaleQuote(data);
-      showToast('Cotización creada exitosamente', 'success');
-      go('#/sales');
+      finishCreation(data.clientId);
     }
   });
 }

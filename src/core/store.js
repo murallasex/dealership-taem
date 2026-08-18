@@ -59,6 +59,7 @@ export const DB_KEYS = {
   events: 'erp_events',
   expenses: 'erp_expenses',
   invoices: 'erp_invoices',
+  payments: 'erp_payments',
 };
 
 // =====================================================
@@ -245,6 +246,13 @@ export const Invoices = {
   all: () => dbGetAll(DB_KEYS.invoices),
   find: (id) => dbFind(DB_KEYS.invoices, id),
   save: (i) => dbSave(DB_KEYS.invoices, i),
+};
+
+export const Payments = {
+  all: () => dbGetAll(DB_KEYS.payments),
+  find: (id) => dbFind(DB_KEYS.payments, id),
+  save: (p) => dbSave(DB_KEYS.payments, p),
+  bySale: (saleId) => dbGetAll(DB_KEYS.payments).filter(p => p.saleId === saleId),
 };
 
 // =====================================================

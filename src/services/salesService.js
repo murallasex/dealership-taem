@@ -2,7 +2,7 @@
 // AutoERP — Sales Pure Domain Service
 // =====================================================
 
-import { Sales, Vehicles, Clients, Sellers, CashBox, generateId, now } from '../core/store.js';
+import { Sales, Vehicles, Clients, Sellers, CashBox, Payments, generateId, now } from '../core/store.js';
 
 export function getSalesKPIs() {
   const allSales = Sales.all();
@@ -229,4 +229,88 @@ export function registerTradeIn(saleId, tradeInData) {
   });
 
   return Sales.save(sale);
+}
+
+export function calculateEstimatedProfit(vehicleId, salePrice, tradeInValue = 0) {
+  const vehicle = Vehicles.find(vehicleId);
+  if (!vehicle) return { profit: 0, margin: 0, cost: 0 };
+  
+  const cost = Number(vehicle.purchaseCost || 0) + Number(vehicle.importCosts || 0) + Number(vehicle.prepCost || 0);
+  const price = Number(salePrice || 0);
+  // Optional: trade-in value might affect immediate cash flow, but pure profit is still price - cost.
+  // We can include it in the breakdown if needed.
+  const profit = price - cost;
+  const margin = price > 0 ? (profit / price) * 100 : 0;
+  
+  return { profit, margin, cost };
+}
+
+export function suggestDeposit(salePrice, estimatedProfit) {
+  const price = Number(salePrice || 0);
+  const profit = Number(estimatedProfit || 0);
+  
+  // Paraguay typical deposit: no strict rule. We suggest 20% or the profit margin, whichever is higher
+  const standardDeposit = price * 0.20; 
+  let suggested = standardDeposit;
+
+  if (profit > standardDeposit) {
+    suggested = profit; 
+  }
+
+  // Cap at 30% if we don't want it to be too high, or leave it as is.
+  // Let's cap the suggestion at 30% to be reasonable.
+  if (suggested > price * 0.30) {
+    suggested = price * 0.30;
+  }
+
+  return Math.ceil(suggested);
+}
+
+export function registerPayment(saleId, amount, type = 'deposit', method = 'cash', notes = '') {
+  const sale = Sales.find(saleId);
+  if (!sale) return null;
+
+  const paymentId = generateId();
+  const payment = {
+    id: paymentId,
+    saleId,
+    saleNumber: sale.saleNumber,
+    clientId: sale.clientId,
+    type,
+    amount: Number(amount),
+    currency: sale.currency,
+    method,
+    notes,
+    registeredBy: 'Usuario Actual',
+    date: now(),
+    createdAt: now()
+  };
+
+  Payments.save(payment);
+
+  // Add to cashbox if cash or transfer
+  if (method === 'cash' || method === 'transfer') {
+    CashBox.save({
+      id: generateId(),
+      date: now(),
+      type: 'income',
+      category: type === 'deposit' ? 'reservation' : 'sale',
+      amount: Number(amount),
+      currency: sale.currency,
+      description: `Pago ${type === 'deposit' ? 'Seña' : 'Cuota/Saldo'} Venta ${sale.saleNumber}`,
+      referenceId: paymentId
+    });
+  }
+
+  // Update sale history
+  sale.history = sale.history || [];
+  sale.history.push({
+    date: now(),
+    stage: sale.stage,
+    by: 'Usuario',
+    note: `Pago registrado: ${type === 'deposit' ? 'Seña' : 'Cuota/Saldo'} - Monto: ${amount} ${sale.currency}`
+  });
+  Sales.save(sale);
+
+  return payment;
 }

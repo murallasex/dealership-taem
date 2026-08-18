@@ -34,6 +34,8 @@ import { renderTermsOfUse, renderSupport } from './src/ui/views/legalSupportView
 
 export { AppState, showToast, openModal, closeModal, confirmDialog, fmt, fmtDate, go };
 
+import { renderPaymentHistory } from './src/ui/views/paymentHistoryView.js';
+
 // ─── Route Guard ─────────────────────────────────────────
 // Returns true if the current user is allowed to view the route
 function canAccess(route) {
@@ -70,6 +72,7 @@ const ROUTES = {
   'sales':                   () => renderSalesPipeline(),
   'sales/new':               () => renderSaleForm(),
   'sales/detail':            (p) => renderSaleDetail(p[0]),
+  'payments':                () => renderPaymentHistory(),
   'crm':                     () => renderCRMList(),
   'crm/leads':               () => renderLeadPipeline(),
   'crm/pipeline':            () => renderLeadPipeline(),
