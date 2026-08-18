@@ -3,7 +3,7 @@
 // =====================================================
 
 import { calculateMargin, getInventoryKPIs, filterVehicles, getVehicleById, saveVehicle, deleteVehicle } from '../../services/inventoryService.js';
-import { fmt, fmtDate } from '../../utils/formatters.js';
+import { fmt, fmtDate, parseInputAmount, formatInputValue } from '../../utils/formatters.js';
 import { safeCreateIcons } from '../../utils/dom.js';
 import { showToast } from '../components/toast.js';
 import { confirmDialog } from '../components/modal.js';
@@ -174,8 +174,8 @@ export function renderInventoryList() {
           <td><span class="badge ${conditionColors[v.condition]}">${conditionLabels[v.condition] || v.condition}</span></td>
           <td><span class="badge ${statusColors[v.commercialStatus]}">${statusLabels[v.commercialStatus] || v.commercialStatus}</span></td>
           <td>${originLabels[v.origin] || v.origin}</td>
-          <td class="text-right">${fmt(v.suggestedPrice, v.currency)}</td>
-          <td class="text-right ${marginClass}">${fmt(margin, v.currency)}</td>
+          <td class="text-right">${fmt(v.suggestedPrice)}</td>
+          <td class="text-right ${marginClass}">${fmt(margin)}</td>
           <td class="text-center">
             <div class="action-buttons" style="justify-content: center;">
               <button class="btn btn-ghost btn-sm btn-view" data-id="${v.id}" title="Ver"><i data-lucide="eye"></i></button>
@@ -500,23 +500,23 @@ export function renderInventoryForm(vehicleId = null) {
 
           <div class="form-group">
             <label>Costo de Compra</label>
-            <input type="text" id="v-purchaseCost" class="form-control format-currency" value="${(vehicle.purchaseCost || 0).toLocaleString('es-PY')}">
+            <input type="text" id="v-purchaseCost" class="form-control format-currency" value="${formatInputValue(vehicle.purchaseCost)}">
           </div>
           <div class="form-group">
             <label>Costos de Importación</label>
-            <input type="text" id="v-importCosts" class="form-control format-currency" value="${(vehicle.importCosts || 0).toLocaleString('es-PY')}">
+            <input type="text" id="v-importCosts" class="form-control format-currency" value="${formatInputValue(vehicle.importCosts)}">
           </div>
           <div class="form-group">
             <label>Costo de Preparación</label>
-            <input type="text" id="v-prepCost" class="form-control format-currency" value="${(vehicle.prepCost || 0).toLocaleString('es-PY')}">
+            <input type="text" id="v-prepCost" class="form-control format-currency" value="${formatInputValue(vehicle.prepCost)}">
           </div>
           <div class="form-group">
             <label>Comisión</label>
-            <input type="text" id="v-commission" class="form-control format-currency" value="${(vehicle.commission || 0).toLocaleString('es-PY')}">
+            <input type="text" id="v-commission" class="form-control format-currency" value="${formatInputValue(vehicle.commission)}">
           </div>
           <div class="form-group">
             <label>Precio Sugerido</label>
-            <input type="text" id="v-suggestedPrice" class="form-control format-currency" value="${(vehicle.suggestedPrice || 0).toLocaleString('es-PY')}">
+            <input type="text" id="v-suggestedPrice" class="form-control format-currency" value="${formatInputValue(vehicle.suggestedPrice)}">
           </div>
         </div>
       </div>
@@ -598,11 +598,11 @@ export function renderInventoryForm(vehicleId = null) {
       origin: document.getElementById('v-origin').value,
       commercialStatus: document.getElementById('v-status').value,
       branch: document.getElementById('v-branch').value,
-      purchaseCost: parseCurrency(document.getElementById('v-purchaseCost').value),
-      importCosts: parseCurrency(document.getElementById('v-importCosts').value),
-      prepCost: parseCurrency(document.getElementById('v-prepCost').value),
-      commission: parseCurrency(document.getElementById('v-commission').value),
-      suggestedPrice: parseCurrency(document.getElementById('v-suggestedPrice').value)
+      purchaseCost: parseInputAmount(document.getElementById('v-purchaseCost').value),
+      importCosts: parseInputAmount(document.getElementById('v-importCosts').value),
+      prepCost: parseInputAmount(document.getElementById('v-prepCost').value),
+      commission: parseInputAmount(document.getElementById('v-commission').value),
+      suggestedPrice: parseInputAmount(document.getElementById('v-suggestedPrice').value)
     };
 
     if (isEdit) {

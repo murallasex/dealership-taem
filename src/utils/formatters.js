@@ -64,6 +64,34 @@ export function fmtDate(isoStr) {
   }
 }
 
+export function getGlobalExchangeRate() {
+  let exchangeRate = 7500;
+  try {
+    const raw = localStorage.getItem('erp_config');
+    if (raw) {
+      const cfg = JSON.parse(raw);
+      if (cfg && cfg.globalExchangeRate) exchangeRate = Number(cfg.globalExchangeRate);
+    }
+  } catch (err) {}
+  return exchangeRate;
+}
+
+export function parseInputAmount(val) {
+  const num = parseFloat(String(val).replace(/\D/g, '')) || 0;
+  if (getActiveCurrency() === 'USD') {
+    return num * getGlobalExchangeRate();
+  }
+  return num;
+}
+
+export function formatInputValue(rawAmountFromDB) {
+  let num = Number(rawAmountFromDB) || 0;
+  if (getActiveCurrency() === 'USD') {
+    num = Math.round(num / getGlobalExchangeRate());
+  }
+  return num.toLocaleString('es-PY');
+}
+
 export function formatDate(isoStr) {
   return fmtDate(isoStr);
 }

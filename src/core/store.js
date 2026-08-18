@@ -2,9 +2,9 @@
 // AutoERP — Core AppState, Store & Reactive Pub/Sub
 // =====================================================
 
-import { getActiveCurrency, setActiveCurrency, fmt, formatCurrency, fmtDate, formatDate, formatDatetime, daysAgo, addDays } from '../utils/formatters.js';
+import { getActiveCurrency, setActiveCurrency, fmt, formatCurrency, fmtDate, formatDate, formatDatetime, daysAgo, addDays, parseInputAmount, formatInputValue } from '../utils/formatters.js';
 
-export { getActiveCurrency, setActiveCurrency, fmt, formatCurrency, fmtDate, formatDate, formatDatetime, daysAgo, addDays };
+export { getActiveCurrency, setActiveCurrency, fmt, formatCurrency, fmtDate, formatDate, formatDatetime, daysAgo, addDays, parseInputAmount, formatInputValue };
 
 // Global Application State
 export const AppState = {
