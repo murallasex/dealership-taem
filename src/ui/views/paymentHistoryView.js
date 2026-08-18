@@ -81,26 +81,26 @@ export function renderPaymentHistory() {
           </tr>
         </thead>
         <tbody id="payments-table-body">
-          ${payments.length === 0 ? \`<tr><td colspan="6" class="text-center text-muted py-4">No hay pagos registrados</td></tr>\` : 
+          ${payments.length === 0 ? `<tr><td colspan="6" class="text-center text-muted py-4">No hay pagos registrados</td></tr>` : 
             payments.map(p => {
               const client = Clients.find(p.clientId);
-              const clientName = client ? (client.name || \`\${client.firstName || ''} \${client.lastName || ''}\`.trim()) : 'N/A';
-              return \`
+              const clientName = client ? (client.name || `${client.firstName || ''} ${client.lastName || ''}`.trim()) : 'N/A';
+              return `
                 <tr class="payment-row">
-                  <td>\${fmtDate(p.date)}</td>
-                  <td><a href="#/sales/detail/\${p.saleId}" style="color:var(--gold);text-decoration:none;font-weight:600;">\${p.saleNumber || 'Venta'}</a></td>
-                  <td class="searchable">\${clientName}</td>
-                  <td><span class="badge \${p.type === 'deposit' ? 'badge-primary' : 'badge-neutral'}">\${getTypeLabel(p.type)}</span></td>
-                  <td>\${getMethodLabel(p.method)}</td>
-                  <td style="text-align: right; font-weight: 700; color: var(--success);">\${fmt(p.amount, p.currency || 'PYG')}</td>
+                  <td>${fmtDate(p.date)}</td>
+                  <td><a href="#/sales/detail/${p.saleId}" style="color:var(--gold);text-decoration:none;font-weight:600;">${p.saleNumber || 'Venta'}</a></td>
+                  <td class="searchable">${clientName}</td>
+                  <td><span class="badge ${p.type === 'deposit' ? 'badge-primary' : 'badge-neutral'}">${getTypeLabel(p.type)}</span></td>
+                  <td>${getMethodLabel(p.method)}</td>
+                  <td style="text-align: right; font-weight: 700; color: var(--success);">${fmt(p.amount, p.currency || 'PYG')}</td>
                 </tr>
-              \`;
+              `;
             }).join('')
           }
         </tbody>
       </table>
     </div>
-  \`;
+  `;
 
   content.innerHTML = html;
   safeCreateIcons({ nodes: [content] });
