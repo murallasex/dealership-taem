@@ -134,22 +134,22 @@ export function renderSellersList() {
       </button>
     </div>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit)); gap: 1rem; margin-bottom: 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
       <div class="card">
-        <div style="color:var(--text-muted); margin-bottom:0.5rem;">Total Vendedores</div>
-        <div style="font-size: 2rem; font-weight: bold;">${kpis.activeSellersCount}</div>
+        <div style="color:var(--text-muted); margin-bottom:0.5rem; font-size: 0.85rem;">Total Vendedores</div>
+        <div style="font-size: 1.8rem; font-weight: 700;">${kpis.activeSellersCount}</div>
       </div>
       <div class="card">
-        <div style="color:var(--text-muted); margin-bottom:0.5rem;">Ventas este mes</div>
-        <div style="font-size: 2rem; font-weight: bold;">${kpis.totalSalesThisMonth}</div>
+        <div style="color:var(--text-muted); margin-bottom:0.5rem; font-size: 0.85rem;">Ventas este mes</div>
+        <div style="font-size: 1.8rem; font-weight: 700;">${kpis.totalSalesThisMonth}</div>
       </div>
       <div class="card">
-        <div style="color:var(--text-muted); margin-bottom:0.5rem;">Mejor Vendedor</div>
-        <div style="font-size: 1.5rem; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${kpis.bestSeller}</div>
+        <div style="color:var(--text-muted); margin-bottom:0.5rem; font-size: 0.85rem;">Mejor Vendedor</div>
+        <div style="font-size: 1.8rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${kpis.bestSeller}</div>
       </div>
       <div class="card">
-        <div style="color:var(--text-muted); margin-bottom:0.5rem;">Promedio por vendedor</div>
-        <div style="font-size: 2rem; font-weight: bold;">${kpis.avgPerSeller}</div>
+        <div style="color:var(--text-muted); margin-bottom:0.5rem; font-size: 0.85rem;">Promedio por vendedor</div>
+        <div style="font-size: 1.8rem; font-weight: 700;">${kpis.avgPerSeller}</div>
       </div>
     </div>
     
