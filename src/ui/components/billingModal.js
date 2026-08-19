@@ -204,5 +204,5 @@ function printInvoice(invoice, format) {
     document.body.classList.remove('printing-invoice');
     document.body.removeChild(printDiv);
     closeModal();
-  }, 300);
+  });
 }

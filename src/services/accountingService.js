@@ -14,7 +14,7 @@ export function getCashBoxSummary(dateStr) {
     return mDate === todayStr;
   });
 
-  const getUsdAmount = (m) => m.currency === 'PYG' ? m.amount / getGlobalExchangeRate() : m.amount;
+  const getUsdAmount = (m) => m.currency === 'PYG' ? m.amount / (m.exchangeRate || getGlobalExchangeRate()) : m.amount;
 
   const incomeToday = todayMovements.filter(m => m.type === 'income').reduce((acc, m) => acc + getUsdAmount(m), 0);
   const expenseToday = todayMovements.filter(m => m.type === 'expense').reduce((acc, m) => acc + getUsdAmount(m), 0);
@@ -67,7 +67,7 @@ export function getReportsData(period = 'current_month') {
     return d >= startDate && d <= endDate;
   });
 
-  const getUsdAmount = (m) => m.currency === 'PYG' ? m.amount / getGlobalExchangeRate() : m.amount;
+  const getUsdAmount = (m) => m.currency === 'PYG' ? m.amount / (m.exchangeRate || getGlobalExchangeRate()) : m.amount;
   const incomeTotal = filteredMoves.filter(m => m.type === 'income').reduce((acc, m) => acc + getUsdAmount(m), 0);
   const expenseTotal = filteredMoves.filter(m => m.type === 'expense').reduce((acc, m) => acc + getUsdAmount(m), 0);
   const netProfit = incomeTotal - expenseTotal;

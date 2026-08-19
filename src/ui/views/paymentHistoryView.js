@@ -63,27 +63,7 @@ export function renderPaymentHistory() {
     <div class="table-toolbar card" style="display: flex; gap: 1rem; align-items: center; padding: 1rem; margin-bottom: 1rem;">
       <div style="flex: 1; position: relative;">
         <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted);"></i>
-        <input type="text" id="search-payments" class="form-control" placeholder="Buscar por venta, cliente..." style="padding-left: 2.5rem;">
-      </div>
-    </div>
-
-    <!-- Table -->
-    <div class="card table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Venta Ref.</th>
-            <th>Cliente</th>
-            <th>Concepto</th>
-            <th>Método</th>
-            <th style="text-align: right;">Monto</th>
-          </tr>
-        </thead>
-        <tbody id="payments-table-body">
-          ${payments.length === 0 ? `<tr><td colspan="6" class="text-center text-muted py-4">No hay pagos registrados</td></tr>` : 
-            payments.map(p => {
-              const client = Clients.find(p.clientId);
+        <input type="text" id="search-payments" class="form-control" placeholder="Buscar por venta);
               const clientName = client ? (client.name || `${client.firstName || ''} ${client.lastName || ''}`.trim()) : 'N/A';
               return `
                 <tr class="payment-row">
@@ -92,7 +72,7 @@ export function renderPaymentHistory() {
                   <td class="searchable">${clientName}</td>
                   <td><span class="badge ${p.type === 'deposit' ? 'badge-primary' : 'badge-neutral'}">${getTypeLabel(p.type)}</span></td>
                   <td>${getMethodLabel(p.method)}</td>
-                  <td style="text-align: right; font-weight: 700; color: var(--success);">${fmt(p.amount, p.currency || 'PYG')}</td>
+                  <td style="text-align: right; font-weight: 700; color: var(--success);">${fmt(p.amount)}</td>
                 </tr>
               `;
             }).join('')

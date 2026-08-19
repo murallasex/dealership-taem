@@ -93,7 +93,7 @@ export function renderFinancingPlans() {
       <tr>
         <td>${clientName}</td>
         <td>${vehicleName}</td>
-        <td>${fmt(plan.financedAmount, plan.currency)}</td>
+        <td>${fmt(plan.financedAmount)}</td>
         <td>${plan.installments}</td>
         <td>${nextDateStr}</td>
         <td>${paidCount} / ${plan.installments}</td>
@@ -152,11 +152,11 @@ function openPlanModal(planId) {
       </div>
       <div class="form-group">
         <label>Monto Financiado</label>
-        <div class="text-white">${fmt(plan.financedAmount, plan.currency)}</div>
+        <div class="text-white">${fmt(plan.financedAmount)}</div>
       </div>
       <div class="form-group">
         <label>Valor de Cuota</label>
-        <div class="text-white">${fmt(plan.installmentAmount, plan.currency)}</div>
+        <div class="text-white">${fmt(plan.installmentAmount)}</div>
       </div>
     </div>
 
@@ -188,7 +188,7 @@ function openPlanModal(planId) {
       <tr ${rowClass}>
         <td>${pay.number}</td>
         <td>${fmtDate(pay.dueDate)}</td>
-        <td>${fmt(pay.amount, plan.currency)}</td>
+        <td>${fmt(pay.amount)}</td>
         <td>${badge}</td>
         <td>
           ${pay.status !== 'paid' ? `
@@ -326,7 +326,7 @@ export function renderInstallments() {
           <td>${p.clientName}</td>
           <td>${p.vehicleName}</td>
           <td>${p.number}</td>
-          <td>${fmt(p.amount, p.currency)}</td>
+          <td>${fmt(p.amount)}</td>
           <td>${fmtDate(p.dueDate)}</td>
           <td>${daysBadge}</td>
           <td>
@@ -376,7 +376,7 @@ export function renderInstallments() {
           <td>${p.clientName}</td>
           <td>${p.vehicleName}</td>
           <td>${p.number}</td>
-          <td>${fmt(p.amount, p.currency)}</td>
+          <td>${fmt(p.amount)}</td>
           <td>${fmtDate(p.dueDate)}</td>
           <td><span class="badge badge-danger">${daysOverdue} días</span></td>
           <td style="display: flex; gap: 0.5rem;">

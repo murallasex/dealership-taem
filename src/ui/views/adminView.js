@@ -288,7 +288,7 @@ export function renderSettings() {
 
       <!-- TAB DNIT -->
       <div class="tab-content" id="tab-dnit" style="padding: 1.5rem; display: none;">
-        <div style="padding: 1rem; background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--info-color); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+        <div style="padding: 1rem; background: rgba(59); border-left: 4px solid var(--info-color); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
           <div>
             <h4 style="color: var(--info-color); margin-bottom: 0.25rem;">Integración DNIT</h4>
             <p style="color: var(--text-muted); font-size: 0.9rem;">Integración DNIT en modo demo. En producción se conectará con las credenciales oficiales.</p>

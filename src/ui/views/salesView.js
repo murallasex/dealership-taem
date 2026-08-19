@@ -69,7 +69,7 @@ export function renderSalesPipeline() {
   const renderLostCard = (sale) => {
     const clientName = getClientName(sale.clientId);
     const vehicleName = getVehicleName(sale.vehicleId);
-    const initials = clientName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const initials = clientName.split(' ').map(n => n[0]).join('').substring(0).toUpperCase();
     return `
     <div class="sale-pipeline-card" data-sale-id="${sale.id}" style="border-left: 3px solid var(--danger); opacity: 0.85;">
       <div class="sale-pipeline-card__header">
@@ -84,7 +84,7 @@ export function renderSalesPipeline() {
         </div>
       </div>
       <div class="sale-pipeline-card__footer">
-        <div class="sale-pipeline-card__price" style="color: var(--text-muted); text-decoration:line-through;">${fmt(sale.totalPrice, sale.currency)}</div>
+        <div class="sale-pipeline-card__price" style="color: var(--text-muted); text-decoration:line-through;">${fmt(sale.totalPrice)}</div>
         <button type="button" class="btn btn-ghost btn-sm reactivate-btn" data-id="${sale.id}" title="Reactivar venta" style="color: var(--success); padding:4px 8px; font-size:0.75rem;">
           <i data-lucide="rotate-ccw" style="width:13px;height:13px;"></i>
         </button>
@@ -118,7 +118,7 @@ export function renderSalesPipeline() {
         <div class="kpi-icon badge-success"><i data-lucide="trending-up"></i></div>
         <div class="kpi-content">
           <div class="kpi-label">Monto Vendido</div>
-          <div class="kpi-value" style="font-size:1.2rem;color:var(--success);">${fmt(kpis.totalAmountSold, 'PYG')}</div>
+          <div class="kpi-value" style="font-size:1.2rem;color:var(--success);">${fmt(kpis.totalAmountSold)}</div>
         </div>
       </div>
       <div class="card kpi-card">
@@ -474,15 +474,15 @@ export function renderSaleDetail(saleId) {
             <div class="sale-detail-financial">
               <div class="sale-detail-financial__row sale-detail-financial__row--highlight">
                 <span>Precio Total</span>
-                <span class="sale-detail-financial__amount" style="color:var(--gold);font-size:1.3rem;">${fmt(sale.totalPrice, sale.currency)}</span>
+                <span class="sale-detail-financial__amount" style="color:var(--gold);font-size:1.3rem;">${fmt(sale.totalPrice)}</span>
               </div>
               <div class="sale-detail-financial__row">
                 <span>Entrega Inicial</span>
-                <span class="sale-detail-financial__amount">${fmt(sale.downPayment || 0, sale.currency)}</span>
+                <span class="sale-detail-financial__amount">${fmt(sale.downPayment || 0)}</span>
               </div>
               <div class="sale-detail-financial__row">
                 <span>Saldo / Financiado</span>
-                <span class="sale-detail-financial__amount">${fmt(sale.totalPrice - (sale.downPayment || 0) - (sale.advanceAmount || 0), sale.currency)}</span>
+                <span class="sale-detail-financial__amount">${fmt(sale.totalPrice - (sale.downPayment || 0) - (sale.advanceAmount || 0))}</span>
               </div>
               <div class="sale-detail-financial__divider"></div>
               <div class="sale-detail-financial__row">
@@ -567,7 +567,7 @@ export function renderSaleDetail(saleId) {
             ${(sale.tradeIns || []).length > 0 ? `
               <div style="display:flex;justify-content:space-between;padding-top:0.5rem;font-size:0.9rem;">
                 <span style="color:var(--text-muted);">Total tasado:</span>
-                <strong style="color:#f97316;">${fmt((sale.tradeIns || []).reduce((s,t) => s + Number(t.appraisalValue || 0), 0))}</strong>
+                <strong style="color:#f97316;">${fmt((sale.tradeIns || []).reduce((s) => s + Number(t.appraisalValue || 0), 0))}</strong>
               </div>
             ` : ''}
           </div>
@@ -642,7 +642,7 @@ export function renderSaleDetail(saleId) {
         
         const depInput = document.getElementById('deposit-amount');
         if (depInput) {
-          depInput.addEventListener('input', (e) => {
+          depInput.addEventListener('input') => {
             const val = parseFloat(String(e.target.value).replace(/\D/g, '')) || 0;
             if (val === 0 && e.target.value === '') return;
             const start = e.target.selectionStart;
@@ -909,7 +909,7 @@ export function renderSaleForm() {
 
           <div id="new-client-panel" style="display: none; background: var(--bg-base); border: 1px solid var(--gold); border-radius: 10px; padding: 1.25rem; margin-top: 0.75rem; max-width: 700px;">
             <div style="font-weight: 700; margin-bottom: 1rem; color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Datos del Nuevo Cliente</div>
-            <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            <div class="form-grid" style="grid-template-columns: repeat(auto-fit));">
               <div class="form-group">
                 <label>Nombre Completo *</label>
                 <input type="text" id="nc-name" class="form-control" placeholder="Ej: Juan Pérez">
@@ -1155,7 +1155,7 @@ export function renderSaleForm() {
       // Auto-suggest down payment if not set manually yet
       const downInput = document.getElementById('sale-down-payment');
       if (downInput && price > 0 && !downInput.dataset.manual) {
-        const suggested = suggestDeposit(price, calc.profit);
+        const suggested = suggestDeposit(price);
         downInput.value = formatInputValue(suggested);
         // Need to update the local 'down' var for financing calc below
         const downUpdated = suggested;
@@ -1208,7 +1208,7 @@ export function renderSaleForm() {
     const el = (id) => document.getElementById(id);
     if(el('res-installment')) el('res-installment').textContent = fmt(cuotaTotal);
     if(el('res-total')) el('res-total').textContent = fmt(totalPago);
-    if(el('res-interest')) el('res-interest').textContent = fmt(Math.max(0, totalInteres));
+    if(el('res-interest')) el('res-interest').textContent = fmt(Math.max(0));
     if(el('res-tna')) el('res-tna').textContent = tna.toFixed(1) + '% TNA';
     if(el('fin-installment-hidden')) el('fin-installment-hidden').value = cuotaTotal.toFixed(0);
   };
