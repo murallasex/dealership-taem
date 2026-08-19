@@ -16,59 +16,69 @@ export function renderSellersList() {
   const kpis = getSellersKPIs(currentMonth);
   const ranking = kpis.ranking;
 
-  let rankingHTML = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem;">`;
+  let rankingHTML = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">`;
 
   ranking.forEach((seller, index) => {
-    let rankIcon = '';
-    let rankColor = '';
-    if (index === 0) { rankIcon = 'trophy'; rankColor = 'gold'; }
-    else if (index === 1) { rankIcon = 'medal'; rankColor = 'silver'; }
-    else if (index === 2) { rankIcon = 'award'; rankColor = '#cd7f32'; }
-    else { rankIcon = 'user'; rankColor = 'gray'; }
+    const rankNum = index + 1;
+    let rankColor = index === 0 ? 'var(--gold)' : index === 1 ? '#9ca3af' : index === 2 ? '#cd7f32' : 'var(--text-muted)';
+    let rankIcon = index === 0 ? 'shield' : index <= 2 ? 'award' : 'user';
+    const initials = (seller.name || 'VE').substring(0, 2).toUpperCase();
+    const progressPct = Math.min(100, seller.progress || 0);
+    const barColor = seller.goalMet ? 'var(--success)' : progressPct > 0 ? 'var(--gold)' : 'var(--danger)';
+    const statusLabel = seller.goalMet ? 'Meta Cumplida' : 'En Progreso';
+    const statusCls = seller.goalMet ? 'badge-success' : 'badge-warning';
 
     rankingHTML += `
-      <div class="card" style="border-top: 4px solid ${seller.color || '#ccc'}">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: ${seller.color || '#333'}; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 1.2rem;">
-              ${seller.avatar || (seller.name ? seller.name.substring(0, 2).toUpperCase() : 'VE')}
+      <div style="border-radius:12px;border:1px solid var(--border);border-left:4px solid ${seller.color || '#c9a227'};background:var(--bg-card);padding:1.25rem;display:flex;flex-direction:column;gap:1rem;">
+
+        <!-- Header: avatar + info + rank badge -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="display:flex;align-items:center;gap:0.875rem;">
+            <div style="width:52px;height:52px;border-radius:50%;background:${seller.color || '#c9a227'};display:flex;justify-content:center;align-items:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0;">
+              ${initials}
             </div>
             <div>
-              <h3 style="margin:0">${seller.name || 'Sin nombre'}</h3>
-              <small style="color:var(--text-muted)">${seller.email || ''}</small>
+              <div style="font-weight:600;font-size:0.975rem;color:var(--text-primary);line-height:1.3;">${seller.name || 'Sin nombre'}</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">${seller.email || ''}</div>
             </div>
           </div>
-          <div style="color: ${rankColor}; text-align: center;">
-            <i data-lucide="${rankIcon}" style="width: 24px; height: 24px;"></i>
-            <div style="font-weight: bold; font-size: 1.2rem;">#${index + 1}</div>
+          <div style="display:flex;align-items:center;gap:0.3rem;color:${rankColor};background:rgba(0,0,0,0.15);border:1px solid ${rankColor}33;border-radius:6px;padding:0.25rem 0.5rem;">
+            <i data-lucide="${rankIcon}" style="width:14px;height:14px;"></i>
+            <span style="font-weight:700;font-size:0.85rem;">#${rankNum}</span>
           </div>
         </div>
-        <div style="margin-bottom: 1rem;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-            <span>Ventas del mes:</span>
-            <strong>${seller.salesCount}</strong>
+
+        <!-- KPI block -->
+        <div style="background:var(--bg-base);border-radius:8px;padding:0.75rem 1rem;display:flex;flex-direction:column;gap:0.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.82rem;color:var(--text-muted);">Ventas del mes</span>
+            <span style="font-weight:600;font-size:0.9rem;">${seller.salesCount}</span>
           </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-            <span>Monto total:</span>
-            <strong>${fmt(seller.totalAmount)}</strong>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.82rem;color:var(--text-muted);">Monto total</span>
+            <span style="font-weight:600;font-size:0.9rem;">${fmt(seller.totalAmount)}</span>
           </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-            <span>Meta de mes:</span>
-            <strong>${seller.targetText}</strong>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.82rem;color:var(--text-muted);">Meta del mes</span>
+            <span style="font-weight:600;font-size:0.9rem;">${seller.targetText}</span>
           </div>
         </div>
+
+        <!-- Progress -->
         <div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-            <span>Progreso</span>
-            <span>${(seller.progress || 0).toFixed(0)}%</span>
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+            <span style="font-size:0.78rem;color:var(--text-muted);">Progreso</span>
+            <span style="font-size:0.78rem;color:var(--text-muted);font-weight:600;">${progressPct.toFixed(0)}%</span>
           </div>
-          <div style="width: 100%; height: 8px; background-color: var(--bg-base); border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;">
-            <div style="height: 100%; width: ${seller.progress}%; background-color: ${seller.goalMet ? 'var(--color-success)' : 'var(--color-gold)'};"></div>
+          <div style="width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:${progressPct}%;background:${barColor};border-radius:3px;transition:width 0.4s ease;"></div>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge ${seller.goalMet ? 'badge-success' : 'badge-warning'}">${seller.goalMet ? 'Meta Cumplida' : 'En Progreso'}</span>
-            <button class="btn btn-sm btn-primary btn-ver-detalle" data-id="${seller.id}">Ver Detalle</button>
-          </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.25rem;border-top:1px solid var(--border);">
+          <span class="badge ${statusCls}" style="font-size:0.75rem;">${statusLabel}</span>
+          <button class="btn btn-sm btn-primary btn-ver-detalle" data-id="${seller.id}" style="font-size:0.78rem;padding:0.3rem 0.75rem;">Ver Detalle</button>
         </div>
       </div>
     `;

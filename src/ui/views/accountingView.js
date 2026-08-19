@@ -12,6 +12,7 @@ import { Expenses, generateId, now, Config } from '../../core/store.js';
 
 let currentDateFilter = new Date().toISOString().split('T')[0];
 let currentReportPeriod = 'current_month';
+let reportsInPYG = false;
 
 // Cashbox View
 export function renderCashBox() {
@@ -425,8 +426,6 @@ function openExpenseModal() {
   });
 }
 
-let reportsInPYG = false;
-
 // Reports View
 export function renderReports() {
   const container = document.getElementById('page-content');
@@ -464,15 +463,15 @@ export function renderReports() {
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px;">
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Ingresos Totales</div>
-        <div style="font-size: 1.5rem; font-weight: 600; color: var(--success);">${fmt(data.incomeTotal, reportsInPYG)}</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: var(--success);">${fmt()}</div>
       </div>
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Egresos Totales</div>
-        <div style="font-size: 1.5rem; font-weight: 600; color: var(--danger);">${fmt(data.expenseTotal, reportsInPYG)}</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: var(--danger);">${fmt()}</div>
       </div>
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Ganancia Neta</div>
-        <div style="font-size: 1.5rem; font-weight: 600; color: ${data.netProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt(data.netProfit, reportsInPYG)}</div>
+        <div style="font-size: 1.5rem; font-weight: 600; color: ${data.netProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt()}</div>
       </div>
       <div class="card">
         <div class="card-title text-muted" style="font-size: 0.9rem; margin-bottom: 5px;">Margen Promedio</div>
@@ -520,9 +519,9 @@ export function renderReports() {
                 ${data.vehicleMargins.map(vm => `
                   <tr style="border-bottom: 1px solid var(--border);">
                     <td style="padding: 12px 16px;">${vm.name}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(vm.totalCost, reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(vm.salePrice, reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right; font-weight: 600; color: ${vm.margin >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt(vm.margin, reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt()}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt()}</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 600; color: ${vm.margin >= 0 ? 'var(--success)' : 'var(--danger)'};">${fmt()}</td>
                     <td style="padding: 12px 16px; text-align: right;">
                       <span class="badge ${vm.marginPct > 15 ? 'badge-success' : (vm.marginPct > 0 ? 'badge-warning' : 'badge-danger')}">
                         ${vm.marginPct.toFixed(1)}%
@@ -533,9 +532,9 @@ export function renderReports() {
                 ${data.vehicleMargins.length > 0 ? `
                   <tr style="background: rgba(255,255,255,0.02); font-weight: bold;">
                     <td style="padding: 12px 16px;">TOTALES</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a) => a + b.totalCost, 0), reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a) => a + b.salePrice, 0), reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right; color: var(--success);">${fmt(data.vehicleMargins.reduce((a) => a + b.margin, 0), reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.totalCost, 0))}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.salePrice, 0))}</td>
+                    <td style="padding: 12px 16px; text-align: right; color: var(--success);">${fmt(data.vehicleMargins.reduce((a, b) => a + b.margin, 0))}</td>
                     <td style="padding: 12px 16px; text-align: right;"></td>
                   </tr>
                 ` : '<tr><td colspan="5" style="padding: 16px; text-align: center;">No hay vehículos vendidos</td></tr>'}
@@ -565,8 +564,8 @@ export function renderReports() {
                   <tr style="border-bottom: 1px solid var(--border);">
                     <td style="padding: 12px 16px; font-weight: 500;">${ss.name}</td>
                     <td style="padding: 12px 16px; text-align: center;">${ss.qty}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(ss.amount, reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(ss.avg, reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt()}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt()}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -600,8 +599,8 @@ export function renderReports() {
     doc.setFontSize(18);
     doc.text('REPORTE CONTABLE', 105, 20, { align: 'center' });
     doc.setFontSize(12);
-    doc.text('Ingresos Totales: ' + fmt(data.incomeTotal, reportsInPYG), 20, 40);
-    doc.text('Egresos Totales: ' + fmt(data.expenseTotal, reportsInPYG), 20, 50);
+    doc.text('Ingresos Totales: ' + fmt(), 20, 40);
+    doc.text('Egresos Totales: ' + fmt(), 20, 50);
     doc.text('Balance Neto: ' + fmt(reportData.balance), 20, 60);
     
     let y = 80;

@@ -43,22 +43,19 @@ function canAccess(route) {
   if (!user) return false;
   const role = user.role;
 
-  // Developer solo puede ver la plataforma (no accede a datos de empresas por temas legales)
+  // Developer only sees the platform panel
   if (role === ROLES.DEVELOPER) {
     return route === 'platform';
   }
-
-  // Platform view only for developer
   if (route === 'platform') return false;
 
-  // Manager-only routes
-  const managerRoutes = ['financing', 'sellers', 'accounting', 'accounting/reports', 'accounting/expenses', 'reports', 'notifications', 'notifications/history', 'admin', 'admin/settings', 'settings'];
-  if (managerRoutes.some(r => route.startsWith(r))) {
-    return role === ROLES.MANAGER;
-  }
+  // Managers have full access to everything
+  if (role === ROLES.MANAGER) return true;
 
-  // Seller and above can access everything else
-  return true;
+  // Sellers: check allowedModules on the user object
+  const allowed = user.allowedModules || ['dashboard', 'inventory', 'sales', 'payments', 'crm', 'calendar'];
+  const base = route.split('/')[0];
+  return allowed.includes(base);
 }
 
 // ─── Route Table ──────────────────────────────────────────
@@ -122,19 +119,29 @@ function applySidebarRoles() {
   const user = getCurrentUser();
   if (!user) return;
   const role = user.role;
+  const allowed = user.allowedModules || ['dashboard', 'inventory', 'sales', 'payments', 'crm', 'calendar'];
 
   document.querySelectorAll('[data-role-required]').forEach(el => {
     const required = el.dataset.roleRequired;
     let visible = false;
 
     if (role === ROLES.DEVELOPER) {
-      visible = (required === 'developer'); // Developer solo ve panel developer
+      visible = (required === 'developer');
     } else if (required === 'developer') {
-      visible = false; // solo developer puede ver esto
-    } else if (required === 'manager') {
-      visible = role === ROLES.MANAGER;
-    } else if (required === 'seller') {
-      visible = true; // seller y manager ven esto
+      visible = false;
+    } else if (role === ROLES.MANAGER) {
+      // Managers see everything except developer section
+      visible = true;
+    } else {
+      // Sellers: check allowedModules for module nav items
+      const routeId = el.dataset.route;
+      if (routeId) {
+        const base = routeId.split('/')[0];
+        visible = allowed.includes(base);
+      } else {
+        // Section labels visible if any module in their group is allowed
+        visible = (required === 'seller');
+      }
     }
 
     el.style.display = visible ? '' : 'none';

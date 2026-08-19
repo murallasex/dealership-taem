@@ -14,6 +14,7 @@ export function saveUserData(userData) {
     if (existing) {
       const updated = { ...existing, ...userData };
       if (!userData.password) updated.password = existing.password;
+      if (userData.allowedModules) updated.allowedModules = userData.allowedModules;
       return Users.save(updated);
     }
   }
@@ -24,6 +25,7 @@ export function saveUserData(userData) {
     password: userData.password,
     role: userData.role || 'seller',
     active: userData.active !== undefined ? userData.active : true,
+    allowedModules: userData.allowedModules || ['dashboard', 'inventory', 'sales', 'payments', 'crm', 'calendar'],
     createdAt: userData.createdAt || now()
   };
   return Users.save(newUser);

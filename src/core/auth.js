@@ -60,11 +60,13 @@ export function canAccess(route) {
   if (role === ROLES.DEVELOPER) return true;
   if (route === 'platform') return false;
 
-  const managerRoutes = ['financing', 'sellers', 'accounting', 'accounting/reports', 'reports', 'notifications', 'notifications/history', 'admin', 'admin/settings', 'settings'];
-  if (managerRoutes.some(r => route.startsWith(r))) {
-    return role === ROLES.MANAGER;
-  }
-  return true;
+  // Managers always have full access
+  if (role === ROLES.MANAGER) return true;
+
+  // Sellers: check their allowedModules list
+  const allowed = user.allowedModules || ['dashboard', 'inventory', 'sales', 'payments', 'crm', 'calendar'];
+  const base = route.split('/')[0];
+  return allowed.includes(base);
 }
 
 // ─── Companies Store ──────────────────────────────────
