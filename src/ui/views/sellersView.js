@@ -97,7 +97,7 @@ export function renderSellersList() {
               <tr style="border-bottom: 1px solid var(--border-color);">
                 <td style="padding: 0.75rem;">
                   <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${s.color || '#333'}; display: flex; justify-content: center; align-items: center; color: white; font-size: 0.7rem;">${s.avatar || (s.name ? s.name.substring(0, 2).toUpperCase() : 'VE')}</div>
+                    <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${s.color || '#333'}; display: flex; justify-content: center; align-items: center; color: white; font-size: 0.7rem;">${s.avatar || (s.name ? s.name.substring(0).toUpperCase() : 'VE')}</div>
                     ${s.name || ''}
                   </div>
                 </td>
@@ -124,7 +124,7 @@ export function renderSellersList() {
       </button>
     </div>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit)); gap: 1rem; margin-bottom: 2rem;">
       <div class="card">
         <div style="color:var(--text-muted); margin-bottom:0.5rem;">Total Vendedores</div>
         <div style="font-size: 2rem; font-weight: bold;">${kpis.activeSellersCount}</div>
@@ -316,7 +316,7 @@ export function renderSellerDetail(sellerId) {
               ${goals.map(g => {
                 const target = g.target || 0;
                 const result = g.result || 0;
-                const progress = target > 0 ? Math.min(100, Math.round((result / target) * 100)) : 0;
+                const progress = target > 0 ? Math.min(100) * 100)) : 0;
                 const isMet = progress >= 100;
                 return `
                 <tr style="border-bottom: 1px solid var(--border-color);">
@@ -351,7 +351,7 @@ export function renderSellerDetail(sellerId) {
         <form id="goal-form" class="form-grid">
           <div class="form-group">
             <label>Periodo (YYYY-MM)</label>
-            <input type="month" id="goal-period" class="form-control" required value="${new Date().toISOString().slice(0, 7)}">
+            <input type="month" id="goal-period" class="form-control" required value="${new Date().toISOString().slice(0)}">
           </div>
           <div class="form-group">
             <label>Tipo de Meta</label>

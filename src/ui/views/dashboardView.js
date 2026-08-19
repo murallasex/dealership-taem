@@ -96,7 +96,7 @@ export function renderDashboard() {
       <div class="card p-4">
         <h3 class="card-title" style="margin-bottom: 16px;">Pipeline de Ventas</h3>
         <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px;">
-          ${Object.entries(pipeline).map(([stage, count]) => {
+          ${Object.entries(pipeline).map(([stage) => {
             const labels = { quote: 'Cotización', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };
             const colors = { quote: 'var(--info)', reservation: 'var(--warning)', contract: 'var(--gold)', delivery: 'var(--success)' };
             const perc = Math.round((count / totalSales) * 100);
@@ -151,7 +151,7 @@ export function renderDashboard() {
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px;">
           ${kpis.overdueInstallments.length === 0 ?
-            `<div style="padding: 16px; background: rgba(34, 197, 94, 0.1); border: 1px solid var(--success); border-radius: 8px; color: var(--success); display: flex; align-items: center; gap: 8px;">
+            `<div style="padding: 16px; background: rgba(34); border: 1px solid var(--success); border-radius: 8px; color: var(--success); display: flex; align-items: center; gap: 8px;">
                <i data-lucide="check-circle"></i> Sin cuotas vencidas
              </div>` :
             kpis.overdueInstallments.slice(0, 3).map(inst => `
@@ -226,7 +226,7 @@ export function renderDashboard() {
     setTimeout(() => {
       const ctx = document.getElementById('salesChart');
       if (ctx && window.Chart) {
-        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        const gradient = ctx.getContext('2d').createLinearGradient(0);
         gradient.addColorStop(0, 'rgba(201, 162, 39, 0.4)');
         gradient.addColorStop(1, 'rgba(201, 162, 39, 0)');
 
