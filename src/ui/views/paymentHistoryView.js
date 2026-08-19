@@ -92,7 +92,7 @@ export function renderPaymentHistory() {
                   <td class="searchable">${clientName}</td>
                   <td><span class="badge ${p.type === 'deposit' ? 'badge-primary' : 'badge-neutral'}">${getTypeLabel(p.type)}</span></td>
                   <td>${getMethodLabel(p.method)}</td>
-                  <td style="text-align: right; font-weight: 700; color: var(--success);">${fmt(p.amount, p.currency || 'PYG')}</td>
+                  <td style="text-align: right; font-weight: 700; color: var(--success);">${fmt(p.amount)}</td>
                 </tr>
               `;
             }).join('')

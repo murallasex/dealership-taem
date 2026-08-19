@@ -290,7 +290,7 @@ export function renderInventoryDetail(vehicleId) {
           </div>
           <div>
             <div class="text-muted text-sm">Precio Sugerido</div>
-            <div style="font-weight: 500; color: var(--gold);">${fmt(vehicle.suggestedPrice, vehicle.currency)}</div>
+            <div style="font-weight: 500; color: var(--gold);">${fmt(vehicle.suggestedPrice)}</div>
           </div>
         </div>
       </div>
@@ -323,18 +323,18 @@ export function renderInventoryDetail(vehicleId) {
       <div id="tab-costs" class="tab-content" style="display: none;">
         <table class="table">
           <tbody>
-            <tr><td>Costo de Compra</td><td class="text-right">${fmt(vehicle.purchaseCost, vehicle.currency)}</td></tr>
-            <tr><td>Costos de Importación</td><td class="text-right">${fmt(vehicle.importCosts, vehicle.currency)}</td></tr>
-            <tr><td>Costo de Preparación</td><td class="text-right">${fmt(vehicle.prepCost, vehicle.currency)}</td></tr>
-            <tr><td>Comisión</td><td class="text-right">${fmt(vehicle.commission, vehicle.currency)}</td></tr>
+            <tr><td>Costo de Compra</td><td class="text-right">${fmt(vehicle.purchaseCost)}</td></tr>
+            <tr><td>Costos de Importación</td><td class="text-right">${fmt(vehicle.importCosts)}</td></tr>
+            <tr><td>Costo de Preparación</td><td class="text-right">${fmt(vehicle.prepCost)}</td></tr>
+            <tr><td>Comisión</td><td class="text-right">${fmt(vehicle.commission)}</td></tr>
             <tr style="border-top: 2px solid var(--border); font-weight: bold;">
-              <td>Costo Total Estimado</td><td class="text-right">${fmt(cost, vehicle.currency)}</td>
+              <td>Costo Total Estimado</td><td class="text-right">${fmt(cost)}</td>
             </tr>
             <tr style="font-weight: bold;">
-              <td>Precio Sugerido</td><td class="text-right" style="color: var(--gold);">${fmt(vehicle.suggestedPrice, vehicle.currency)}</td>
+              <td>Precio Sugerido</td><td class="text-right" style="color: var(--gold);">${fmt(vehicle.suggestedPrice)}</td>
             </tr>
             <tr style="font-weight: bold;">
-              <td>Margen Estimado</td><td class="text-right ${marginClass}">${fmt(margin, vehicle.currency)}</td>
+              <td>Margen Estimado</td><td class="text-right ${marginClass}">${fmt(margin)}</td>
             </tr>
           </tbody>
         </table>

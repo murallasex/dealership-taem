@@ -84,7 +84,7 @@ export function renderSalesPipeline() {
         </div>
       </div>
       <div class="sale-pipeline-card__footer">
-        <div class="sale-pipeline-card__price" style="color: var(--text-muted); text-decoration:line-through;">${fmt(sale.totalPrice, sale.currency)}</div>
+        <div class="sale-pipeline-card__price" style="color: var(--text-muted); text-decoration:line-through;">${fmt(sale.totalPrice)}</div>
         <button type="button" class="btn btn-ghost btn-sm reactivate-btn" data-id="${sale.id}" title="Reactivar venta" style="color: var(--success); padding:4px 8px; font-size:0.75rem;">
           <i data-lucide="rotate-ccw" style="width:13px;height:13px;"></i>
         </button>
@@ -118,7 +118,7 @@ export function renderSalesPipeline() {
         <div class="kpi-icon badge-success"><i data-lucide="trending-up"></i></div>
         <div class="kpi-content">
           <div class="kpi-label">Monto Vendido</div>
-          <div class="kpi-value" style="font-size:1.2rem;color:var(--success);">${fmt(kpis.totalAmountSold, 'PYG')}</div>
+          <div class="kpi-value" style="font-size:1.2rem;color:var(--success);">${fmt(kpis.totalAmountSold)}</div>
         </div>
       </div>
       <div class="card kpi-card">
@@ -474,11 +474,11 @@ export function renderSaleDetail(saleId) {
             <div class="sale-detail-financial">
               <div class="sale-detail-financial__row sale-detail-financial__row--highlight">
                 <span>Precio Total</span>
-                <span class="sale-detail-financial__amount" style="color:var(--gold);font-size:1.3rem;">${fmt(sale.totalPrice, sale.currency)}</span>
+                <span class="sale-detail-financial__amount" style="color:var(--gold);font-size:1.3rem;">${fmt(sale.totalPrice)}</span>
               </div>
               <div class="sale-detail-financial__row">
                 <span>Entrega Inicial</span>
-                <span class="sale-detail-financial__amount">${fmt(sale.downPayment || 0, sale.currency)}</span>
+                <span class="sale-detail-financial__amount">${fmt(sale.downPayment || 0)}</span>
               </div>
               <div class="sale-detail-financial__row">
                 <span>Saldo / Financiado</span>

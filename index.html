@@ -56,20 +56,46 @@
           </div>
         </div>
 
-        <!-- Demo accounts hint -->
-        <div class="login-hint" id="login-hint-block" style="flex-direction:column;align-items:flex-start;gap:0.5rem;">
-          <div style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--gold);font-size:0.8rem;">
-            <i data-lucide="key-round" style="width:14px;height:14px;"></i> Cuentas demo disponibles
-          </div>
-          <div id="demo-accounts" style="display:flex;flex-direction:column;gap:0.35rem;width:100%;"></div>
-        </div>
-
         <div id="login-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid var(--danger);border-radius:8px;padding:0.75rem 1rem;font-size:0.85rem;color:var(--danger);margin-bottom:0.5rem;"></div>
 
         <button type="submit" class="btn btn-primary btn-full" id="login-btn">
           <i data-lucide="log-in"></i>
           Ingresar al Sistema
         </button>
+
+        <!-- Demo accounts hint -->
+        <div style="display:flex;flex-direction:column;gap:0.5rem;margin-top:1.25rem;background:rgba(201,162,39,0.06);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:0.75rem 0.875rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;font-weight:600;color:var(--gold);font-size:0.78rem;margin-bottom:0.25rem;">
+            <i data-lucide="key-round" style="width:14px;height:14px;"></i> Acceso rápido — cuentas demo
+          </div>
+          <div id="demo-accounts" style="display:flex;flex-direction:column;gap:0.3rem;width:100%;">
+            <button type="button" class="demo-account-btn" data-email="dev@platform.com" data-pass="dev123"
+              style="display:flex;align-items:center;gap:0.6rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:7px;padding:0.45rem 0.75rem;cursor:pointer;text-align:left;font-size:0.78rem;width:100%;transition:all 150ms;color:var(--text-secondary);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>
+              <span style="flex:1;">Developer</span>
+              <span style="font-size:0.7rem;color:var(--text-muted);font-family:monospace;">dev@platform.com / dev123</span>
+            </button>
+            <button type="button" class="demo-account-btn" data-email="gerente@autocentral.com" data-pass="manager123"
+              style="display:flex;align-items:center;gap:0.6rem;background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.25);border-radius:7px;padding:0.45rem 0.75rem;cursor:pointer;text-align:left;font-size:0.78rem;width:100%;transition:all 150ms;color:var(--text-secondary);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#c9a227;flex-shrink:0;"></span>
+              <span style="flex:1;">Gerente — Auto Central PY</span>
+              <span style="font-size:0.7rem;color:var(--text-muted);font-family:monospace;">gerente@autocentral.com / manager123</span>
+            </button>
+            <button type="button" class="demo-account-btn" data-email="roberto@autocentral.com" data-pass="seller123"
+              style="display:flex;align-items:center;gap:0.6rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:7px;padding:0.45rem 0.75rem;cursor:pointer;text-align:left;font-size:0.78rem;width:100%;transition:all 150ms;color:var(--text-secondary);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#10b981;flex-shrink:0;"></span>
+              <span style="flex:1;">Vendedor — Auto Central PY</span>
+              <span style="font-size:0.7rem;color:var(--text-muted);font-family:monospace;">roberto@autocentral.com / seller123</span>
+            </button>
+            <button type="button" class="demo-account-btn" data-email="gerente@garagenorte.com" data-pass="manager123"
+              style="display:flex;align-items:center;gap:0.6rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:7px;padding:0.45rem 0.75rem;cursor:pointer;text-align:left;font-size:0.78rem;width:100%;transition:all 150ms;color:var(--text-secondary);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;flex-shrink:0;"></span>
+              <span style="flex:1;">Gerente — Garage Norte</span>
+              <span style="font-size:0.7rem;color:var(--text-muted);font-family:monospace;">gerente@garagenorte.com / manager123</span>
+            </button>
+          </div>
+          <div style="font-size:0.7rem;color:var(--text-muted);text-align:center;margin-top:0.15rem;">Hacé clic en una cuenta para rellenar las credenciales automáticamente</div>
+        </div>
       </form>
     </div>
   </div>

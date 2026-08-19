@@ -8,7 +8,7 @@ import { safeCreateIcons } from '../../utils/dom.js';
 import { showToast } from '../components/toast.js';
 import { openModal, closeModal, confirmDialog } from '../components/modal.js';
 import { go } from '../../core/router.js';
-import { Expenses, generateId, now } from '../../core/store.js';
+import { Expenses, generateId, now, Config } from '../../core/store.js';
 
 let currentDateFilter = new Date().toISOString().split('T')[0];
 let currentReportPeriod = 'current_month';
@@ -274,7 +274,7 @@ export function renderExpenses() {
 
   const expenses = Expenses.all().sort((a, b) => new Date(b.date) - new Date(a.date));
   
-  const getUsdAmount = (e) => e.currency === 'PYG' ? e.amount / getGlobalExchangeRate() : e.amount;
+  const getUsdAmount = (e) => e.currency === 'PYG' ? e.amount / (e.exchangeRate || getGlobalExchangeRate()) : e.amount;
   let totalExpenses = expenses.reduce((sum, e) => sum + getUsdAmount(e), 0);
 
   const html = `
@@ -386,6 +386,11 @@ function openExpenseModal() {
             <option value="PYG">PYG - Guaraníes</option>
           </select>
         </div>
+        <div class="form-group">
+          <label>Cambio del Día</label>
+          <input type="number" id="exp-exchange-rate" class="form-control" required min="1" value="${getGlobalExchangeRate()}">
+          <small class="text-muted" style="font-size: 0.75rem;">Actualiza la configuración global</small>
+        </div>
       </div>
       <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:2rem;">
         <button type="button" class="btn btn-ghost" onclick="window._closeModal()">Cancelar</button>
@@ -398,14 +403,20 @@ function openExpenseModal() {
 
   document.getElementById('expense-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const exRate = Number(document.getElementById('exp-exchange-rate').value) || getGlobalExchangeRate();
     const data = {
       id: generateId(),
       date: document.getElementById('exp-date').value,
       category: document.getElementById('exp-category').value,
       description: document.getElementById('exp-description').value,
       amount: parseFloat(document.getElementById('exp-amount').value),
-      currency: document.getElementById('exp-currency').value
+      currency: document.getElementById('exp-currency').value,
+      exchangeRate: exRate
     };
+
+    if (exRate !== getGlobalExchangeRate()) {
+      Config.update({ globalExchangeRate: exRate });
+    }
 
     Expenses.save(data);
     showToast('Egreso registrado exitosamente', 'success');
@@ -522,9 +533,9 @@ export function renderReports() {
                 ${data.vehicleMargins.length > 0 ? `
                   <tr style="background: rgba(255,255,255,0.02); font-weight: bold;">
                     <td style="padding: 12px 16px;">TOTALES</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.totalCost, 0), reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a, b) => a + b.salePrice, 0), reportsInPYG)}</td>
-                    <td style="padding: 12px 16px; text-align: right; color: var(--success);">${fmt(data.vehicleMargins.reduce((a, b) => a + b.margin, 0), reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a) => a + b.totalCost, 0), reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right;">${fmt(data.vehicleMargins.reduce((a) => a + b.salePrice, 0), reportsInPYG)}</td>
+                    <td style="padding: 12px 16px; text-align: right; color: var(--success);">${fmt(data.vehicleMargins.reduce((a) => a + b.margin, 0), reportsInPYG)}</td>
                     <td style="padding: 12px 16px; text-align: right;"></td>
                   </tr>
                 ` : '<tr><td colspan="5" style="padding: 16px; text-align: center;">No hay vehículos vendidos</td></tr>'}
