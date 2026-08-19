@@ -182,23 +182,9 @@ function showSuspended(company) {
 
 // ─── Login System ─────────────────────────────────────────
 function initLogin() {
-  // Populate demo accounts
+  // Populate demo accounts (HTML is now hardcoded in index.html)
   const demoContainer = document.getElementById('demo-accounts');
   if (demoContainer) {
-    const demos = [
-      { email: 'dev@platform.com',          pass: 'dev123',      label: 'Developer (plataforma completa)', color: '#3b82f6' },
-      { email: 'gerente@autocentral.com',   pass: 'manager123',  label: 'Gerente — Auto Central PY',       color: '#c9a227' },
-      { email: 'roberto@autocentral.com',   pass: 'seller123',   label: 'Vendedor — Auto Central PY',      color: '#10b981' },
-      { email: 'gerente@garagenorte.com',   pass: 'manager123',  label: 'Gerente — Garage Norte',          color: '#8b5cf6' },
-    ];
-    demoContainer.innerHTML = demos.map(d => `
-      <button type="button" class="demo-account-btn" data-email="${d.email}" data-pass="${d.pass}"
-        style="display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.75rem;cursor:pointer;text-align:left;font-size:0.78rem;width:100%;transition:border-color 150ms;">
-        <span style="width:8px;height:8px;border-radius:50%;background:${d.color};flex-shrink:0;"></span>
-        <span style="color:var(--text-muted);">${d.label}</span>
-      </button>
-    `).join('');
-
     demoContainer.addEventListener('click', (e) => {
       const btn = e.target.closest('.demo-account-btn');
       if (!btn) return;
