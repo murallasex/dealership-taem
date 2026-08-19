@@ -116,7 +116,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip; /* clip instead of hidden to not break position: sticky */
 }
 
 h1, h2, h3, h4, h5, h6 {

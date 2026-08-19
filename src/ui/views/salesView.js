@@ -1058,7 +1058,7 @@ export function renderSaleForm() {
       </div> <!-- / LEFT COLUMN -->
 
       <!-- RIGHT COLUMN: Sticky Summary -->
-      <div class="card" style="position: sticky; top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border-top: 4px solid var(--gold);">
+      <div class="card" style="position: -webkit-sticky; position: sticky; top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border-top: 4px solid var(--gold);">
         <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
           <i data-lucide="receipt"></i> Resumen de Venta
         </h3>
