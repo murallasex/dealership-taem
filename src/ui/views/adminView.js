@@ -185,7 +185,7 @@ function openUserModal(userId = null) {
 
   const modulesGrid = ALL_MODULES.map(m => {
     const checked = isManagerRole || currentModules.includes(m.key);
-    const disabled = m.alwaysOn || isManagerRole;
+    const disabled = isManagerRole;
     return `
       <label style="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0.625rem;border-radius:7px;background:var(--bg-base);cursor:${disabled ? 'default' : 'pointer'};border:1px solid var(--border);opacity:${disabled ? '0.6' : '1'};">
         <input type="checkbox" name="module-perm" value="${m.key}" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}
@@ -226,7 +226,7 @@ function openUserModal(userId = null) {
         <div id="modules-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.4rem;">
           ${modulesGrid}
         </div>
-        <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Los módulos en gris son accesos mínimos obligatorios y no se pueden desactivar.</p>
+        <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Seleccioná los módulos a los que el vendedor tendrá acceso.</p>
       </div>
 
       <div style="display:flex;justify-content:flex-end;gap:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border);">
@@ -250,10 +250,10 @@ function openUserModal(userId = null) {
     } else {
       sec.style.opacity = '1';
       sec.style.pointerEvents = '';
-      // Reset to defaults for seller
+      // Reset to defaults for seller: check alwaysOn, uncheck others (but all remain enabled)
       document.querySelectorAll('input[name="module-perm"]').forEach(cb => {
         const mod = ALL_MODULES.find(m => m.key === cb.value);
-        if (!mod?.alwaysOn) cb.checked = false;
+        cb.checked = mod?.alwaysOn ? true : false;
       });
     }
   });
