@@ -4,19 +4,24 @@
 
 import { Financing, Sales, CashBox, generateId, now } from '../core/store.js';
 
-export function generateFinancingPlan(saleId, financedAmount, installmentsCount, monthlyRate, currency) {
+export function generateFinancingPlan(saleId, financedAmount, installmentsCount, monthlyRate, currency = 'PYG') {
   const sale = Sales.find(saleId);
   if (!sale) return null;
 
   let r = monthlyRate;
-  let n = installmentsCount;
-  let P = financedAmount;
+  if (r >= 1) r = r / 100;
+  let n = parseInt(installmentsCount) || 12;
+  let P = Number(financedAmount || 0);
   let installmentAmount = P;
 
   if (r > 0) {
     installmentAmount = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
   } else {
-    installmentAmount = P / n;
+    installmentAmount = n > 0 ? P / n : P;
+  }
+
+  if (currency === 'PYG' || !currency) {
+    installmentAmount = Math.round(installmentAmount);
   }
 
   const plan = {
@@ -24,13 +29,15 @@ export function generateFinancingPlan(saleId, financedAmount, installmentsCount,
     saleId,
     clientId: sale.clientId,
     vehicleId: sale.vehicleId,
-    totalAmount: sale.totalPrice || sale.totalAmount || 0,
-    downPayment: (sale.totalPrice || sale.totalAmount || 0) - P,
+    totalAmount: Number(sale.totalPrice || sale.totalAmount || 0),
+    downPayment: Number(sale.totalPrice || sale.totalAmount || 0) - P,
     financedAmount: P,
     installments: n,
     monthlyRate: r,
     installmentAmount,
-    currency,
+    currency: currency || sale.currency || 'PYG',
+    paymentType: sale.paymentType,
+    bankName: sale.financing?.bankName || '',
     payments: [],
     createdAt: now()
   };

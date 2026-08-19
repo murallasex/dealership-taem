@@ -2,7 +2,8 @@
 // AutoERP — Sales Pure Domain Service
 // =====================================================
 
-import { Sales, Vehicles, Clients, Sellers, CashBox, Payments, generateId, now } from '../core/store.js';
+import { Sales, Vehicles, Clients, Sellers, CashBox, Payments, Financing, generateId, now } from '../core/store.js';
+import { generateFinancingPlan } from './financingService.js';
 
 export function getSalesKPIs() {
   const allSales = Sales.all();
@@ -78,15 +79,22 @@ export function advanceSaleStage(saleId, currentStage) {
     if (nextStage === 'reservation' && vehicle) {
       vehicle.commercialStatus = 'reserved';
       Vehicles.save(vehicle);
-    } else if (nextStage === 'contract' && vehicle) {
-      vehicle.commercialStatus = 'reserved';
-      Vehicles.save(vehicle);
+    } else if (nextStage === 'contract') {
+      if (vehicle) {
+        vehicle.commercialStatus = 'reserved';
+        Vehicles.save(vehicle);
+      }
+      // R2: Trigger automated financing plan generation ONLY when advancing to 'contract' or 'delivery'
+      syncFinancingForSale(sale);
     } else if (nextStage === 'delivery') {
       if (vehicle) {
         vehicle.commercialStatus = 'sold';
         Vehicles.save(vehicle);
       }
       sale.deliveryStatus = 'delivered';
+
+      // R2: Ensure financing plan is generated if fast-tracked directly to delivery
+      syncFinancingForSale(sale);
 
       CashBox.save({
         id: generateId(),
@@ -107,10 +115,43 @@ export function advanceSaleStage(saleId, currentStage) {
   return null;
 }
 
+/**
+ * Helper to ensure a financing plan exists for financed sales without duplicates
+ */
+export function syncFinancingForSale(sale) {
+  if (!sale) return null;
+  const isFinanced = sale.paymentType === 'financed_own' || 
+                     sale.paymentType === 'financed_bank' || 
+                     sale.paymentType === 'financed' ||
+                     sale.paymentType === 'Financiado';
+  if (!isFinanced) return null;
+
+  // Deduplication check: Do not re-create if a plan already exists for this sale
+  const existingPlan = Financing.bySale(sale.id);
+  if (existingPlan) return existingPlan;
+
+  // Calculate trade-in total
+  const tradeInTotal = (sale.tradeIns || []).reduce((sum, ti) => sum + Number(ti.appraisalValue || 0), 0);
+  const downPayment = Number(sale.downPayment || 0);
+  const financedAmount = Math.max(0, Number(sale.totalPrice || 0) - downPayment - tradeInTotal);
+
+  if (financedAmount <= 0) return null;
+
+  const months = parseInt(sale.financing?.months) || 12;
+  const rate = sale.financing?.monthlyRate !== undefined ? sale.financing.monthlyRate : 0.015;
+  const currency = sale.currency || 'PYG';
+
+  return generateFinancingPlan(sale.id, financedAmount, months, rate, currency);
+}
+
 export function createSaleQuote(saleData) {
   const currentYear = new Date().getFullYear();
   const count = Sales.all().length + 1;
   const saleNumber = `VT-${currentYear}-${count.toString().padStart(4, '0')}`;
+
+  const finMonths = parseInt(saleData.finMonths || saleData.financing?.months) || 12;
+  const finRateRaw = parseFloat(saleData.finRate !== undefined ? saleData.finRate : (saleData.financing?.monthlyRate !== undefined ? saleData.financing.monthlyRate : 1.5));
+  const finRate = finRateRaw >= 1 ? finRateRaw / 100 : finRateRaw;
 
   const newSale = {
     id: generateId(),
@@ -126,6 +167,15 @@ export function createSaleQuote(saleData) {
     currency: saleData.currency || 'PYG',
     notes: saleData.notes || '',
     tradeInVehicleId: null,
+    tradeIns: saleData.tradeIns || [],
+    financing: {
+      months: finMonths,
+      monthlyRate: finRate,
+      bankName: saleData.finBankName || saleData.financing?.bankName || '',
+      insurance: Number(saleData.finInsurance || saleData.financing?.insurance || 0),
+      adminFee: Number(saleData.finAdminFee || saleData.financing?.adminFee || 0),
+      installmentAmount: Number(saleData.finInstallment || saleData.financing?.installmentAmount || 0)
+    },
     contractGenerated: false,
     deliveryStatus: 'pending',
     createdAt: now(),

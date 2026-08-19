@@ -90,7 +90,7 @@ export function renderFinancingPlans() {
     let nextDateStr = nextPayment ? fmtDate(nextPayment.dueDate) : '-';
 
     html += `
-      <tr>
+      <tr class="financing-row" data-id="${plan.id}" style="cursor: pointer;">
         <td>${clientName}</td>
         <td>${vehicleName}</td>
         <td>${fmt(plan.financedAmount)}</td>
@@ -125,10 +125,10 @@ export function renderFinancingPlans() {
     go('#/financing/installments');
   });
 
-  container.querySelectorAll('.btn-view-plan').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const planId = e.currentTarget.getAttribute('data-id');
-      openPlanModal(planId);
+  container.querySelectorAll('.financing-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      const planId = row.getAttribute('data-id');
+      if (planId) openPlanModal(planId);
     });
   });
 }
@@ -226,7 +226,11 @@ function payInstallment(planId, paymentId) {
     if (ok) {
       showToast('Cuota marcada como pagada', 'success');
       closeModal();
-      renderFinancingPlans();
+      if (typeof window !== 'undefined' && window.location && window.location.hash && window.location.hash.includes('installments')) {
+        renderInstallments();
+      } else {
+        renderFinancingPlans();
+      }
     }
   });
 }

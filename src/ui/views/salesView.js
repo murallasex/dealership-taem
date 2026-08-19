@@ -518,7 +518,7 @@ export function renderSaleDetail(saleId) {
           </div>
           <div class="sale-detail-card__body" style="padding-top:0;">
             <div style="display:flex;flex-direction:column;gap:0.5rem;">
-              ${sale.paymentType === 'financed_own' ? `
+              ${(sale.paymentType === 'financed_own' || sale.paymentType === 'financed_bank') ? `
                 <button class="btn btn-ghost w-full" id="btn-finance" style="justify-content:flex-start;gap:0.75rem;padding:0.65rem 1rem;">
                   <i data-lucide="calculator" style="width:16px;height:16px;"></i> Configurar Financiación
                 </button>
@@ -567,7 +567,7 @@ export function renderSaleDetail(saleId) {
             ${(sale.tradeIns || []).length > 0 ? `
               <div style="display:flex;justify-content:space-between;padding-top:0.5rem;font-size:0.9rem;">
                 <span style="color:var(--text-muted);">Total tasado:</span>
-                <strong style="color:#f97316;">${fmt((sale.tradeIns || []).reduce((s) => s + Number(t.appraisalValue || 0), 0))}</strong>
+                <strong style="color:#f97316;">${fmt((sale.tradeIns || []).reduce((s, ti) => s + Number(ti.appraisalValue || 0), 0))}</strong>
               </div>
             ` : ''}
           </div>
@@ -814,36 +814,78 @@ export function renderSaleDetail(saleId) {
 
   document.getElementById('btn-finance')?.addEventListener('click', () => {
     import('../components/modal.js').then(({ openModal, closeModal }) => {
+      const tradeInTotal = (sale.tradeIns || []).reduce((s, ti) => s + Number(ti.appraisalValue || 0), 0);
+      const defaultAmount = Math.max(0, Number(sale.totalPrice || 0) - Number(sale.downPayment || 0) - tradeInTotal);
+      const currentMonths = sale.financing?.months || 12;
+      const currentRate = sale.financing?.monthlyRate !== undefined ? (sale.financing.monthlyRate * (sale.financing.monthlyRate < 1 ? 100 : 1)) : 1.5;
+      const currentBank = sale.financing?.bankName || '';
+
       openModal('Configurar Financiación', `
         <form id="finance-form" class="form-grid">
-          <div class="form-group"><label>Monto a Financiar</label><input type="number" id="finance-amount" class="form-control" value="${sale.totalPrice || 0}" required></div>
-          <div class="form-group"><label>Cantidad de Cuotas</label><input type="number" id="finance-installments" class="form-control" value="12" required></div>
-          <div class="form-group"><label>Tasa Mensual (%)</label><input type="number" step="0.01" id="finance-rate" class="form-control" value="1.5" required></div>
+          <div class="form-group" style="grid-column:span 2;">
+            <label>Monto a Financiar</label>
+            <input type="number" id="finance-amount" class="form-control" value="${defaultAmount}" required>
+          </div>
+          <div class="form-group">
+            <label>Cantidad de Cuotas (meses)</label>
+            <input type="number" id="finance-installments" class="form-control" value="${currentMonths}" required min="1" max="120">
+          </div>
+          <div class="form-group">
+            <label>Tasa Mensual (%)</label>
+            <input type="number" step="0.01" id="finance-rate" class="form-control" value="${currentRate}" required min="0">
+          </div>
+          ${sale.paymentType === 'financed_bank' ? `
+          <div class="form-group" style="grid-column:span 2;">
+            <label>Banco / Entidad Financiera</label>
+            <input type="text" id="finance-bank" class="form-control" value="${currentBank}" placeholder="Ej: Banco Continental">
+          </div>
+          ` : ''}
         </form>
       `, `
         <button class="btn btn-secondary" onclick="window._closeModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="document.getElementById('finance-form').dispatchEvent(new Event('submit'))">Generar Plan</button>
+        <button class="btn btn-primary" onclick="document.getElementById('finance-form').dispatchEvent(new Event('submit'))">Guardar Configuración</button>
       `);
       window._closeModal = closeModal;
       document.getElementById('finance-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const amount = parseFloat(document.getElementById('finance-amount').value);
-        const installments = parseInt(document.getElementById('finance-installments').value);
-        const rate = parseFloat(document.getElementById('finance-rate').value) / 100;
+        const amount = parseFloat(document.getElementById('finance-amount').value) || 0;
+        const installments = parseInt(document.getElementById('finance-installments').value) || 12;
+        const rateRaw = parseFloat(document.getElementById('finance-rate').value) || 0;
+        const rate = rateRaw >= 1 ? rateRaw / 100 : rateRaw;
+        const bankName = document.getElementById('finance-bank')?.value || currentBank;
         
-        import('../../services/financingService.js').then(({ generateFinancingPlan }) => {
-          import('../../core/store.js').then(({ Sales, now }) => {
-            generateFinancingPlan(saleId, amount, installments, rate, sale.currency || 'PYG');
-            const sToUpdate = Sales.find(saleId);
-            if (sToUpdate) {
-                sToUpdate.paymentType = 'financed_own';
-                sToUpdate.history.push({ date: now(), stage: sToUpdate.stage, by: 'Sistema', note: 'Plan de financiación generado' });
-                Sales.save(sToUpdate);
+        import('../../core/store.js').then(({ Sales, Financing, now }) => {
+          const sToUpdate = Sales.find(saleId);
+          if (sToUpdate) {
+            sToUpdate.financing = {
+              ...(sToUpdate.financing || {}),
+              months: installments,
+              monthlyRate: rate,
+              bankName: bankName
+            };
+            sToUpdate.history = sToUpdate.history || [];
+            sToUpdate.history.push({ date: now(), stage: sToUpdate.stage, by: 'Usuario', note: 'Configuración de financiación actualizada' });
+            Sales.save(sToUpdate);
+
+            if (sToUpdate.stage === 'contract' || sToUpdate.stage === 'delivery') {
+              import('../../services/financingService.js').then(({ generateFinancingPlan }) => {
+                const existing = Financing.bySale(saleId);
+                const hasPaid = existing && (existing.payments || []).some(p => p.status === 'paid');
+                if (!hasPaid) {
+                  if (existing) {
+                    const allFin = Financing.all().filter(f => f.id !== existing.id);
+                    try {
+                      localStorage.setItem('erp_financing', JSON.stringify(allFin));
+                    } catch(e) {}
+                  }
+                  generateFinancingPlan(saleId, amount, installments, rate, sToUpdate.currency || 'PYG');
+                }
+              });
             }
-            closeModal();
-            showToast('Plan de financiación generado', 'success');
-            renderSaleDetail(saleId);
-          });
+          }
+          closeModal();
+          showToast('Configuración de financiación guardada', 'success');
+          renderSaleDetail(saleId);
         });
       });
     });
@@ -1321,6 +1363,26 @@ export function renderSaleForm() {
     if (data.totalPrice) data.totalPrice = parseInputAmount(data.totalPrice);
     if (data.downPayment) data.downPayment = parseInputAmount(data.downPayment);
 
+    // Ensure financing parameters are captured
+    if (!data.finMonths && document.getElementById('fin-months')) {
+      data.finMonths = document.getElementById('fin-months').value;
+    }
+    if (!data.finRate && document.getElementById('fin-rate')) {
+      data.finRate = document.getElementById('fin-rate').value;
+    }
+    if (!data.finBankName && document.getElementById('fin-bank-name')) {
+      data.finBankName = document.getElementById('fin-bank-name').value;
+    }
+    if (document.getElementById('fin-insurance')) {
+      data.finInsurance = parseInputAmount(document.getElementById('fin-insurance').value);
+    }
+    if (document.getElementById('fin-admin-fee')) {
+      data.finAdminFee = parseInputAmount(document.getElementById('fin-admin-fee').value);
+    }
+    if (document.getElementById('fin-installment-hidden')) {
+      data.finInstallment = parseInputAmount(document.getElementById('fin-installment-hidden').value);
+    }
+
     const finishCreation = (clientId) => {
       data.clientId = clientId;
       const sale = createSaleQuote(data);
@@ -1374,7 +1436,7 @@ function handleFacturacion(sale, vehicle, client) {
       saleId: sale.id,
       clientId: client.id,
       vehicleId: vehicle.id,
-      amount: sale.totalAmount || sale.salePrice || 0,
+      amount: sale.totalPrice || sale.totalAmount || sale.salePrice || 0,
       condition: vehicle.condition || 'used',
       type: 'factura'
     });

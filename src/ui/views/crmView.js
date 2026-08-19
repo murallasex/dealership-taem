@@ -479,7 +479,7 @@ export function renderLeadPipeline() {
                 <span style="color: var(--text-muted); font-size: 1.1rem;">(${stageLeads.length})</span>
               </h3>
               <div style="position: relative; width: 320px;">
-                <input type="text" class="form-control crm-stage-search" data-stage="${st.id}" placeholder="Buscar prospectos..." style="padding-left: 2.5rem; padding-right: 1rem; background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); height: 40px; transition: box-shadow 0.2s, border-color 0.2s;" onfocus="this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--gold)';" onblur="this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--border-color)';">
+                <input type="text" class="crm-stage-search" data-stage="${st.id}" placeholder="Buscar prospectos...">
                 <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 18px; height: 18px;"></i>
               </div>
             </div>
