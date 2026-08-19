@@ -96,7 +96,7 @@ export function renderDashboard() {
       <div class="card p-4">
         <h3 class="card-title" style="margin-bottom: 16px;">Pipeline de Ventas</h3>
         <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px;">
-          ${Object.entries(pipeline).map(([stage) => {
+          ${Object.entries(pipeline).map(([stage, count]) => {
             const labels = { quote: 'Cotización', reservation: 'Reserva', contract: 'Contrato', delivery: 'Entrega' };
             const colors = { quote: 'var(--info)', reservation: 'var(--warning)', contract: 'var(--gold)', delivery: 'var(--success)' };
             const perc = Math.round((count / totalSales) * 100);

@@ -642,7 +642,7 @@ export function renderSaleDetail(saleId) {
         
         const depInput = document.getElementById('deposit-amount');
         if (depInput) {
-          depInput.addEventListener('input') => {
+          depInput.addEventListener('input', (e) => {
             const val = parseFloat(String(e.target.value).replace(/\D/g, '')) || 0;
             if (val === 0 && e.target.value === '') return;
             const start = e.target.selectionStart;

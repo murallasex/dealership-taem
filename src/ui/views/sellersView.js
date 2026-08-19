@@ -316,7 +316,7 @@ export function renderSellerDetail(sellerId) {
               ${goals.map(g => {
                 const target = g.target || 0;
                 const result = g.result || 0;
-                const progress = target > 0 ? Math.min(100) * 100)) : 0;
+                const progress = target > 0 ? Math.min(100, Math.round((result / target) * 100)) : 0;
                 const isMet = progress >= 100;
                 return `
                 <tr style="border-bottom: 1px solid var(--border-color);">

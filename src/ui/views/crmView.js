@@ -301,7 +301,7 @@ export function renderCRMDetail(clientId) {
   content.innerHTML = html;
   safeCreateIcons({ nodes: [content] });
 
-  document.getElementById('btn-back')?.addEventListener('click') => go('#/crm'));
+  document.getElementById('btn-back')?.addEventListener('click', () => go('#/crm'));
   document.getElementById('btn-edit-client')?.addEventListener('click', () => openClientModal(clientId));
   document.getElementById('btn-new-quote')?.addEventListener('click', () => go('#/sales/new?client=' + clientId));
   document.getElementById('btn-add-note')?.addEventListener('click', () => openNoteModal(clientId));

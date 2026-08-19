@@ -190,7 +190,7 @@ export function renderInventoryList() {
     safeCreateIcons({ nodes: [tbody] });
 
     tbody.querySelectorAll('.btn-view').forEach(btn => {
-      btn.addEventListener('click') => go('#/inventory/detail/' + btn.dataset.id));
+      btn.addEventListener('click', () => go('#/inventory/detail/' + btn.dataset.id));
     });
     tbody.querySelectorAll('.btn-edit').forEach(btn => {
       btn.addEventListener('click', () => go('#/inventory/edit/' + btn.dataset.id));
