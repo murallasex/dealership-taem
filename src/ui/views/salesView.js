@@ -865,12 +865,14 @@ export function renderSaleForm() {
       <h2>Nueva Cotización</h2>
     </div>
 
-    <form id="new-sale-form" class="card">
-      <div class="card-body">
+    <form id="new-sale-form" style="display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; align-items: start;">
+      
+      <!-- LEFT COLUMN -->
+      <div class="card" style="padding: 1.5rem;">
         
         <!-- Step 1: Vehicle -->
-        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Paso 1: Seleccionar Vehículo</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem; max-height: 350px; overflow-y: auto; padding: 0.5rem; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-color);">
+        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.1rem;">Paso 1: Seleccionar Vehículo</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; max-height: 350px; overflow-y: auto; padding: 0.5rem; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-color);">
           ${availableVehicles.map(v => `
             <label class="card" style="cursor: pointer; padding: 1rem; transition: all 0.2s; border: 2px solid transparent; margin: 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='transparent'">
               <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
@@ -887,8 +889,8 @@ export function renderSaleForm() {
         </div>
 
         <!-- Step 2: Client -->
-        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Paso 2: Seleccionar Cliente</h3>
-        <div style="margin-bottom: 2rem;">
+        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.1rem;">Paso 2: Seleccionar Cliente</h3>
+        <div style="margin-bottom: 2.5rem;">
           <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem; align-items: center;">
             <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600;">
               <input type="radio" name="clientMode" value="existing" checked style="accent-color: var(--gold);">
@@ -909,7 +911,7 @@ export function renderSaleForm() {
 
           <div id="new-client-panel" style="display: none; background: var(--bg-base); border: 1px solid var(--gold); border-radius: 10px; padding: 1.25rem; margin-top: 0.75rem; max-width: 700px;">
             <div style="font-weight: 700; margin-bottom: 1rem; color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Datos del Nuevo Cliente</div>
-            <div class="form-grid" style="grid-template-columns: repeat(auto-fit));">
+            <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
               <div class="form-group">
                 <label>Nombre Completo *</label>
                 <input type="text" id="nc-name" class="form-control" placeholder="Ej: Juan Pérez">
@@ -931,8 +933,8 @@ export function renderSaleForm() {
         </div>
 
         <!-- Step 3: Detalles y Cotización -->
-        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Paso 3: Detalles de la Venta</h3>
-        <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 1rem;">
+        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.1rem;">Paso 3: Detalles de la Venta</h3>
+        <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 2.5rem;">
           <div class="form-group">
             <label>Vendedor Asignado</label>
             <select name="sellerId" class="form-control" required>
@@ -954,24 +956,11 @@ export function renderSaleForm() {
           </div>
         </div>
 
-        <div style="background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-color); padding: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
-          <div style="flex:1">
-            <h4 style="margin:0 0 0.25rem 0; font-size:0.95rem; display:flex; align-items:center; gap:0.5rem;">
-               <i data-lucide="trending-up" style="width:16px;height:16px;color:var(--success);"></i> Proyección de Ganancia Bruta
-            </h4>
-            <p class="text-muted" style="margin:0; font-size:0.8rem;">Basado en costos del vehículo y precio de venta actual</p>
-          </div>
-          <div style="text-align:right">
-            <div id="proj-profit" style="font-size:1.4rem; font-weight:800; color:var(--success); font-family: 'Outfit', sans-serif;">-</div>
-            <div id="proj-margin" style="font-size:0.85rem; color:var(--text-muted);">Margen: 0%</div>
-          </div>
-        </div>
-
         <!-- Step 4: Parte de Pago y Entrega -->
-        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Paso 4: Entregas y Parte de Pago (Opcional)</h3>
+        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.1rem;">Paso 4: Entregas y Parte de Pago (Opcional)</h3>
         
-        <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem;">
-            <div class="card" style="padding:1rem; background:rgba(249,115,22,0.05); border:1px dashed rgba(249,115,22,0.3);">
+        <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem;">
+            <div class="card" style="padding:1.25rem; background:rgba(249,115,22,0.05); border:1px dashed rgba(249,115,22,0.3);">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
                 <h4 style="margin:0; color:#f97316; font-size:0.95rem; display:flex; align-items:center; gap:0.5rem;">
                   <i data-lucide="arrow-left-right" style="width:16px;height:16px;"></i> Vehículo en Parte de Pago Inicial
@@ -985,18 +974,18 @@ export function renderSaleForm() {
                 <div class="form-group"><label>Año</label><input type="number" id="initial-ti-year" class="form-control" placeholder="2020"></div>
                 <div class="form-group"><label>Color</label><input type="text" id="initial-ti-color" class="form-control" placeholder="Ej: Blanco"></div>
                 <div class="form-group"><label>Kilometraje</label><input type="text" id="initial-ti-mileage" class="form-control format-currency" placeholder="0"></div>
-                <div class="form-group"><label>Tasación Estimada</label><input type="text" id="initial-ti-value" class="form-control format-currency" placeholder="0"></div>
+                <div class="form-group"><label>Tasación (Valor a restar)</label><input type="text" id="initial-ti-value" class="form-control format-currency" placeholder="0"></div>
               </div>
             </div>
 
             <div class="form-group">
-                <label>Monto de Entrega Inicial (Seña / Anticipo)</label>
+                <label>Monto de Entrega Inicial (Seña / Anticipo en Efectivo/Transferencia)</label>
                 <input type="text" name="downPayment" id="sale-down-payment" class="form-control format-currency" value="0">
             </div>
         </div>
 
         <!-- Financing Panel -->
-        <div id="financing-panel" style="display: none; background: var(--bg-base); border: 2px solid var(--gold); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+        <div id="financing-panel" style="display: none; background: var(--bg-base); border: 2px solid var(--gold); border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem;">
           <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(201,162,39,0.12); border: 1px solid var(--gold); border-radius: 20px; padding: 0.3rem 0.85rem; font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 1.25rem;">
             <i data-lucide="landmark" style="width:14px; height:14px;"></i>
             <span id="financing-type-label">Financiación</span>
@@ -1066,13 +1055,59 @@ export function renderSaleForm() {
           <label>Notas / Observaciones</label>
           <textarea name="notes" class="form-control" rows="3"></textarea>
         </div>
+      </div> <!-- / LEFT COLUMN -->
 
-        <div style="margin-top: 1.5rem; text-align: right;">
-          <button type="submit" class="btn btn-primary">
-            <i data-lucide="save"></i> Crear Cotización
-          </button>
+      <!-- RIGHT COLUMN: Sticky Summary -->
+      <div class="card" style="position: sticky; top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border-top: 4px solid var(--gold);">
+        <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i data-lucide="receipt"></i> Resumen de Venta
+        </h3>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; font-weight: 600;">Vehículo</div>
+          <div id="sum-vehicle" style="font-weight: 600; font-size: 1rem; color: var(--text-primary);">No seleccionado</div>
+          <div id="sum-vehicle-cost" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Costo base: -</div>
         </div>
-      </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; font-weight: 600;">Comprador</div>
+          <div id="sum-client" style="font-weight: 600; font-size: 1rem; color: var(--text-primary);">No seleccionado</div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem; margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Precio de Venta</span>
+            <span id="sum-price" style="font-weight: 600; font-family: 'Outfit', sans-serif;">$0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Vehículo Parte Pago</span>
+            <span id="sum-tradein" style="font-weight: 600; color: var(--danger); font-family: 'Outfit', sans-serif;">-$0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Entrega Inicial</span>
+            <span id="sum-down" style="font-weight: 600; color: var(--danger); font-family: 'Outfit', sans-serif;">-$0</span>
+          </div>
+        </div>
+
+        <div style="background: rgba(201,162,39,0.08); border: 1px solid var(--gold); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; font-weight: 600;">Total a Financiar / Saldo</div>
+          <div id="sum-financed" style="font-size: 1.6rem; font-weight: 800; color: var(--text-primary); font-family: 'Outfit', sans-serif;">$0</div>
+        </div>
+
+        <div style="background: rgba(34,197,94,0.08); border: 1px dashed var(--success); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.75rem; color: var(--success); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; font-weight: 600; display:flex; align-items:center; gap:0.4rem;">
+            <i data-lucide="trending-up" style="width: 14px; height: 14px;"></i> Proyección de Ganancia
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+            <div id="sum-profit" style="font-size: 1.4rem; font-weight: 800; color: var(--success); font-family: 'Outfit', sans-serif;">-</div>
+            <div id="sum-margin" style="font-size: 0.85rem; color: var(--success); font-weight: 600; margin-bottom: 3px;">0%</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1.05rem;">
+          <i data-lucide="save"></i> Confirmar Venta
+        </button>
+      </div> <!-- / RIGHT COLUMN -->
     </form>
   `;
 
@@ -1081,14 +1116,50 @@ export function renderSaleForm() {
 
   document.getElementById('btn-back')?.addEventListener('click', () => go('#/sales'));
 
+  // Helpers
+  const parseCurrency = (val) => parseFloat(String(val).replace(/\D/g, '')) || 0;
+  
+  // UI Sync functions
+  const syncSummaryClient = () => {
+    const el = document.getElementById('sum-client');
+    if (!el) return;
+    const mode = document.querySelector('input[name="clientMode"]:checked')?.value;
+    if (mode === 'existing') {
+      const select = document.getElementById('clientId');
+      const text = select.options[select.selectedIndex]?.text || '';
+      el.textContent = select.value ? text.split('(')[0].trim() : 'No seleccionado';
+    } else {
+      const name = document.getElementById('nc-name')?.value || '';
+      el.textContent = name.trim() || 'Nuevo Cliente...';
+    }
+  };
+
+  const syncSummaryVehicle = () => {
+    const radio = document.querySelector('input[name="vehicleId"]:checked');
+    const el = document.getElementById('sum-vehicle');
+    const costEl = document.getElementById('sum-vehicle-cost');
+    if (radio && el && costEl) {
+      const v = Vehicles.find(radio.value);
+      if (v) {
+        el.textContent = `${v.brand} ${v.model} (${v.year})`;
+        const totalCost = (v.purchaseCost||0) + (v.importCosts||0) + (v.prepCost||0);
+        costEl.textContent = `Costo base: ${fmt(totalCost)}`;
+      }
+    }
+  };
+
   // Toggle between new/existing client
   document.querySelectorAll('input[name="clientMode"]').forEach(r => {
     r.addEventListener('change', () => {
       const mode = document.querySelector('input[name="clientMode"]:checked')?.value;
       document.getElementById('existing-client-panel').style.display = mode === 'existing' ? 'block' : 'none';
       document.getElementById('new-client-panel').style.display = mode === 'new' ? 'block' : 'none';
+      syncSummaryClient();
     });
   });
+
+  document.getElementById('clientId')?.addEventListener('change', syncSummaryClient);
+  document.getElementById('nc-name')?.addEventListener('input', syncSummaryClient);
 
   // Auto-fill price when vehicle selected
   document.querySelectorAll('input[name="vehicleId"]').forEach(radio => {
@@ -1097,14 +1168,13 @@ export function renderSaleForm() {
       if (v) {
         const priceInput = document.getElementById('sale-total-price');
         if (priceInput) { priceInput.value = formatInputValue(v.suggestedPrice || v.price || 0); }
+        syncSummaryVehicle();
         updateSaleCalc();
       }
     });
   });
 
   // Auto-format currency inputs
-  const parseCurrency = (val) => parseFloat(String(val).replace(/\D/g, '')) || 0;
-  
   const formatCurrencyInputs = () => {
     document.querySelectorAll('.format-currency').forEach(input => {
       input.addEventListener('input', (e) => {
@@ -1127,45 +1197,44 @@ export function renderSaleForm() {
   const updateSaleCalc = () => {
     const price = parseInputAmount(document.getElementById('sale-total-price')?.value);
     const down = parseInputAmount(document.getElementById('sale-down-payment')?.value);
+    const tradeInValue = parseInputAmount(document.getElementById('initial-ti-value')?.value);
     
+    // Summary sync
+    if(document.getElementById('sum-price')) document.getElementById('sum-price').textContent = fmt(price);
+    if(document.getElementById('sum-tradein')) document.getElementById('sum-tradein').textContent = `-${fmt(tradeInValue)}`;
+    if(document.getElementById('sum-down')) document.getElementById('sum-down').textContent = `-${fmt(down)}`;
+    
+    const financed = Math.max(0, price - down - tradeInValue);
+    if(document.getElementById('sum-financed')) document.getElementById('sum-financed').textContent = fmt(financed);
+    
+    const finAmountEl = document.getElementById('fin-amount');
+    if (finAmountEl) finAmountEl.value = formatInputValue(financed);
+
     // Profit calc
     const selectedVehicleRadio = document.querySelector('input[name="vehicleId"]:checked');
     if (selectedVehicleRadio) {
       const vId = selectedVehicleRadio.value;
-      const calc = calculateEstimatedProfit(vId, price, 0);
+      const calc = calculateEstimatedProfit(vId, price, 0); // Cost is fixed, sale price determines profit
       
-      const pEl = document.getElementById('proj-profit');
-      const mEl = document.getElementById('proj-margin');
+      const pEl = document.getElementById('sum-profit');
+      const mEl = document.getElementById('sum-margin');
+      
       if (pEl && mEl) {
         if (price > 0 && calc.profit > 0) {
           pEl.textContent = fmt(calc.profit);
           pEl.style.color = 'var(--success)';
-          mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
+          mEl.textContent = `${calc.margin.toFixed(1)}%`;
+          mEl.style.color = 'var(--success)';
         } else if (price > 0) {
           pEl.textContent = fmt(calc.profit);
           pEl.style.color = 'var(--danger)';
-          mEl.textContent = `Margen: ${calc.margin.toFixed(1)}%`;
+          mEl.textContent = `${calc.margin.toFixed(1)}%`;
+          mEl.style.color = 'var(--danger)';
         } else {
           pEl.textContent = '-';
           pEl.style.color = 'var(--text-primary)';
-          mEl.textContent = 'Margen: 0%';
+          mEl.textContent = '0%';
         }
-      }
-      
-      // Auto-suggest down payment if not set manually yet
-      const downInput = document.getElementById('sale-down-payment');
-      if (downInput && price > 0 && !downInput.dataset.manual) {
-        const suggested = suggestDeposit(price);
-        downInput.value = formatInputValue(suggested);
-        // Need to update the local 'down' var for financing calc below
-        const downUpdated = suggested;
-        const financed = Math.max(0, price - downUpdated);
-        const finAmount = document.getElementById('fin-amount');
-        if (finAmount) finAmount.value = formatInputValue(financed);
-      } else {
-        const financed = Math.max(0, price - down);
-        const finAmount = document.getElementById('fin-amount');
-        if (finAmount) finAmount.value = formatInputValue(financed);
       }
     }
 
@@ -1185,9 +1254,9 @@ export function renderSaleForm() {
     const insurance = parseInputAmount(document.getElementById('fin-insurance')?.value);
     const adminFee = parseInputAmount(document.getElementById('fin-admin-fee')?.value);
 
-    document.getElementById('fin-months-hidden').value = months;
-    document.getElementById('fin-rate-hidden').value = (rateMonthly * 100).toFixed(4);
-    document.getElementById('fin-bank-name-hidden').value = document.getElementById('fin-bank-name')?.value || '';
+    if(document.getElementById('fin-months-hidden')) document.getElementById('fin-months-hidden').value = months;
+    if(document.getElementById('fin-rate-hidden')) document.getElementById('fin-rate-hidden').value = (rateMonthly * 100).toFixed(4);
+    if(document.getElementById('fin-bank-name-hidden')) document.getElementById('fin-bank-name-hidden').value = document.getElementById('fin-bank-name')?.value || '';
 
     if (amount <= 0) {
       ['res-installment','res-total','res-interest','res-tna'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = '-'; });
@@ -1208,7 +1277,7 @@ export function renderSaleForm() {
     const el = (id) => document.getElementById(id);
     if(el('res-installment')) el('res-installment').textContent = fmt(cuotaTotal);
     if(el('res-total')) el('res-total').textContent = fmt(totalPago);
-    if(el('res-interest')) el('res-interest').textContent = fmt(Math.max(0));
+    if(el('res-interest')) el('res-interest').textContent = fmt(Math.max(0, totalInteres));
     if(el('res-tna')) el('res-tna').textContent = tna.toFixed(1) + '% TNA';
     if(el('fin-installment-hidden')) el('fin-installment-hidden').value = cuotaTotal.toFixed(0);
   };
@@ -1239,7 +1308,7 @@ export function renderSaleForm() {
   });
 
   // Wire live recalculation inputs
-  ['sale-total-price','sale-down-payment'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSaleCalc));
+  ['sale-total-price','sale-down-payment','initial-ti-value'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSaleCalc));
   ['fin-months','fin-rate','fin-insurance','fin-admin-fee'].forEach(id => document.getElementById(id)?.addEventListener('input', calcFinancing));
   ['fin-months'].forEach(id => document.getElementById(id)?.addEventListener('change', calcFinancing));
 
@@ -1291,6 +1360,7 @@ export function renderSaleForm() {
     }
   });
 }
+
 
 /**
  * Handles generating or retrieving an invoice and opening the print modal
