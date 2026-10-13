@@ -2,7 +2,7 @@
 // AutoERP — Main Application Router & Bootstrap
 // =====================================================
 
-import { seedDemoData, Users, Config, AppState } from './src/core/store.js';
+import { seedDemoData, seedFullDemoData, Users, Config, AppState } from './src/core/store.js';
 import { fmt, fmtDate, getActiveCurrency, setActiveCurrency } from './src/utils/formatters.js';
 import { safeCreateIcons } from './src/utils/dom.js';
 import { showToast } from './src/ui/components/toast.js';
@@ -280,6 +280,10 @@ async function boot() {
   // Seed auth demo data before anything else
   seedAuthData();
   seedDemoData();
+  seedFullDemoData();
+  if (typeof window !== 'undefined') {
+    window.seedFullDemoData = seedFullDemoData;
+  }
 
   // Init UI components
   initSidebar();
