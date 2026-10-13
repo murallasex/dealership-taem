@@ -101,7 +101,9 @@ export function renderSalesPipeline() {
         <p class="text-muted">Gestiona el ciclo de vida de cada operación</p>
       </div>
       <div class="header-actions">
-        <button id="btn-new-sale" class="btn btn-primary"><i data-lucide="plus"></i> Nueva Cotización</button>
+        <button id="btn-new-sale" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; padding: 0.65rem 1.25rem;">
+          <i data-lucide="plus" style="width: 18px; height: 18px;"></i> Nueva Venta
+        </button>
       </div>
     </div>
 
@@ -158,9 +160,16 @@ export function renderSalesPipeline() {
               <span>${col.title}</span>
               <span class="sales-pipeline-stage__count" style="background:${color}20;color:${color};">${col.items.length}</span>
             </div>
-            <div class="sales-pipeline-stage__search">
-              <i data-lucide="search" style="width:14px;height:14px;color:var(--text-muted);position:absolute;left:10px;top:50%;transform:translateY(-50%);"></i>
-              <input type="text" class="stage-search" data-stage="${key}" placeholder="Buscar...">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              ${key === 'quote' ? `
+                <button type="button" class="btn btn-sm btn-primary" id="btn-quick-new-sale" title="Registrar nueva venta" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.85rem; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
+                  <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Nueva Venta
+                </button>
+              ` : ''}
+              <div class="sales-pipeline-stage__search">
+                <i data-lucide="search" style="width:14px;height:14px;color:var(--text-muted);position:absolute;left:10px;top:50%;transform:translateY(-50%);"></i>
+                <input type="text" class="stage-search" data-stage="${key}" placeholder="Buscar...">
+              </div>
             </div>
           </div>
           <div class="sales-pipeline-stage__body" id="stage-cards-${key}">
@@ -225,6 +234,7 @@ export function renderSalesPipeline() {
   safeCreateIcons({ nodes: [content] });
 
   document.getElementById('btn-new-sale')?.addEventListener('click', () => go('#/sales/new'));
+  document.getElementById('btn-quick-new-sale')?.addEventListener('click', () => go('#/sales/new'));
 
   content.querySelectorAll('.stage-search').forEach(input => {
     input.addEventListener('input', (e) => {
@@ -904,7 +914,7 @@ export function renderSaleForm() {
       <button class="btn btn-ghost mb-2" id="btn-back">
         <i data-lucide="arrow-left"></i> Volver
       </button>
-      <h2>Nueva Cotización</h2>
+      <h2>Nueva Venta</h2>
     </div>
 
     <form id="new-sale-form" style="display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; align-items: start;">
