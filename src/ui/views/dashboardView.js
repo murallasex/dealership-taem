@@ -224,13 +224,27 @@ export function renderDashboard() {
     window._charts = [];
 
     setTimeout(() => {
-      const ctx = document.getElementById('salesChart');
-      if (ctx && window.Chart) {
-        const gradient = ctx.getContext('2d').createLinearGradient(0);
-        gradient.addColorStop(0, 'rgba(201, 162, 39, 0.4)');
-        gradient.addColorStop(1, 'rgba(201, 162, 39, 0)');
+      const canvas = document.getElementById('salesChart');
+      if (canvas && window.Chart) {
+        const ctx = canvas.getContext('2d');
+        let backgroundFill = 'rgba(201, 162, 39, 0.15)';
+        if (ctx && typeof ctx.createLinearGradient === 'function') {
+          try {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+            gradient.addColorStop(0, 'rgba(201, 162, 39, 0.4)');
+            gradient.addColorStop(1, 'rgba(201, 162, 39, 0.02)');
+            backgroundFill = gradient;
+          } catch (e) {
+            console.warn('Canvas gradient fallback:', e);
+          }
+        }
 
-        const chart = new window.Chart(ctx, {
+        const isLight = typeof document !== 'undefined' && document.body.classList.contains('theme-light');
+        const pointBg = isLight ? '#ffffff' : '#14171f';
+        const gridColor = isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)';
+        const tickColor = isLight ? '#64748b' : '#94a3b8';
+
+        const chart = new window.Chart(canvas, {
           type: 'line',
           data: {
             labels: monthsLabels,
@@ -238,15 +252,15 @@ export function renderDashboard() {
               label: 'Ventas',
               data: salesData,
               borderColor: '#c9a227',
-              backgroundColor: gradient,
-              borderWidth: 2,
+              backgroundColor: backgroundFill,
+              borderWidth: 2.5,
               fill: true,
-              tension: 0.4,
-              pointBackgroundColor: '#14171f',
+              tension: 0.35,
+              pointBackgroundColor: pointBg,
               pointBorderColor: '#c9a227',
               pointBorderWidth: 2,
-              pointRadius: 4,
-              pointHoverRadius: 6
+              pointRadius: 4.5,
+              pointHoverRadius: 6.5
             }]
           },
           options: {
@@ -255,22 +269,27 @@ export function renderDashboard() {
             plugins: {
               legend: { display: false },
               tooltip: {
-                backgroundColor: '#14171f',
-                titleColor: '#f8fafc',
+                backgroundColor: isLight ? '#ffffff' : '#14171f',
+                titleColor: isLight ? '#0f172a' : '#f8fafc',
                 bodyColor: '#c9a227',
-                borderColor: '#2e3340',
-                borderWidth: 1
+                borderColor: isLight ? '#e2e8f0' : '#2e3340',
+                borderWidth: 1,
+                padding: 10,
+                displayColors: false,
+                callbacks: {
+                  label: (context) => ` ${context.parsed.y} venta${context.parsed.y === 1 ? '' : 's'}`
+                }
               }
             },
             scales: {
               y: {
                 beginAtZero: true,
-                grid: { display: false, drawBorder: false },
-                ticks: { color: '#94a3b8', stepSize: 1 }
+                grid: { color: gridColor, drawBorder: false },
+                ticks: { color: tickColor, stepSize: 1, precision: 0 }
               },
               x: {
                 grid: { display: false, drawBorder: false },
-                ticks: { color: '#94a3b8' }
+                ticks: { color: tickColor }
               }
             }
           }
